@@ -13,7 +13,7 @@ export const AuthProvider = ({children}:any) => {
   
     const [authData, setAuthData] = useState<AuthDataProps[]>([])
 
-     const register = (name, email) => {
+     const register = (name:string, email:string) => {
 
      }
 
