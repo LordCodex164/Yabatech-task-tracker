@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import AuthRoute from "./routes/Auth.js";
+import UserRoute from "./routes/User.js";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ mongoose
   .catch((err) => console.log("db is not connected. This is the error" + err));
 
 app.use("/api/auth", AuthRoute);
+app.use("/api/user", UserRoute);
 
 app.listen(8000, () => {
   console.log("app is connected and listening on port 8000");
