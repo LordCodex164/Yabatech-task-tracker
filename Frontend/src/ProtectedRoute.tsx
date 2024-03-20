@@ -1,21 +1,26 @@
 import React from 'react'
 import { Component } from 'react'
-import { Route, RoutesProps } from 'react-router-dom'
+import { Route, RoutesProps, redirect } from 'react-router-dom'
 
 interface ProtectedRouteInterface{
 
 }
 
-const ProtectedRoute = ({component: Component, ...rest} : any) => {
+const ProtectedRoute = ({component: Component, role, ...rest} : any) => {
 
-    const user = getUser()
+    const admin = localStorage.getItem("admin")
 
   return (
-   <Route
-    render={(props: RoutesProps) => (
+    <Route
+    {...rest}
+    render={(props:any) =>
+      admin === role ? (
         <Component {...props} />
-    )}
-   />
+      ) : (
+        redirect("/auth")
+      )
+    }
+  />
   )
 }
 
