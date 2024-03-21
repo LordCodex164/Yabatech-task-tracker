@@ -6,14 +6,21 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+interface StaffMember {
+  name: string;
+  email: string;
+  tasks: tasksProps[] | []
+}
 
 interface tasksProps {
   id:number,
   name: string,
-  status: "not started" | "in progresss" | "competed"
+  status: "not started" | "in progress" | "completed",
+  timeStarted?: Date;
+  deadline?: Date;
 }
 
-export const dummyData = [
+export const dummyData: StaffMember[] = [
   {
     name: "user1",
     email: "adenirandaniel565@gmail.com",
@@ -22,24 +29,24 @@ export const dummyData = [
         id: 1,
         name: "code",
         status: "not started",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
        
       },
       {
         id: 1,
         name: "code",
         status: "in progress",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
 
       },
       {
         id: 3,
         name: "repeat",
         status: "completed",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       }
     ]
   },
@@ -51,15 +58,15 @@ export const dummyData = [
         id: 1,
         name: "code",
         status: "not started",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       },
       {
         id: 2,
         name: "code",
         status: "in progress",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       },
       {
         id: 3,
@@ -76,22 +83,22 @@ export const dummyData = [
         id: 1,
         name: "code",
         status: "not started",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       },
       {
         id: 2,
         name: "code",
         status: "in progress",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       },
       {
         id: 3,
         name: "code",
         status: "completed",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       }
     ]
   },
@@ -103,22 +110,22 @@ export const dummyData = [
         id: 1,
         name: "code",
         status: "not started",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       },
       {
         id: 2,
         name: "code",
         status: "in progress",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       },
       {
         id: 3,
         name: "code",
         status: "completed",
-        timeStarted: new Date().getDate(),
-        deadline: new Date().getDate()
+        timeStarted: new Date(),
+        deadline: new Date()
       }
     ]
   }

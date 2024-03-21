@@ -7,6 +7,8 @@ import StaffComponent from '../components/StaffComponent'
 import AdminComponent from '../components/AdminComponent'
 import { UseGlobalAuth } from '../AuthProvider/AuthProvider'
 import AssignComponent from '../components/AdminComponent/Assign'
+import Profile from '../components/Profile/Profile'
+
 const Router = () => {
 
   return (
@@ -31,6 +33,8 @@ const Router = () => {
            <Route path='' element={<AdminComponent/>}/>
            <Route path='assign' element={<AssignComponent/>}/>
         </Route>
+
+        <Route path='/profile/*' element={<Profile/>}/>
 
       </Route>
         

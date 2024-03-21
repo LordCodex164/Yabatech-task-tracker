@@ -100,9 +100,9 @@ const SideMenu = ({admin}:any) => {
   }, [])
 
   return (
-    <aside className={cx("relative text-center bg-[#ebd6d1] border-r-[2px] border-[#d04040] pt-[40px]", {
+    <aside className={cx("relative text-center bg-[#8996d7] border-r-[2px] border-[#8879e6] pt-[40px] px-[15px]", {
       "w-[50px]": isCollapsed,
-      "w-[350px]": !isCollapsed
+      "w-[280px]": !isCollapsed
     })}>
        <nav className=''>
            <ul className=''>
