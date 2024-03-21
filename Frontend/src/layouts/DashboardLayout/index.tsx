@@ -26,9 +26,9 @@ if(!user) {
 
   return (
     <>
-    <div className='flex justify-between min-h-screen'>
+    <div className='flex min-h-screen w-full'>
       <SideMenu/>
-      <div id='detail'>
+      <div className='w-full' id='detail'>
         <Outlet/>
       </div>
     </div>

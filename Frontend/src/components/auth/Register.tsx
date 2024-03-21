@@ -14,47 +14,6 @@ const Register = () => {
 
   const navigate = useNavigate()
 
- const handleRegisterAdmin = (name:string, email: string, password:string) => {
-  /* 
-   registerData({
-    name,
-    email,
-    role: "admin"
-   })
-  */
-
-   const user = {
-    name,
-    email,
-    role: "admin"
-   }
-
-  localStorage.setItem("user", JSON.stringify(user as unknown as string))
-  if(!email || !name || !password) {
-    toast.error("Please fill in the important details")
-    return;
-  }
-  toast.success("Successfully registered")
-  navigate("/admin")
-  
- }
-
- const handleRegisterStaff = (email: string, name:string, password:string) => {
-  const user = {
-    name,
-    email,
-    role: "staff"
-   }
-
-  localStorage.setItem("user", JSON.stringify(user as unknown as string))
-  if(!email || !name || !password) {
-    toast.error("Please fill in the important details")
-    return;
-  }
-  toast.success("Successfully registered")
-  navigate("/staff")
-  
- }
  
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

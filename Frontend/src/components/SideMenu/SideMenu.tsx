@@ -18,9 +18,14 @@ const SideMenu = ({admin}:any) => {
       to: '/admin',
     },
     {
+      paths: admin ? ['/Assign'] : ["View Tasks"],
+      label: 'Assign',
+      to: '/admin/assign',
+    },
+    {
       paths: admin ? ['/Assign Tasks'] : ["View Tasks"],
-      label: 'Assign Tasks',
-      to: '6/admin',
+      label: 'Profile',
+      to: 'Profile',
     },
     {
       paths: ['/auth/register'],
@@ -33,10 +38,6 @@ const SideMenu = ({admin}:any) => {
     setIsCollapsed(!isCollapsed)
   } 
 
-  const handleSignOut = () => {
-     console.log("testing")
-    localStorage.clear()
-  }
 
   const renderMenuItem = (menuItem: any) => {
     if(menuItem.label === "Logout" ) {
@@ -45,7 +46,7 @@ const SideMenu = ({admin}:any) => {
        <Link to={"/auth"}
         onClick={logout}
         className={cx({
-          'h-[55px] flex justify-center items-center my-[30px]': true,
+          'h-[55px] flex justify-center items-center mt-[150px]': true,
             'w-full': !isCollapsed,
             'w-[59px]': isCollapsed,
             "hover:before:content-[''] hover:before:w-[10px] ": true,
@@ -56,7 +57,7 @@ const SideMenu = ({admin}:any) => {
         >
            <div>
             {!isCollapsed && 
-            <div className='text-[#000] text-center '> 
+            <div className='text-[#000] text-center font-extralight text-[30px]'> 
                {menuItem.label}
             </div>
             }
@@ -71,7 +72,7 @@ const SideMenu = ({admin}:any) => {
         <Link 
         to={menuItem.to}
         className={cx({
-          'h-[55px] flex justify-center items-center my-[30px]': true,
+          'h-[55px] flex justify-center items-center my-[25px]': true,
             'w-full': !isCollapsed,
             'w-[59px]': isCollapsed,
             "hover:before:content-[''] hover:before:w-[10px] ": true,
@@ -99,12 +100,13 @@ const SideMenu = ({admin}:any) => {
   }, [])
 
   return (
-    <aside className={cx("relative bg-[#ebd6d1]", {
+    <aside className={cx("relative text-center bg-[#ebd6d1] border-r-[2px] border-[#d04040] pt-[40px]", {
       "w-[50px]": isCollapsed,
-      "w-[180px]": !isCollapsed
+      "w-[350px]": !isCollapsed
     })}>
        <nav className=''>
            <ul className=''>
+            <span className='text font-bold'>Task Tracker App</span>
             {menuItems.map((item) => renderMenuItem(item))}
            </ul>
        </nav>

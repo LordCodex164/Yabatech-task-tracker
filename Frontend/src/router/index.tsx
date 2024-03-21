@@ -6,12 +6,8 @@ import DashBoardLayout from '../layouts/DashboardLayout'
 import StaffComponent from '../components/StaffComponent'
 import AdminComponent from '../components/AdminComponent'
 import { UseGlobalAuth } from '../AuthProvider/AuthProvider'
-
+import AssignComponent from '../components/AdminComponent/Assign'
 const Router = () => {
-
-  const {role} = UseGlobalAuth()
-  
-  console.log(role)
 
   return (
 
@@ -33,6 +29,7 @@ const Router = () => {
          {/* Admin Route */}
          <Route path='admin'>
            <Route path='' element={<AdminComponent/>}/>
+           <Route path='assign' element={<AssignComponent/>}/>
         </Route>
 
       </Route>
