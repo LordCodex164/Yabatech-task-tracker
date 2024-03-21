@@ -1,13 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import {redirect} from "react-router-dom"
-import { useUserStore } from './state/useUserStore'
 import Router from './router'
 import {Toaster} from "react-hot-toast"
 
 function App() {
-
-const {} = useUserStore()
 
   return (
     <>

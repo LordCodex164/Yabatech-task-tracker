@@ -1,8 +1,12 @@
 import React, {useState} from 'react'
 import {useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 
 const Register = () => {
+
+
+  const {registerAdmin, registerStaff} = UseGlobalAuth()
 
   const[name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -90,8 +94,8 @@ const Register = () => {
           </div>
 
           <div className='flex flex-col gap-[20px]'>
-            <button onClick={() => handleRegisterAdmin(name, email, password)} type='button' className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as an admin</button>
-            <button onClick={() => handleRegisterStaff(name, email, password)} type="submit" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as a staff</button>
+            <button onClick={() => registerAdmin(name, email, password)} type='button' className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as an admin</button>
+            <button onClick={() => registerStaff(name, email, password)} type="submit" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as a staff</button>
           </div>
           
         </form>

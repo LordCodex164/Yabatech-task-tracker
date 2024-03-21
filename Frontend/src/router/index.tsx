@@ -5,14 +5,14 @@ import Login from "../components/auth/Login"
 import DashBoardLayout from '../layouts/DashboardLayout'
 import StaffComponent from '../components/StaffComponent'
 import AdminComponent from '../components/AdminComponent'
-
+import { UseGlobalAuth } from '../AuthProvider/AuthProvider'
 
 const Router = () => {
-  const [userRole, setUserRole] = useState<string>("")
-  const user:any = JSON.parse(localStorage.getItem("user") as unknown as any)
 
-
+  const {role} = UseGlobalAuth()
   
+  console.log(role)
+
   return (
 
    <Routes>
@@ -27,12 +27,12 @@ const Router = () => {
   
          {/* Staff Route */}
          <Route path='staff'>
-           <Route path='' element={user?.role == "staff" && <StaffComponent/>} />
+           <Route path='' element={<StaffComponent/>} />
         </Route>
 
          {/* Admin Route */}
          <Route path='admin'>
-           <Route path='' element={ user?.role == "admin" && <AdminComponent/>}/>
+           <Route path='' element={<AdminComponent/>}/>
         </Route>
 
       </Route>

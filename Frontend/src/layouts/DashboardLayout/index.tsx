@@ -1,18 +1,27 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import SideMenu from '../../components/SideMenu/SideMenu'
+import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 
 const MainLayout = () => {
 
+  const [user, setUser] = useState([])
 
 /*  using localstorage
   const user = localStorage.getItem                           
 */
 
-const user = JSON.parse(localStorage.getItem("user") as unknown as any)
+const {userData} = UseGlobalAuth()
 
-if(!user?.role) {
-  return <Navigate to="auth"/>
+useEffect(() => {
+  console.log(userData)
+ setUser(userData)
+}, [])
+
+console.log(user)
+
+if(!user) {
+  <Navigate to={"/auth"}/>
 }
 
   return (

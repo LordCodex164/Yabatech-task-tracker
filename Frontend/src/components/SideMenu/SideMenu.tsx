@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import cx from "classnames"
-
+import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 
 const SideMenu = ({admin}:any) => {
 
   const [isCollapsed, setIsCollapsed] = useState(false)
+
+  const {logout} = UseGlobalAuth()
 
   const navigate = useNavigate()
 
@@ -39,9 +41,9 @@ const SideMenu = ({admin}:any) => {
   const renderMenuItem = (menuItem: any) => {
     if(menuItem.label === "Logout" ) {
       return (
-      <li>
+      <li key={menuItem.to}>
        <Link to={"/auth"}
-        onClick={handleSignOut}
+        onClick={logout}
         className={cx({
           'h-[55px] flex justify-center items-center my-[30px]': true,
             'w-full': !isCollapsed,
@@ -65,8 +67,9 @@ const SideMenu = ({admin}:any) => {
       
     }
     return (
-      <li>
-        <Link to={menuItem.to}
+      <li key={menuItem.to} >
+        <Link 
+        to={menuItem.to}
         className={cx({
           'h-[55px] flex justify-center items-center my-[30px]': true,
             'w-full': !isCollapsed,
