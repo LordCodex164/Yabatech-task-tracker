@@ -178,7 +178,7 @@ if(!authData || authData.role !== "admin") {
     
      <p  className='text-right pt-[10px] pr-[30px]'>Welcome Admin <span className='font-bold '>{admin?.name}</span> </p> 
      
-      <div className='px-[20px] py-[30px]'>
+      <div className='px-[20px] pt-[10px]'>
         <p>You currently  don't have any avaliable reports</p>
       </div>
       {/* 

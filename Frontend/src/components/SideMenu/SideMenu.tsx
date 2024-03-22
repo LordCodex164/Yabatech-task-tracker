@@ -2,6 +2,10 @@ import React, {useEffect, useState} from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import cx from "classnames"
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
+import dashbard from "../../assets/dashboard.svg"
+import { ImProfile } from 'react-icons/im'
+import { GrDashboard } from 'react-icons/gr'
+import { FiLogOut } from 'react-icons/fi'
 
 const SideMenu = ({admin}:any) => {
 
@@ -16,21 +20,25 @@ const SideMenu = ({admin}:any) => {
       paths: ['/dashboard'],
       label: 'Dashboard',
       to: '/admin',
+      icon: <GrDashboard/>
     },
     {
       paths: admin ? ['/Assign'] : ["View Tasks"],
       label: 'Assign',
       to: '/admin/assign',
+      icon: <GrDashboard/>
     },
     {
       paths: admin ? ['/Assign Tasks'] : ["View Tasks"],
       label: 'Profile',
       to: 'Profile',
+      icon: <ImProfile/>
     },
     {
       paths: ['/auth/register'],
       label: 'Logout',
       to: '/auth/register',
+      icon: <FiLogOut/>
     },
   ]
 
@@ -57,8 +65,9 @@ const SideMenu = ({admin}:any) => {
         >
            <div>
             {!isCollapsed && 
-            <div className='text-[#000] text-center font-extralight text-[30px]'> 
+            <div className='text-[#000] text-center font-extralight text-[30px] flex gap-5 items-center'> 
                {menuItem.label}
+               <span>{menuItem.icon}</span>
             </div>
             }
            </div>
@@ -83,8 +92,9 @@ const SideMenu = ({admin}:any) => {
         >
            <div>
             {!isCollapsed && 
-            <div className='text-[#000] text-center '> 
+            <div className='text-[#000] text-center flex flex-row gap-5 items-center'> 
                {menuItem.label}
+               {menuItem.icon}
             </div>
             }
            </div>

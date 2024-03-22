@@ -1,6 +1,8 @@
 import React, {useState, useContext, createContext, useEffect, useCallback} from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { serverUrl } from '../backendConnection';
+
 
 export interface AuthDataProps {
         name: string;
@@ -17,7 +19,7 @@ export const AuthProvider = ({children}:any) => {
     const [authData, setAuthData] = useState<AuthDataProps | null>(null)
     const [role, setRole] = useState<string>("")
 
-     const registerAdmin = (name:string, email:string, password:string) => {
+     const registerAdmin = (userName:string, name:string, email:string, password:string) => {
         const user = {
             name,
             email,
@@ -25,7 +27,7 @@ export const AuthProvider = ({children}:any) => {
            } 
         
           localStorage.setItem("user", JSON.stringify(user as unknown as string))
-          if(!email || !name || !password) {
+          if(!userName || !email || !name || !password) {
             toast.error("Please fill in the important details")
             return;
           }
@@ -36,15 +38,16 @@ export const AuthProvider = ({children}:any) => {
      }
 
 
-     const registerStaff = (name:string, email:string, password:string) => {
+     const registerStaff = (userName:string, name:string, email:string, password:string) => {
         const user = {
             name,
+            userName,
             email,
             role: "staff"
            } 
         
           localStorage.setItem("user", JSON.stringify(user as unknown as string))
-          if(!email || !name || !password) {
+          if(!userName || !email || !name || !password) {
             toast.error("Please fill in the important details")
             return;
           }
