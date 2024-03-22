@@ -2,11 +2,10 @@ import React, {useEffect, useState} from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import cx from "classnames"
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
-import dashbard from "../../assets/dashboard.svg"
 import { ImProfile } from 'react-icons/im'
 import { GrDashboard } from 'react-icons/gr'
 import { FiLogOut } from 'react-icons/fi'
-
+import { RxDashboard } from 'react-icons/rx'
 const SideMenu = ({admin}:any) => {
 
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -20,7 +19,7 @@ const SideMenu = ({admin}:any) => {
       paths: ['/dashboard'],
       label: 'Dashboard',
       to: '/admin',
-      icon: <GrDashboard/>
+      icon: <RxDashboard/>
     },
     {
       paths: admin ? ['/Assign'] : ["View Tasks"],

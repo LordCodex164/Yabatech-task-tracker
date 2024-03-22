@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { StaffMember } from './Assign';
-
+import DropDownComponent from '../common/Dropdown';
+import { selectedValues } from '../../constants';
 
 interface AssignFormProps {
     close: () => void;
@@ -8,6 +9,9 @@ interface AssignFormProps {
 }
 
 const AssignForm = ({close}: AssignFormProps) => {
+
+    const[selected, setSelected] = useState(false)
+    const [selectedValue, setSelectedValue] = useState("")
 
   return (
     <>
@@ -52,7 +56,7 @@ const AssignForm = ({close}: AssignFormProps) => {
                     Priority
                 </label>
                 <div className='flex flex-col'>
-                   
+                    <DropDownComponent selected={selected} setSelected={setSelected} selectedValue={selectedValue} setSelectedValue={setSelectedValue} options={selectedValues} />
                 </div>
              </div>
              <div className='flex flex-col'>
