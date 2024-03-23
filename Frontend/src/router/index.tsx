@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {Routes, Route, Navigate} from "react-router-dom"
-import Register from '../components/auth/Register'
-import Login from "../components/auth/Login"
+import Register from '../pages/auth/Register'
+import Login from "../pages/auth/Login"
 import DashBoardLayout from '../layouts/DashboardLayout'
 import StaffComponent from '../components/StaffComponent'
 import AdminComponent from '../components/AdminComponent'
 import { UseGlobalAuth } from '../AuthProvider/AuthProvider'
 import AssignComponent from '../components/AdminComponent/Assign'
-import Profile from '../components/Profile/Profile'
+import Profile from '../pages/Profile/Profile'
 
 const Router = () => {
 

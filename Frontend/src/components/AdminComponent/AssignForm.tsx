@@ -1,17 +1,39 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { StaffMember } from './Assign';
 import DropDownComponent from '../common/Dropdown';
 import { selectedValues } from '../../constants';
 
 interface AssignFormProps {
     close: () => void;
-    staff: StaffMember;
+    staffId: number | undefined;
+    create: (id:number, name:string, description:string, priority:string, deadline:boolean) => void | any
 }
 
-const AssignForm = ({close}: AssignFormProps) => {
-
+const AssignForm = ({close, create, staffId}: AssignFormProps) => {
+   
     const[selected, setSelected] = useState(false)
-    const [selectedValue, setSelectedValue] = useState("")
+    const [selectedValue, setSelectedValue] = useState("low")
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [priority, setPrority] = useState("")
+    const [deadline, setDeadline] = useState<boolean>(true)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleCreateForm = (id:number, name:string, description:string, priority:string, deadline:boolean) => {
+       setTimeout(() => {
+        setIsLoading(true)
+       }, 3000) 
+         create(id, name, description, priority, deadline)
+        console.log(id)
+        // setIsLoading(false)
+         close()
+    }
+
+    // useEffect(() => {
+    //   
+    // }, [])
+
+  console.log(staffId)
 
   return (
     <>
@@ -32,7 +54,7 @@ const AssignForm = ({close}: AssignFormProps) => {
          
          <h2>Create a Task For this Staff</h2>
 
-          <div className='w-full'>
+          <div className='w-full mt-[20px]'>
           
           <form className=''>
              <div className='flex flex-col'>
@@ -40,7 +62,7 @@ const AssignForm = ({close}: AssignFormProps) => {
                     Name
                 </label>
                 <div className='flex flex-col'>
-                 <input type='name' className='focus:outline-none'/>   
+                 <input onChange={(e) => setName(e.target.value)} value={name} type='name' className='focus:outline-none'/>   
                 </div>
              </div>
              <div className=''>
@@ -48,7 +70,7 @@ const AssignForm = ({close}: AssignFormProps) => {
                   Description
                 </label>
                 <div className='flex flex-col'>
-                 <input type='name' className='focus:outline-none'/>   
+                 <input onChange={(e) => setDescription(e.target.value)} value={description} type='name' className='focus:outline-none'/>   
                 </div>
              </div>
              <div className='flex flex-col'>
@@ -61,15 +83,15 @@ const AssignForm = ({close}: AssignFormProps) => {
              </div>
              <div className='flex flex-col'>
                 <label htmlFor="name">
-                    Deadline
+                    Deadline 
                 </label>
                 <div className='flex flex-col'>
-                 <input type='name' className='focus:outline-none'/>   
+                 <input value={""} type='name' className='focus:outline-none'/>   
                 </div>
              </div>
 
-             <button className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
-                save
+             <button type='button' onClick={() => handleCreateForm(staffId as unknown as number, name, description, "high", true)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
+                {isLoading ? "saving" : "save" }
              </button>
           </form>
         
