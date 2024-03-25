@@ -6,19 +6,22 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 
 export const register = async (req, res) => {
-  const encryptedPassword = CryptoJS.AES.encrypt(
-    req.body.password,
-    process.env.PassKey
-  ).toString();
-
-  const newUser = new User({
-    fullName: req.body.fullName,
-    username: req.body.userName,
-    email: req.body.email,
-    password: encryptedPassword,
-  });
-
   try {
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser) {
+      return res.status(403).json("User already exists");
+    }
+    const encryptedPassword = CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.PassKey
+    ).toString();
+
+    const newUser = new User({
+      fullName: req.body.fullName,
+      username: req.body.username,
+      email: req.body.email,
+      password: encryptedPassword,
+    });
     const savedUser = await newUser.save();
     res.status(200).json(savedUser);
   } catch (err) {
