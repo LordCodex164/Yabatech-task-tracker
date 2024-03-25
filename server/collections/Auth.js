@@ -13,7 +13,7 @@ export const register = async (req, res) => {
 
   const newUser = new User({
     fullName: req.body.fullName,
-    userName: req.body.userName,
+    username: req.body.userName,
     email: req.body.email,
     password: encryptedPassword,
   });
@@ -48,6 +48,17 @@ export const login = async (req, res) => {
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
       .json(others);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    res
+      .clearCookie("access_token", { sameSite: "none", secure: true })
+      .status(200)
+      .json("You've logged out successfully");
   } catch (err) {
     res.status(500).json(err);
   }

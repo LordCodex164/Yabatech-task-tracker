@@ -1,9 +1,21 @@
 import express from "express";
-import { login, register } from "../collections/Auth.js";
+import {
+  deleteUser,
+  getUser,
+  getUsers,
+  updateUser,
+} from "../collections/User.js";
+import {
+  verifyToken,
+  verifyTokenAndAdmin,
+  verifyTokenAndAuthorization,
+} from "../TokenVerification.js";
 
 const router = express.Router();
 
-router.post("/register", register);
-router.post("/login", login);
+router.put("/update/:id", verifyTokenAndAuthorization, updateUser);
+router.delete("/delete/:id", verifyTokenAndAuthorization, deleteUser);
+router.get("/getUser", verifyTokenAndAuthorization, getUser);
+router.get("/getUsers", verifyTokenAndAdmin, getUsers);
 
 export default router;
