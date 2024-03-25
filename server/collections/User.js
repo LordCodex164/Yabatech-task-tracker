@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import dotenv from "dotenv";
 import CryptoJS from "crypto-js";
+import jwt from "jsonwebtoken";
+import Task from "../models/Task.js";
 
 dotenv.config();
 
@@ -27,7 +29,12 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
+    const user = await User.findOne({ _id: req.params.id });
+    const username = user.username;
+
     await User.findByIdAndDelete(req.params.id);
+    await Task.deleteMany({ assignedUser: username });
+    res.status(200).json("User deleted Successfully");
   } catch (err) {
     res.status(500).json(err);
   }

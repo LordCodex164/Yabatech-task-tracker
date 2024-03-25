@@ -11,6 +11,7 @@ export const createTask = async (req, res) => {
     });
 
     const savedTask = await newTask.save();
+    res.status(200).json(savedTask);
   } catch (err) {
     res.status(500).json(err);
   }
