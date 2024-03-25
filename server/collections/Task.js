@@ -20,7 +20,7 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
-    if (task.assignedUser !== req.user.username || req.user.isAdmin === false) {
+    if (task.assignedUser !== req.user.username && req.user.isAdmin === false) {
       res.status(403).json("You're not allowed to do that");
     } else {
       const updatedTask = await Task.findByIdAndUpdate(
@@ -56,7 +56,7 @@ export const getTask = async (req, res) => {
 export const getTasks = async (req, res) => {
   try {
     const completed = req.query.completed;
-    const notStarted = req.query.notstarted;
+    const notStarted = req.query.notStarted;
     const inProgress = req.query.inProgress;
     let tasks;
     if (completed) {
@@ -64,9 +64,9 @@ export const getTasks = async (req, res) => {
         createdAt: "desc",
       });
     } else if (notStarted) {
-      tasks = await Task.find(
-        { taskStatus: "not started" }.sort({ createdAt: "desc" })
-      );
+      tasks = await Task.find({ taskStatus: "not started" }).sort({
+        createdAt: "desc",
+      });
     } else if (inProgress) {
       tasks = await Task.find({ taskStatus: "in progress" }).sort({
         createdAt: "desc",
@@ -75,6 +75,15 @@ export const getTasks = async (req, res) => {
       tasks = await Task.find().sort({ createdAt: "desc" });
     }
     res.status(200).json(tasks);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+export const getUserTasks = async (req, res) => {
+  try {
+    const userTasks = await Task.find({ assignedUser: req.params.username });
+    res.status(200).json(userTasks);
   } catch (err) {
     res.status(500).json(err);
   }

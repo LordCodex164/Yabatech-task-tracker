@@ -1,7 +1,6 @@
 import User from "../models/User.js";
 import dotenv from "dotenv";
 import CryptoJS from "crypto-js";
-import jwt from "jsonwebtoken";
 import Task from "../models/Task.js";
 
 dotenv.config();
