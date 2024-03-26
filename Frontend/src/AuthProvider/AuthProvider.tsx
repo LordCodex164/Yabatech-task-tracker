@@ -16,7 +16,7 @@ export const AuthProvider = ({children}:any) => {
 
     const navigate = useNavigate()
   
-    const [authData, setAuthData] = useState<AuthDataProps | null>(null)
+    const [authData, setAuthData] = useState<AuthDataProps | null>({name: "", email: "", role: "admin"})
     const [role, setRole] = useState<string>("")
 
      const registerAdmin = (userName:string, name:string, email:string, password:string) => {

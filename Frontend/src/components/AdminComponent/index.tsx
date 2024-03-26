@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { AuthDataProps, UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import { TrendStatsCard } from '../common/TrendCard';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -79,71 +80,45 @@ export const dummyData: StaffMember[] = [
     name: "user3",
     email: "adenirandaniel565@gmail.com",
     tasks: [
-      {
-        id: 1,
-        name: "code",
-        status: "not started",
-        timeStarted: new Date(),
-        deadline: new Date()
-      },
-      {
-        id: 2,
-        name: "code",
-        status: "in progress",
-        timeStarted: new Date(),
-        deadline: new Date()
-      },
-      {
-        id: 3,
-        name: "code",
-        status: "completed",
-        timeStarted: new Date(),
-        deadline: new Date()
-      }
+      
     ]
   },
   {
     name: "user4",
     email: "adenirandaniel565@gmail.com",
-    tasks: [
-      {
-        id: 1,
-        name: "code",
-        status: "not started",
-        timeStarted: new Date(),
-        deadline: new Date()
-      },
-      {
-        id: 2,
-        name: "code",
-        status: "in progress",
-        timeStarted: new Date(),
-        deadline: new Date()
-      },
-      {
-        id: 3,
-        name: "code",
-        status: "completed",
-        timeStarted: new Date(),
-        deadline: new Date()
-      }
-    ]
+    tasks: []
   }
 ]
 
 const AdminComponent = () => {
 
   const [admin, setAdmin] = useState<AuthDataProps>()
-
+  const [data, setData] = useState<StaffMember[] | any[]>([])
+  const [assignedUsers, setAssignedUsers] = useState<any[]>([])
+  const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
   const {authData} = UseGlobalAuth()
 
 
   useEffect(() => {
    setAdmin(authData)
+   setData(dummyData)
+   let finishedUsers:any[] = []
+   let unAssignedUsers:any[] = []
+   for(let i=0; i < dummyData.length; i++) {
+    if(dummyData[i].tasks.length > 0) { 
+      finishedUsers.push(dummyData[i])
+    }
+    else if(dummyData[i].tasks.length <= 0){
+      console.log(dummyData[i])
+      unAssignedUsers.push(dummyData[i])
+    }
+   }
+   setAssignedUsers(finishedUsers)
+   setUnAssignedUsers(unAssignedUsers)
   },[])
   //
   
-  const data = {
+  const ddata = {
     labels: ["finished", "in progress", "not started"],
     datasets: [
       {
@@ -167,7 +142,17 @@ const AdminComponent = () => {
 
   //
 
-   
+  const enum TaskStatus  {
+    FINISHED = "finished" 
+  }
+
+// const isFinished = data.filter((item) => item.tasks.length > 0)
+
+// const checkFinishedTasks = (task:TaskStatus) => {
+//   return TaskStatus.FINISHED 
+// }
+
+
   
 if(!authData || authData.role !== "admin") {
    return <Navigate to={"/auth"}/>
@@ -196,7 +181,35 @@ if(!authData || authData.role !== "admin") {
         --> in progress
       
       */}
+     
+    <div className='mx-[20px]'>
+      <TrendStatsCard
+     title="Number of Staffs"
+     trendIcon={''}
+     amount={data.length}
+     trendtitle="Last 30 days"
+     amountClassName={0 ? 'text-red-500' : ''}
+     />
+     <hr className='xl:ml-[-1em] border-[2px] bg-[#000] '/> 
+     <TrendStatsCard
+     title="Number Of Tasks Assigned"
+     trendIcon={''}
+     amount={assignedUsers.length}
+     trendtitle="Last 30 days"
+     amountClassName={0 ? 'text-red-500' : ''}
+     />
+      <hr className='xl:ml-[-1em] bg-[#000] xl:mr-[-1em]'/>  
+     <TrendStatsCard
+     title="Number Of Tasks Unassigned"
+     trendIcon={''}
+     amount={unAssignedUsers.length}
+     trendtitle="Last 30 days"
+     amountClassName={0 ? 'text-red-500' : ''}
+     />
+       <hr className='xl:ml-[-1em] bg-[#000] xl:mr-[-1em]'/> 
     </div>
+    </div>
+     
   )
 }
 

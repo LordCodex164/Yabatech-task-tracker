@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
-
+import { Link } from 'react-router-dom'
 
 const Login = () => {
 
@@ -37,29 +37,20 @@ const Login = () => {
           <div>
             <div className="flex items-center justify-between">
               <label className="block text-sm font-medium leading-6 text-gray-900">Password</label>
-              <div className="text-sm">
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-              </div>
             </div>
             <div className="mt-2">
               <input id="password" name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-blue-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
             </div>
           </div>
 
-           <div className='text-right flex justify-end gap-[10px]'>
-            <input type='checkbox'/>
-            <p>Please are you an admin ?</p>
-           </div>
-          
-
-
           <div>
             <button onClick={() => handleLogin(email)} type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in </button>
           </div>
 
-          <div>
-            <button onClick={() => navigate("/auth/Register")} type="submit" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</button>
-          </div>
+          <div className="text-sm flex flex-col items-end justify-end">
+                <p className="font-semibold text-black">Don't have an account ?</p>
+                <Link to={"/auth/register"} className="font-semibold text-indigo-600 hover:text-indigo-500">Register</Link>
+              </div>
           
         </form>
       </div>

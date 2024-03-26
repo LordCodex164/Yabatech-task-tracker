@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {useNavigate } from 'react-router-dom'
+import {Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 
@@ -30,7 +30,7 @@ const Register = () => {
         <div>
             <label className="block text-sm text-left font-medium leading-6 text-[#000]">Username</label>
             <div className="mt-2">
-              <input id="name" name="name" type='name' value={userName} onChange={(e) => setUserName(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset outline-none ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
+              <input id="name" name="username" type='username' value={userName} onChange={(e) => setUserName(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset outline-none ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
             </div>
           </div>
 
@@ -51,9 +51,6 @@ const Register = () => {
           <div>
             <div className="flex items-center justify-between">
               <label className="block text-sm font-medium leading-6 text-[#000]">Password</label>
-              <div className="text-sm">
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-              </div>
             </div>
             <div className="mt-2">
               <input id="password"  name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-blue-500 shadow-sm ring-1 ring-inset outline-none ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
@@ -64,6 +61,11 @@ const Register = () => {
             <button onClick={() => registerAdmin(userName, name, email, password)} type='button' className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as an admin</button>
             <button onClick={() => registerStaff(userName, name, email, password)} type="submit" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as a staff</button>
           </div>
+
+          <div className="text-sm flex flex-col items-end justify-end">
+                <p className="font-semibold text-black">Already have an account ?</p>
+               <Link to={"/auth"}  className="font-semibold text-indigo-600 hover:text-indigo-500">Login</Link>
+              </div>
           
         </form>
       </div>

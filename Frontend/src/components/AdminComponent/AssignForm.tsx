@@ -29,11 +29,6 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
          close()
     }
 
-    // useEffect(() => {
-    //   
-    // }, [])
-
-  console.log(staffId)
 
   return (
     <>
@@ -86,7 +81,7 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
                     Deadline 
                 </label>
                 <div className='flex flex-col'>
-                 <input value={""} type='name' className='focus:outline-none'/>   
+                 <input type='name' className='focus:outline-none'/>   
                 </div>
              </div>
 

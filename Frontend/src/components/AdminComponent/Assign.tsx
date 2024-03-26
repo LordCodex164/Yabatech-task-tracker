@@ -17,34 +17,7 @@ export interface StaffMember {
     deadline?: boolean;
   }
   
-const Assign = () => {
-
- const [isSideAssignForm, setIsSideAssignForm] = useState(false)
- const [data, setData] = useState<StaffMember[]>([])
- const [isLoading, setIsLoading] = useState(true)
- const [staffId, setStaffId] = useState<number>()
-  //fetch all the list of staffs
-
-  //assign them tasks by clicking on each staff
-
-  /*
-  const staff = [
-    {
-      id: 1,
-      name,
-      tasks: []
-    }
-  ]
-
-  let tasks = []
-
-  for(key in staff) {
-    key.tasks 
-  }
-  */
-
-  
-   const dummyData: StaffMember[] = [
+  export const dummyData: StaffMember[] = [
     {
       id: 1,
       name: "user1",
@@ -70,6 +43,35 @@ const Assign = () => {
       tasks: []
     }
   ]
+  
+const Assign = () => {
+
+ const [isSideAssignForm, setIsSideAssignForm] = useState(false)
+ const [data, setData] = useState<StaffMember[] | any[]>([])
+ const [isLoading, setIsLoading] = useState(true)
+ const [staffId, setStaffId] = useState<number>()
+  //fetch all the list of staffs
+
+  //assign them tasks by clicking on each staff
+
+  /*
+  const staff = [
+    {
+      id: 1,
+      name,
+      tasks: []
+    }
+  ]
+
+  let tasks = []
+
+  for(key in staff) {
+    key.tasks 
+  }
+  */
+
+  
+   
 
   useEffect(() => {
    setData(dummyData)
@@ -92,19 +94,10 @@ const Assign = () => {
       priority,
       deadine
      }
-     console.log(id)
-    for(let i = 0; i < data.length; i++) {
-      if(data[i].id == id) {
-         data[i].tasks = task
-         console.log(data[i])
-        setData([...data])
-        break;
-      }
-      break;
-    }
+   const updatedData = data.map((item) => item.id == id ? {...item, tasks: [...item.tasks, task]} : item )
+   setData(updatedData)
   }
 
- console.log(data)
 
   return (
     <div className='px-[40px] py-[40px]'>
