@@ -152,6 +152,7 @@ const AdminComponent = () => {
 //   return TaskStatus.FINISHED 
 // }
 
+console.log(authData)
 
   
 if(!authData || authData.role !== "admin") {

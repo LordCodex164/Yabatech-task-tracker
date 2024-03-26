@@ -7,7 +7,7 @@ import { serverUrl } from '../backendConnection';
 export interface AuthDataProps {
         name: string;
         email: string;
-        role: "admin" | "staff"
+        role: string | "admin" | "staff"
 }
 
 const AuthContext =  createContext< null| any>(null)
@@ -16,7 +16,7 @@ export const AuthProvider = ({children}:any) => {
 
     const navigate = useNavigate()
   
-    const [authData, setAuthData] = useState<AuthDataProps | null>({name: "", email: "", role: "admin"})
+    const [authData, setAuthData] = useState<AuthDataProps | null>({name: "", email: "", role: ""})
     const [role, setRole] = useState<string>("")
 
      const registerAdmin = (userName:string, name:string, email:string, password:string) => {
