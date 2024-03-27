@@ -101,12 +101,12 @@ const Assign = () => {
 
   return (
     <div className='px-[40px] py-[40px]'>
-      <div className='px-[40px] pt-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
+      <div className='lg:px-[40px] pt-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
         <span className='pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul>
           {data.map((item) => (
           <div key={item.id}>
-            <li className='flex my-[5px] justify-between px-[50px]'>
+            <li className='flex my-[5px] flex-col lg:flex-row items-start justify-between px-[50px]'>
              <div className='flex flex-col'>
               <p>{item.name}</p>  
               <p>{item.email}</p>

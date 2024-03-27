@@ -109,7 +109,6 @@ const AdminComponent = () => {
       finishedUsers.push(dummyData[i])
     }
     else if(dummyData[i].tasks.length <= 0){
-      console.log(dummyData[i])
       unAssignedUsers.push(dummyData[i])
     }
    }
@@ -151,8 +150,6 @@ const AdminComponent = () => {
 // const checkFinishedTasks = (task:TaskStatus) => {
 //   return TaskStatus.FINISHED 
 // }
-
-console.log(authData)
 
   
 if(!authData || authData.role !== "admin") {

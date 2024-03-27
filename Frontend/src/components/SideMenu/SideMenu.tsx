@@ -14,23 +14,27 @@ const SideMenu = ({admin}:any) => {
 
   const navigate = useNavigate()
 
+  const {authData} = UseGlobalAuth()
+  
+  console.log(authData)
+
   const menuItems = [
     {
-      paths: ['/dashboard'],
-      label: 'Dashboard',
-      to: '/admin',
+      paths:  authData.role === "admin" ? ['/Dashboard'] : ["/Home"],
+      label: authData.role === "admin" ? 'Dashboard' : "Home",
+      to: authData.role === "admin" ? '/admin' : "/staff",
       icon: <RxDashboard/>
     },
     {
-      paths: admin ? ['/Assign'] : ["View Tasks"],
-      label: 'Assign',
-      to: '/admin/assign',
+      paths: authData.role === "admin" ? ['/Assign'] : ["View Tasks"],
+      label: authData.role === "admin" ? 'Assign' : "View",
+      to: authData.role === "admin" ? '/admin/assign' : "/staff/viewTask",
       icon: <GrDashboard/>
     },
     {
-      paths: admin ? ['/Assign Tasks'] : ["View Tasks"],
+      paths: ["Profile"],
       label: 'Profile',
-      to: 'Profile',
+      to: "/profile",
       icon: <ImProfile/>
     },
     {
@@ -45,7 +49,8 @@ const SideMenu = ({admin}:any) => {
     setIsCollapsed(!isCollapsed)
   } 
 
-
+  
+  
   const renderMenuItem = (menuItem: any) => {
     if(menuItem.label === "Logout" ) {
       return (

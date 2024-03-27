@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { StaffMember } from './Assign';
 import DropDownComponent from '../common/Dropdown';
 import { selectedValues } from '../../constants';
-
+import { InputComponent } from '../common/InputComponent';
 interface AssignFormProps {
     close: () => void;
     staffId: number | undefined;
@@ -57,16 +57,27 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
                     Name
                 </label>
                 <div className='flex flex-col'>
-                 <input onChange={(e) => setName(e.target.value)} value={name} type='name' className='focus:outline-none'/>   
-                </div>
+                  <InputComponent
+                    name="name"
+                    className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"                    type="text"
+                    placeholder=""
+                    // value={formData.email}
+                  />                
+                  </div>
              </div>
              <div className=''>
                 <label htmlFor="name">
                   Description
                 </label>
                 <div className='flex flex-col'>
-                 <input onChange={(e) => setDescription(e.target.value)} value={description} type='name' className='focus:outline-none'/>   
-                </div>
+                <InputComponent
+                    name="e"
+                    className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"                    
+                    type="text"
+                    placeholder=""
+                    // value={formData.email}
+                  />                
+                  </div>
              </div>
              <div className='flex flex-col'>
                 <label htmlFor="name">
@@ -81,7 +92,14 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
                     Deadline 
                 </label>
                 <div className='flex flex-col'>
-                 <input type='name' className='focus:outline-none'/>   
+                <InputComponent
+                    name="deadline"
+                    type="date"
+                    className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"
+                    placeholder="yabatech@uset.com"
+                    // value={formData.email}
+                    restrictPreviousDates
+                  />   
                 </div>
              </div>
 

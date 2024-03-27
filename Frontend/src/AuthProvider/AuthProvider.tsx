@@ -34,7 +34,10 @@ export const AuthProvider = ({children}:any) => {
           toast.success("Successfully registered")
           setRole(user.role)
           setAuthData(user as unknown as AuthDataProps)
-          navigate("/admin")
+          setTimeout(() => {
+            navigate("/admin")
+          }, 3500)
+          
      }
 
 
