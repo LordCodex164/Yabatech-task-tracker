@@ -49,7 +49,7 @@ export const login = async (req, res) => {
     const { password, ...others } = user._doc;
 
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("yabatech/access_token", token, { httpOnly: true })
       .status(200)
       .json(others);
   } catch (err) {
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     res
-      .clearCookie("access_token", { sameSite: "none", secure: true })
+      .clearCookie("yabatech/access_token", { sameSite: "none", secure: true })
       .status(200)
       .json("You've logged out successfully");
   } catch (err) {

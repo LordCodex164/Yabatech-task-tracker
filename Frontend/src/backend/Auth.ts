@@ -3,7 +3,8 @@ import toast from "react-hot-toast"
 
 const BASE_URL = "https://task-tracker-server-bmfb.onrender.com"
 
-export const register = async (fullName:string, username:string, email:string, password:string) => {
+export const register = async (data : {fullName: string; username:string, email: string, password:string}) => {
+    const  {fullName, username, email, password} = data
     const user = {
         fullName,
         username,
@@ -18,7 +19,8 @@ export const register = async (fullName:string, username:string, email:string, p
     }
 }
 
-export const Login = async (email:string, password:string) => {
+export const Login = async (data : {fullName: string; username:string, email: string, password:string}) => {
+   const {email, password} = data
     const body = {
         email,
         password
