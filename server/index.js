@@ -10,7 +10,7 @@ import cors from "cors";
 dotenv.config();
 
 const corsOptions = {
-  origin: ["localhost:5173"],
+  origin: ["https://localhost:5173"],
   exposedHeaders: 'x-version'
 };
 
