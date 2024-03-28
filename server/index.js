@@ -11,7 +11,8 @@ dotenv.config();
 
 const corsOptions = {
   origin: ["https://localhost:5173"],
-  exposedHeaders: 'x-version'
+  exposedHeaders: 'x-version',
+  credentials: true
 };
 
 const app = express();
