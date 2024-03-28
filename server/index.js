@@ -9,18 +9,13 @@ import cors from "cors";
 
 dotenv.config();
 
-const corsOptions = {
-  origin: ["https://localhost:5173"],
-  credentials: true
-};
-
 const app = express();
 
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 mongoose
   .connect(process.env.mongoUrL)

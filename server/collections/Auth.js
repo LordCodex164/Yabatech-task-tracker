@@ -49,7 +49,7 @@ export const login = async (req, res) => {
     const { password, ...others } = user._doc;
 
     res
-      .cookie("yabatech/access_token", token, { httpOnly: true })
+      .cookie("yabatech/access_token", token, { httpOnly: false })
       .status(200)
       .json(others);
   } catch (err) {
