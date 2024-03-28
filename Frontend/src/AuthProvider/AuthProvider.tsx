@@ -96,7 +96,7 @@ export const AuthProvider = ({children}:any) => {
         const {data, headers} = response
         console.log(response)        
         console.log(data)
-        const cookie = headers["Content-Type"]
+        const cookie = headers["set-cookie"]
         console.log(cookie)
       } catch (error:any) {
         toast.error(error?.message || error.message.data)

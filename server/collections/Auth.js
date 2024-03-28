@@ -51,7 +51,7 @@ export const login = async (req, res) => {
     res
       .cookie("yabatech/access_token", token, { httpOnly: false })
       .status(200)
-      .json(others);
+      .json(token, others);
   } catch (err) {
     res.status(500).json(err);
   }
