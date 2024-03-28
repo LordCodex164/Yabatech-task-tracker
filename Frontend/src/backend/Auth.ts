@@ -28,9 +28,10 @@ export const Signin = async (data : {email: string, password:string}) => {
     }
     try {
        const response = await axios.post(`${BASE_URL}/auth/login`, body)
-       return response.data
+       return response
     } catch (error:any) {
         toast.error(error?.message)
         throw new Error(error?.message)
     }
 }
+

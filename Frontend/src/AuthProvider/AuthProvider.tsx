@@ -3,6 +3,8 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../backendConnection';
 import { register, Signin } from '../backend/Auth';
+import { getUserInfo } from '../backend/User';
+import {Cookies} from "react-cookie"
 
 export interface AuthDataProps {
         name: string;
@@ -15,6 +17,8 @@ const AuthContext =  createContext< null| any>(null)
 export const AuthProvider = ({children}:any) => {
 
     const navigate = useNavigate()
+
+    const cookies = new Cookies()
   
     const [authData, setAuthData] = useState<AuthDataProps | null>()
     const [isLoading, setIsloading] = useState<boolean>(false)
@@ -88,10 +92,12 @@ export const AuthProvider = ({children}:any) => {
         return;
       }
       try {
-        const data = await Signin(user)
-        const {token} = data
+        const response = await Signin(user)
+        const {data, headers} = response
+        console.log(response)        
         console.log(data)
-
+        const cookie = headers["x-version"]
+        
       } catch (error:any) {
         toast.error(error?.message || error.message.data)
         throw new Error(error?.message)
@@ -99,6 +105,15 @@ export const AuthProvider = ({children}:any) => {
 
      }
 
+
+    //  const handleGetUserInfo = async() => {
+    //    const data = await getUserInfo()
+    //    console.log(data)
+    //  }
+
+    //  useEffect(() => {
+    //    handleGetUserInfo()
+    //  }, [])
 
   const logout = () => {
     localStorage.clear()
