@@ -20,15 +20,15 @@ const SideMenu = ({admin}:any) => {
 
   const menuItems = [
     {
-      paths:  authData.role === "admin" ? ['/Dashboard'] : ["/Home"],
-      label: authData.role === "admin" ? 'Dashboard' : "Home",
-      to: authData.role === "admin" ? '/admin' : "/staff",
+      paths:  authData.isAdmin ? ['/Dashboard'] : ["/Home"],
+      label: authData.isAdmin ? 'Dashboard' : "Home",
+      to: authData.isAdmin ? '/admin' : "/staff",
       icon: <RxDashboard/>
     },
     {
-      paths: authData.role === "admin" ? ['/Assign'] : ["View Tasks"],
-      label: authData.role === "admin" ? 'Assign' : "View",
-      to: authData.role === "admin" ? '/admin/assign' : "/staff/viewTask",
+      paths: authData.isAdmin ? ['/Assign'] : ["View Tasks"],
+      label: authData.isAdmin ? 'Assign' : "View",
+      to: authData.isAdmin ? '/admin/assign' : "/staff/viewTask",
       icon: <GrDashboard/>
     },
     {

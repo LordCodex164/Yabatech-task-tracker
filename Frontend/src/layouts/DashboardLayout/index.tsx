@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import SideMenu from '../../components/SideMenu/SideMenu'
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import TopBar from '../../components/TopBar/TopBar'
+import { STORAGE_TOKEN } from '../../constants'
 
 interface User {
   name: string, 
@@ -14,6 +15,7 @@ const MainLayout = () => {
 
   const [user, setUser] = useState<User | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
+  const token = sessionStorage.getItem(STORAGE_TOKEN);
 /*  using localstorage
   const user = localStorage.getItem                           
 */
@@ -33,14 +35,14 @@ useEffect(() => {
 
 console.log(user)
 
-if(!user) {
+if(!token) {
   <Navigate to={"/auth"}/>
 }
 
   return (
     <>
     <div className='flex min-h-screen w-full'>
-      <SideMenu admin={isAdmin}/>
+      <SideMenu/>
       <div className='w-full'>
         <TopBar/>
         <div id='detail'>

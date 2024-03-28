@@ -1,15 +1,16 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 
-const BASE_URL = "https://task-tracker-server-bmfb.onrender.com"
+const BASE_URL = "https://task-tracker-server-bmfb.onrender.com/api"
 
-export const register = async (data : {fullName: string; username:string, email: string, password:string}) => {
-    const  {fullName, username, email, password} = data
+export const register = async (data : {fullName: string; username:string, email: string, password:string, isAdmin:boolean}) => {
+    const  {fullName, username, email, password, isAdmin} = data
     const user = {
         fullName,
         username,
         email,
-        password
+        password,
+        isAdmin
     }
     try {
        const response = await axios.post(`${BASE_URL}/auth/register`, user)
@@ -19,7 +20,7 @@ export const register = async (data : {fullName: string; username:string, email:
     }
 }
 
-export const Login = async (data : {fullName: string; username:string, email: string, password:string}) => {
+export const Signin = async (data : {email: string, password:string}) => {
    const {email, password} = data
     const body = {
         email,

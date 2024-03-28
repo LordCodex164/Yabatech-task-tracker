@@ -152,7 +152,7 @@ const AdminComponent = () => {
 // }
 
   
-if(!authData || authData.role !== "admin") {
+if(!authData || !authData.isAdmin) {
    return <Navigate to={"/auth"}/>
   }
 

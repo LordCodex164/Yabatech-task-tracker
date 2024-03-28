@@ -9,6 +9,7 @@ import { UseGlobalAuth } from '../AuthProvider/AuthProvider'
 import AssignComponent from '../components/AdminComponent/Assign'
 import Profile from '../pages/Profile/Profile'
 import ViewTasks from '../components/StaffComponent/view'
+import Root from '../Root'
 
 const Router = () => {
 
@@ -17,7 +18,7 @@ const Router = () => {
    <Routes>
    
         {/* Authentication Route */}
-        <Route path='auth'>
+        <Route path='auth' element={<Root/>}>
            <Route path='Register' element={<Register/>}/>
            <Route path='' element={<Login/>}/>
         </Route>

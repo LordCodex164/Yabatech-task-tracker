@@ -8,15 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const navigate = useNavigate()
-
- const handleLogin = (email: string) => {
-  localStorage.setItem("email", email)
-  if(email) {
-    navigate("/staff")
-  }
-
- }
+  const {login} = UseGlobalAuth()
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -44,7 +36,7 @@ const Login = () => {
           </div>
 
           <div>
-            <button onClick={() => handleLogin(email)} type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in </button>
+            <button onClick={() => login(email, password)} type="button" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in </button>
           </div>
 
           <div className="text-sm flex flex-col items-end justify-end">

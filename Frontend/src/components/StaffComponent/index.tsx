@@ -154,7 +154,7 @@ const StaffComponent = () => {
 console.log(authData)
 
   
-if(!authData || authData.role !== "staff") {
+if(authData.isAdmin) {
    return <Navigate to={"/auth"}/>
   }
 
