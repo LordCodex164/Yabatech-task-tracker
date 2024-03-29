@@ -26,7 +26,7 @@ const Router = () => {
        <Route path='' element={<DashBoardLayout/>}>
   
          {/* Staff Route */}
-         <Route path='staff'>
+         <Route path='/staff'>
            <Route path='' element={<StaffComponent/>} />
            <Route path='viewTask' element={<ViewTasks/>}/>
         </Route>

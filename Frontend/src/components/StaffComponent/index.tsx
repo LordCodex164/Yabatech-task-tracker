@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { AuthDataProps, UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { TrendStatsCard } from '../common/TrendCard';
+import { getUserInfo } from '../../backend/User';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -92,11 +93,14 @@ export const dummyData: StaffMember[] = [
 const StaffComponent = () => {
 
   const [admin, setAdmin] = useState<AuthDataProps>()
-  const [data, setData] = useState<StaffMember[] | any[]>([])
+   const [data, setData] = useState<StaffMember[] | any[]>([])
   const [assignedUsers, setAssignedUsers] = useState<any[]>([])
   const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
-  const {authData} = UseGlobalAuth()
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
 
+  const {authData, userData} = UseGlobalAuth()
 
   useEffect(() => {
    setAdmin(authData)
@@ -108,60 +112,57 @@ const StaffComponent = () => {
       finishedUsers.push(dummyData[i])
     }
     else if(dummyData[i].tasks.length <= 0){
-      console.log(dummyData[i])
       unAssignedUsers.push(dummyData[i])
     }
    }
    setAssignedUsers(finishedUsers)
    setUnAssignedUsers(unAssignedUsers)
+   const handleGetUserInfo = async() => {
+    const data = await getUserInfo()
+    setEmail(data.email)
+    setUsername(data.username)
+  }
+  console.log("logged data")
+  handleGetUserInfo()
   },[])
   //
   
-  const ddata = {
-    labels: ["finished", "in progress", "not started"],
-    datasets: [
-      {
-        label: '# of Votes',
-        data: [8, 5, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-        ],
-        borderWidth: 2,
-      },
-    ],
-  };
+  // const ddata = {
+  //   labels: ["finished", "in progress", "not started"],
+  //   datasets: [
+  //     {
+  //       label: '# of Votes',
+  //       data: [8, 5, 3],
+  //       backgroundColor: [
+  //         'rgba(255, 99, 132, 0.2)',
+  //         'rgba(54, 162, 235, 0.2)',
+  //         'rgba(255, 206, 86, 0.2)',
+  //       ],
+  //       borderColor: [
+  //         'rgba(255, 99, 132, 1)',
+  //         'rgba(54, 162, 235, 1)',
+  //         'rgba(255, 206, 86, 1)',
+  //       ],
+  //       borderWidth: 2,
+  //     },
+  //   ],
+  // };
 
 
   //
 
-  const enum TaskStatus  {
-    FINISHED = "finished" 
-  }
+  useEffect(() => {
+     console.log("component rendered")
+  },[])
 
-// const isFinished = data.filter((item) => item.tasks.length > 0)
-
-// const checkFinishedTasks = (task:TaskStatus) => {
-//   return TaskStatus.FINISHED 
-// }
-
-console.log(authData)
-
-  
-if(authData.isAdmin) {
-   return <Navigate to={"/auth"}/>
-  }
+  if(!userData || userData.isAdmin) {
+    return <Navigate to={"/auth"}/>
+   }
 
   return (
     <div className='acquisitions h-full'>
     
-     <p  className='text-right pt-[10px] pr-[30px]'>Welcome Staff <span className='font-bold '>{admin?.name}</span> </p> 
+     <p  className='text-right pt-[10px] pr-[30px]'>Welcome Staff <span className='font-bold '>{username}</span> </p> 
      
       <div className='px-[20px] pt-[10px]'>
         <p>You currently  don't have any avaliable reports</p>

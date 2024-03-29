@@ -1,8 +1,10 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { STORAGE_TOKEN } from './constants';
+import { useCookies } from 'react-cookie';
 
 export default function Root() {
-  const token = sessionStorage.getItem(STORAGE_TOKEN);
+
+  const [cookies] = useCookies()
 
   return (
     <>
@@ -10,7 +12,7 @@ export default function Root() {
       <div id="detail">
         <Outlet />
       </div>
-      
+      {!cookies.access_token && <Navigate to={"/auth"} />}
     </>
   );
 }

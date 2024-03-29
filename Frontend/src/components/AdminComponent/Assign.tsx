@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import AssignForm from './AssignForm';
+import { useStaffStore, userType } from '../../state/useStaffStore';
 
 export interface StaffMember {
     id: number;
@@ -50,6 +51,13 @@ const Assign = () => {
  const [data, setData] = useState<StaffMember[] | any[]>([])
  const [isLoading, setIsLoading] = useState(true)
  const [staffId, setStaffId] = useState<number>()
+ const [staffsState, setStaffsState] = useState<userType[]>([])
+
+ const {staffs, getAllStaffs} = useStaffStore( ( state ) =>  ( {
+  staffs: state.staffs,
+  getAllStaffs: state.getAllStaffs,
+} ))
+
   //fetch all the list of staffs
 
   //assign them tasks by clicking on each staff
@@ -75,6 +83,20 @@ const Assign = () => {
 
   useEffect(() => {
    setData(dummyData)
+
+   const handleGetAllTasks = async () => {
+   const data = await getAllStaffs()
+   console.log(staffs)
+   }
+   handleGetAllTasks()
+   let filteredStaffs = []
+   for(let i = 0; i < staffs.length; i++) {
+    staffs[i]
+    if(staffs[i].isAdmin) {
+      filteredStaffs.push(staffs[i])
+    }
+   }
+   setStaffsState(filteredStaffs)
   }, [])
 
   const openForm = (id:number) => {
@@ -104,17 +126,14 @@ const Assign = () => {
       <div className='lg:px-[40px] pt-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
         <span className='pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul>
-          {data.map((item) => (
-          <div key={item.id}>
+          {staffsState.map((item) => (
+          <div key={item._id}>
             <li className='flex my-[5px] flex-col lg:flex-row items-start justify-between px-[50px]'>
              <div className='flex flex-col'>
-              <p>{item.name}</p>  
+              <p>{item.fullName}</p>  
               <p>{item.email}</p>
              </div>
-            {item.tasks.length > 0 ?
-            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item.id)}> View Tasks </button> :
-            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item.id)}>Assign</button>
-            }
+           
              
              
           </li>
