@@ -1,7 +1,7 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 
-const BASE_URL = "https://yabatech-task-tracker.onrender.com/api/user"
+const BASE_URL = "https://task-tracker-server-bmfb.onrender.com/api/user"
 
 export const getAllUsers = async () => {
     try {
