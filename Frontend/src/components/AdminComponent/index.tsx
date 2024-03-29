@@ -96,7 +96,7 @@ const AdminComponent = () => {
   const [data, setData] = useState<StaffMember[] | any[]>([])
   const [assignedUsers, setAssignedUsers] = useState<any[]>([])
   const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
-  const {authData} = UseGlobalAuth()
+  const {authData, userData} = UseGlobalAuth()
 
 
   useEffect(() => {
@@ -139,27 +139,17 @@ const AdminComponent = () => {
   };
 
 
-  //
-
-  const enum TaskStatus  {
-    FINISHED = "finished" 
-  }
-
-// const isFinished = data.filter((item) => item.tasks.length > 0)
-
-// const checkFinishedTasks = (task:TaskStatus) => {
-//   return TaskStatus.FINISHED 
-// }
+console.log(userData)
 
   
-if(!authData || !authData.isAdmin) {
+if(!userData || !userData.isAdmin) {
    return <Navigate to={"/auth"}/>
   }
 
   return (
     <div className='acquisitions h-full'>
     
-     <p  className='text-right pt-[10px] pr-[30px]'>Welcome Admin <span className='font-bold '>{admin?.name}</span> </p> 
+     <p  className='text-right pt-[10px] pr-[30px]'>Welcome Admin <span className='font-bold '>{userData?.username}</span> </p> 
      
       <div className='px-[20px] pt-[10px]'>
         <p>You currently  don't have any avaliable reports</p>

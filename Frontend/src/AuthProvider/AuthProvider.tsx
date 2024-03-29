@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../backendConnection';
 import { register, Signin } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
-import {Cookies} from "react-cookie"
+import { jwtDecode } from "jwt-decode";
+import { useCookies } from "react-cookie";
 
 export interface AuthDataProps {
         name: string;
@@ -17,12 +18,18 @@ const AuthContext =  createContext< null| any>(null)
 export const AuthProvider = ({children}:any) => {
 
     const navigate = useNavigate()
-
-    const cookies = new Cookies()
-  
     const [authData, setAuthData] = useState<AuthDataProps | null>()
     const [isLoading, setIsloading] = useState<boolean>(false)
+    const [userData, setUserData] = useState({
+      username: "",
+      email: "",
+      fullName: "",
+      isAdmin: false
+    })
     const [role, setRole] = useState<string>("")
+    const [allStaffs, setAllStaffs] = useState([])
+    const [cookies, setCookies] = useCookies()
+
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
@@ -70,7 +77,6 @@ export const AuthProvider = ({children}:any) => {
           try {
             const data = await register(user)
             toast.success("Successfully registered")
-            setAuthData(data as unknown as AuthDataProps)
             setTimeout(() => {
               navigate("/auth")
             }, 500)
@@ -93,11 +99,16 @@ export const AuthProvider = ({children}:any) => {
       }
       try {
         const response = await Signin(user)
-        const {data, headers} = response
-        console.log(response)        
-        console.log(data)
-        const cookie = headers["set-cookie"]
-        console.log(cookie)
+        const {data} = response    
+        const token = cookies.access_token
+        const decodedValue:any = jwtDecode(token as string)
+        setAuthData(data)
+        if(decodedValue?.isAdmin) {
+           navigate("/admin")
+        }
+        else {
+          navigate("/staff")
+        }
       } catch (error:any) {
         toast.error(error?.message || error.message.data)
         throw new Error(error?.message)
@@ -105,24 +116,31 @@ export const AuthProvider = ({children}:any) => {
 
      }
 
+    useEffect(() => {
 
-    //  const handleGetUserInfo = async() => {
-    //    const data = await getUserInfo()
-    //    console.log(data)
-    //  }
-
-    //  useEffect(() => {
-    //    handleGetUserInfo()
-    //  }, [])
-
+     const handleGetUserInfo = async() => {
+      const data = await getUserInfo()
+      const {fullName, username, email, isAdmin} = data
+      setUserData({
+        fullName,
+        username,
+        email,
+        isAdmin
+      })
+    }
+    handleGetUserInfo()
+    }, [])
+     
+   
   const logout = () => {
     localStorage.clear()
-    setAuthData(null)
     console.log("testing")
   }
 
 
-  return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, role, logout}}>
+
+
+  return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, role, logout, userData}}>
        {children}
     </AuthContext.Provider>
   

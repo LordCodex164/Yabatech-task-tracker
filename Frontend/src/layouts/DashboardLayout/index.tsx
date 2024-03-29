@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import SideMenu from '../../components/SideMenu/SideMenu'
-import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import TopBar from '../../components/TopBar/TopBar'
-import { STORAGE_TOKEN } from '../../constants'
+import { useCookies } from "react-cookie";
 
 interface User {
   name: string, 
@@ -13,29 +12,30 @@ interface User {
 
 const MainLayout = () => {
 
-  const [user, setUser] = useState<User | null>(null)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const token = sessionStorage.getItem(STORAGE_TOKEN);
-/*  using localstorage
-  const user = localStorage.getItem                           
-*/
+  const [cookies, setCookies] = useCookies()
 
-const {userData} = UseGlobalAuth()
+//   const [user, setUser] = useState<User | null>(null)
+//   const [isAdmin, setIsAdmin] = useState(false)
+// /*  using localstorage
+//   const user = localStorage.getItem                           
+// */
 
-useEffect(() => {
- setUser(userData)
- console.log(user)
-}, [])
+// const {userData} = UseGlobalAuth()
 
-useEffect(() => {
- if(user?.role === "admin"){
-  setIsAdmin(true)
- }
-}, [])
+// useEffect(() => {
+//  setUser(userData)
+//  console.log(user)
+// }, [])
 
-console.log(user)
+// useEffect(() => {
+//  if(user?.role === "admin"){
+//   setIsAdmin(true)
+//  }
+// }, [])
 
-if(!token) {
+// console.log(user)
+
+if(!cookies.access_token) {
   <Navigate to={"/auth"}/>
 }
 

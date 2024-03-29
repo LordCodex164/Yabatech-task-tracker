@@ -6,7 +6,8 @@ import { ImProfile } from 'react-icons/im'
 import { GrDashboard } from 'react-icons/gr'
 import { FiLogOut } from 'react-icons/fi'
 import { RxDashboard } from 'react-icons/rx'
-const SideMenu = ({admin}:any) => {
+
+const SideMenu = () => {
 
   const [isCollapsed, setIsCollapsed] = useState(false)
 
@@ -14,21 +15,21 @@ const SideMenu = ({admin}:any) => {
 
   const navigate = useNavigate()
 
-  const {authData} = UseGlobalAuth()
-  
-  console.log(authData)
+  const {userData} = UseGlobalAuth()
+
+  console.log(userData)
 
   const menuItems = [
     {
-      paths:  authData.isAdmin ? ['/Dashboard'] : ["/Home"],
-      label: authData.isAdmin ? 'Dashboard' : "Home",
-      to: authData.isAdmin ? '/admin' : "/staff",
+      paths: userData.isAdmin ? ['/Dashboard'] : ["/Home"],
+      label: userData.isAdmin ? 'Dashboard' : "Home",
+      to: userData.isAdmin ? '/admin' : "/staff",
       icon: <RxDashboard/>
     },
     {
-      paths: authData.isAdmin ? ['/Assign'] : ["View Tasks"],
-      label: authData.isAdmin ? 'Assign' : "View",
-      to: authData.isAdmin ? '/admin/assign' : "/staff/viewTask",
+      paths: userData.isAdmin ? ['/Assign'] : ["View Tasks"],
+      label: userData.isAdmin ? 'Assign' : "View",
+      to: userData.isAdmin ? '/admin/assign' : "/staff/viewTask",
       icon: <GrDashboard/>
     },
     {
