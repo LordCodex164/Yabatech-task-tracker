@@ -51,6 +51,7 @@ const Assign = () => {
  const [data, setData] = useState<StaffMember[] | any[]>([])
  const [isLoading, setIsLoading] = useState(true)
  const [staffId, setStaffId] = useState<number>()
+ const [staffName, setStaffName] = useState<string>()
  const [staffsState, setStaffsState] = useState<userType[]>([])
 
  const {staffs, getAllStaffs} = useStaffStore( ( state ) =>  ( {
@@ -86,23 +87,25 @@ const Assign = () => {
 
    const handleGetAllTasks = async () => {
    const data = await getAllStaffs()
-   console.log(staffs)
-   }
-   handleGetAllTasks()
-   let filteredStaffs = []
-   for(let i = 0; i < staffs.length; i++) {
+  let filteredStaffs = []
+   for(let i = 0; i < data.length; i++) {
     staffs[i]
-    if(staffs[i].isAdmin) {
+    if(data[i].isAdmin == false) {
       filteredStaffs.push(staffs[i])
     }
    }
    setStaffsState(filteredStaffs)
+   }
+   handleGetAllTasks()
+   
   }, [])
 
-  const openForm = (id:number) => {
+  const openForm = (id:number, name:string) => {
     setIsSideAssignForm(true)
     console.log(id)
+    console.log(name)
     setStaffId(id)
+    setStaffName(name)
   }
 
   const closeForm = () => {
@@ -127,17 +130,23 @@ const Assign = () => {
         <span className='pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul>
           {staffsState.map((item) => (
-          <div key={item._id}>
+          <div key={item?._id}>
             <li className='flex my-[5px] flex-col lg:flex-row items-start justify-between px-[50px]'>
              <div className='flex flex-col'>
-              <p>{item.fullName}</p>  
-              <p>{item.email}</p>
+              <p>{item?.fullName}</p>  
+              <p>{item?.email}</p>
              </div>
            
+             {item?.tasks.length > 0 ?
+            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username)}> View Tasks </button> :
+            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username)}>Assign</button>
+            }
+
+
              
              
           </li>
-          {isSideAssignForm && <AssignForm  create={handleCreateTasks} staffId={staffId}  close={closeForm}/> }
+          {isSideAssignForm && <AssignForm  create={handleCreateTasks} staffId={staffId} username={staffName}  close={closeForm}/> }
           </div>
           
         ))}

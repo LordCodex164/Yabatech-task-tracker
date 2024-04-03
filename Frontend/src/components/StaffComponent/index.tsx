@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { AuthDataProps, UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { TrendStatsCard } from '../common/TrendCard';
 import { getUserInfo } from '../../backend/User';
+import { TailSpin } from 'react-loader-spinner';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -21,110 +22,58 @@ interface tasksProps {
   deadline?: Date;
 }
 
-export const dummyData: StaffMember[] = [
-  {
-    name: "user1",
-    email: "adenirandaniel565@gmail.com",
-    tasks: [
-      {
-        id: 1,
-        name: "code",
-        status: "not started",
-        timeStarted: new Date(),
-        deadline: new Date()
-       
-      },
-      {
-        id: 1,
-        name: "code",
-        status: "in progress",
-        timeStarted: new Date(),
-        deadline: new Date()
-
-      },
-      {
-        id: 3,
-        name: "repeat",
-        status: "completed",
-        timeStarted: new Date(),
-        deadline: new Date()
-      }
-    ]
-  },
-  {
-    name: "user2",
-    email: "adenirandaniel565@gmail.com",
-    tasks: [
-      {
-        id: 1,
-        name: "code",
-        status: "not started",
-        timeStarted: new Date(),
-        deadline: new Date()
-      },
-      {
-        id: 2,
-        name: "code",
-        status: "in progress",
-        timeStarted: new Date(),
-        deadline: new Date()
-      },
-      {
-        id: 3,
-        name: "code",
-        status: "completed"
-      }
-    ]
-  },
-  {
-    name: "user3",
-    email: "adenirandaniel565@gmail.com",
-    tasks: [
-      
-    ]
-  },
-  {
-    name: "user4",
-    email: "adenirandaniel565@gmail.com",
-    tasks: []
-  }
-]
 
 const StaffComponent = () => {
 
   const [admin, setAdmin] = useState<AuthDataProps>()
-   const [data, setData] = useState<StaffMember[] | any[]>([])
+  const [data, setData] = useState<StaffMember[] | any[]>([])
   const [assignedUsers, setAssignedUsers] = useState<any[]>([])
   const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
-  const [name, setName] = useState("")
+  const[isLoading, setIsLoading] = useState<boolean>(false)
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
-
-  const {authData, userData} = UseGlobalAuth()
+  const [userTasks, setUserTasks] = useState([])
+  
+  const {userData} = UseGlobalAuth()
 
   useEffect(() => {
-   setAdmin(authData)
-   setData(dummyData)
-   let finishedUsers:any[] = []
-   let unAssignedUsers:any[] = []
-   for(let i=0; i < dummyData.length; i++) {
-    if(dummyData[i].tasks.length > 0) { 
-      finishedUsers.push(dummyData[i])
-    }
-    else if(dummyData[i].tasks.length <= 0){
-      unAssignedUsers.push(dummyData[i])
-    }
-   }
-   setAssignedUsers(finishedUsers)
-   setUnAssignedUsers(unAssignedUsers)
+  
    const handleGetUserInfo = async() => {
     const data = await getUserInfo()
     setEmail(data.email)
     setUsername(data.username)
   }
-  console.log("logged data")
   handleGetUserInfo()
   },[])
+
+  useEffect(() => {
+    const handleGetUserInfo = async() => {
+      setIsLoading(true)
+      try {
+        const data = await getUserInfo()
+      setUserTasks(data.tasks)
+      let finishedUsers:any[] = []
+      let unAssignedUsers:any[] = []
+      for(let i=0; i < data.length; i++) {
+        if(data[i].tasks.length > 0) { 
+          finishedUsers.push(data[i])
+        }
+        else if(data[i].tasks.length <= 0){
+          unAssignedUsers.push(data[i])
+        }
+       } 
+       setAssignedUsers(finishedUsers)
+       setUnAssignedUsers(unAssignedUsers)
+       setIsLoading(false)
+      } catch (error:any) {
+         console.log(error)
+         throw new Error(error)
+      }
+      
+    }
+    handleGetUserInfo()
+  },[])
+
   //
   
   // const ddata = {
@@ -151,43 +100,39 @@ const StaffComponent = () => {
 
   //
 
-  useEffect(() => {
-     console.log("component rendered")
-  },[])
 
   if(!userData || userData.isAdmin) {
     return <Navigate to={"/auth"}/>
    }
 
   return (
-    <div className='acquisitions h-full'>
+    <>
+    {isLoading ?
+     <TailSpin
+     visible={true}
+     height="80"
+     width="80"
+     color="#8996d7"
+     ariaLabel="tail-spin-loading"
+     radius="1"
+     wrapperStyle={{}}
+     wrapperClass="flex justify-center h-[100vh] items-center"
+     />
+     :
+     
+  <div className='acquisitions h-full'>
     
      <p  className='text-right pt-[10px] pr-[30px]'>Welcome Staff <span className='font-bold '>{username}</span> </p> 
      
       <div className='px-[20px] pt-[10px]'>
         <p>You currently  don't have any avaliable reports</p>
       </div>
-      {/* 
-      Get the staff data from the server
-      
-      render them
 
-      staff 
-
-      -> name
-      -> email
-      -> tasks
-        --> finished 
-        --> unfinished
-        --> in progress
-      
-      */}
-     
     <div className='mx-[20px]'>
       <TrendStatsCard
      title="Number of Your Tasks"
      trendIcon={''}
-     amount={data.length}
+     amount={userTasks.length}
      trendtitle="Last 30 days"
      amountClassName={0 ? 'text-red-500' : ''}
      />
@@ -215,8 +160,15 @@ const StaffComponent = () => {
      trendtitle="Last 30 days"
      amountClassName={0 ? 'text-red-500' : ''}
      />
+
+     
+
     </div>
     </div>
+    }
+    
+    </>
+    
      
   )
 }

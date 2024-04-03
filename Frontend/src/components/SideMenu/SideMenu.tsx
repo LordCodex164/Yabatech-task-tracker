@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import cx from "classnames"
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import { ImProfile } from 'react-icons/im'
 import { GrDashboard } from 'react-icons/gr'
 import { FiLogOut } from 'react-icons/fi'
 import { RxDashboard } from 'react-icons/rx'
+import { jwtDecode } from "jwt-decode";
+import { useCookies } from "react-cookie";
 
 const SideMenu = () => {
 
@@ -13,23 +15,26 @@ const SideMenu = () => {
 
   const {logout} = UseGlobalAuth()
 
-  const navigate = useNavigate()
+  const [cookies] = useCookies()
 
-  const {userData} = UseGlobalAuth()
+  const token = cookies.access_token
+  const decodedValue:any = jwtDecode(token as string)
 
-  console.log(userData)
+  const {pathname} = useLocation()
+
+  console.log(pathname)
 
   const menuItems = [
     {
-      paths: userData.isAdmin ? ['/Dashboard'] : ["/Home"],
-      label: userData.isAdmin ? 'Dashboard' : "Home",
-      to: userData.isAdmin ? '/admin' : "/staff",
+      paths: decodedValue.isAdmin ? ['/Dashboard'] : ["/staff"],
+      label: decodedValue.isAdmin  ? 'Dashboard' : "Home",
+      to: decodedValue.isAdmin  ? '/admin' : "/staff",
       icon: <RxDashboard/>
     },
     {
-      paths: userData.isAdmin ? ['/Assign'] : ["View Tasks"],
-      label: userData.isAdmin ? 'Assign' : "View",
-      to: userData.isAdmin ? '/admin/assign' : "/staff/viewTask",
+      paths: decodedValue.isAdmin  ? ['/Assign'] : ["Tasks"],
+      label: decodedValue.isAdmin  ? 'Assign' : "Tasks",
+      to: decodedValue.isAdmin  ? '/admin/assign' : "/staff/listTask",
       icon: <GrDashboard/>
     },
     {
@@ -45,6 +50,12 @@ const SideMenu = () => {
       icon: <FiLogOut/>
     },
   ]
+
+
+  const isActive = (paths: string[]) => {
+    console.log(paths)
+    console.log(paths.some((path) => pathname.startsWith(path))) 
+  }
 
   const handleToggleSidebar = () => {
     setIsCollapsed(!isCollapsed)
@@ -92,7 +103,8 @@ const SideMenu = () => {
             "hover:before:content-[''] hover:before:w-[10px] ": true,
             'hove] hover:before:h-[55px] hover:bg-[#C9EBF3]': true,
             'hover:before:relative  hover:rounded-r-[5px]': true,
-            "active:text-red-600 visited:text-red-800": true
+            "active:text-red-600 visited:text-red-800": true,
+            "bg-[#5a95a2] success": isActive(menuItem.paths)
         })}
         >
            <div>

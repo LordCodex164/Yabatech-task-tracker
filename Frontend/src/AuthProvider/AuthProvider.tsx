@@ -13,6 +13,13 @@ export interface AuthDataProps {
         role: string | "admin" | "staff"
 }
 
+interface userData {
+  username: string,
+  email: string,
+  fullName: string,
+  isAdmin: boolean
+}
+
 const AuthContext =  createContext< null| any>(null)
 
 export const AuthProvider = ({children}:any) => {
@@ -20,12 +27,7 @@ export const AuthProvider = ({children}:any) => {
     const navigate = useNavigate()
     const [authData, setAuthData] = useState<AuthDataProps | null>()
     const [isLoading, setIsloading] = useState<boolean>(false)
-    const [userData, setUserData] = useState({
-      username: "",
-      email: "",
-      fullName: "",
-      isAdmin: false
-    })
+    const [userData, setUserData] = useState<userData | null>(null)
     const [role, setRole] = useState<string>("")
     const [allStaffs, setAllStaffs] = useState([])
     const [cookies, setCookies] = useCookies()
@@ -102,7 +104,7 @@ export const AuthProvider = ({children}:any) => {
         const {data} = response    
         const token = cookies.access_token
         const decodedValue:any = jwtDecode(token as string)
-        setAuthData(data)
+        setUserData(data)
         if(decodedValue?.isAdmin) {
            navigate("/admin")
         }
@@ -133,8 +135,7 @@ export const AuthProvider = ({children}:any) => {
      
    
   const logout = () => {
-    localStorage.clear()
-    console.log("testing")
+   setCookies("acesss_token", null)
   }
 
 

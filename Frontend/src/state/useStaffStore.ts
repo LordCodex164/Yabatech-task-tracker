@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { getAllUsers } from "../backend/User";
 
 export interface userType{
-    _id: string,
+    _id: number,
     fullName: string,
     username: string,
     email: string,
@@ -10,11 +10,12 @@ export interface userType{
     isAdmin: boolean,
     createdAt: string,
     updatedAt: string,
+    tasks: []
 }
 
 interface UseStore {
     staffs: userType[];
-    getAllStaffs: () => void,
+    getAllStaffs: () => Promise<userType[]>,
     isLoading: boolean;
 }
 
@@ -25,8 +26,9 @@ export const useStaffStore = create<UseStore>((set, get) => ({
     set({isLoading: true})
      try {
     const staffs = await getAllUsers ()
-    console.log(staffs)
-     set({staffs, isLoading: true})
+    console.log(staffs) 
+    set({staffs, isLoading: true})
+    return staffs
      } catch (error:any) {
         throw new Error(error?.message)
      }

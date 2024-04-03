@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react'
-import { StaffMember } from './Assign';
 import DropDownComponent from '../common/Dropdown';
 import { selectedValues } from '../../constants';
 import { InputComponent } from '../common/InputComponent';
+import { createTasks } from '../../backend/Task';
+import { useStaffStore } from '../../state/useStaffStore';
+
 interface AssignFormProps {
     close: () => void;
     staffId: number | undefined;
-    create: (id:number, name:string, description:string, priority:string, deadline:boolean) => void | any
+    create: (id:number, name:string, description:string, priority:string, deadline:boolean) => void | any;
+    username: string | undefined
 }
 
-const AssignForm = ({close, create, staffId}: AssignFormProps) => {
-   
+const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
+
     const[selected, setSelected] = useState(false)
     const [selectedValue, setSelectedValue] = useState("low")
     const [name, setName] = useState("")
@@ -19,12 +22,31 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
     const [deadline, setDeadline] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleCreateForm = (id:number, name:string, description:string, priority:string, deadline:boolean) => {
+
+    const {getAllStaffs} = useStaffStore( ( state ) =>  ( {
+      staffs: state.staffs,
+      getAllStaffs: state.getAllStaffs,
+    } ))
+
+    const handleCreateForm = async (taskName:string, description:string, assignedUser:string, deadLine:string) => {
        setTimeout(() => {
         setIsLoading(true)
        }, 3000) 
-         create(id, name, description, priority, deadline)
-        console.log(id)
+       const taskData = {
+        taskName,
+        description,
+        assignedUser,
+        deadLine,
+        taskStatus: "not started"
+       }
+       try {
+        const data = await createTasks(taskData)
+        console.log(data)
+        await getAllStaffs()
+       } catch (error) {
+         console.log(error)
+       }
+         
         // setIsLoading(false)
          close()
     }
@@ -59,8 +81,10 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
                 <div className='flex flex-col'>
                   <InputComponent
                     name="name"
+                    value={name}
                     className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"                    type="text"
                     placeholder=""
+                    handleChange={(e) => setName(e.target.value)}
                     // value={formData.email}
                   />                
                   </div>
@@ -74,8 +98,9 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
                     name="e"
                     className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"                    
                     type="text"
+                    value={description}
                     placeholder=""
-                    // value={formData.email}
+                    handleChange={(e) => setDescription(e.target.value)}
                   />                
                   </div>
              </div>
@@ -95,6 +120,7 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
                 <InputComponent
                     name="deadline"
                     type="date"
+                    value={deadline}
                     className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"
                     placeholder="yabatech@uset.com"
                     // value={formData.email}
@@ -103,7 +129,7 @@ const AssignForm = ({close, create, staffId}: AssignFormProps) => {
                 </div>
              </div>
 
-             <button type='button' onClick={() => handleCreateForm(staffId as unknown as number, name, description, "high", true)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
+             <button type='button' onClick={() => handleCreateForm(name, description, username as string, "high")} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
                 {isLoading ? "saving" : "save" }
              </button>
           </form>

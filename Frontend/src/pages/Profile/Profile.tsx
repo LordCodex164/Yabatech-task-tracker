@@ -1,8 +1,48 @@
-import {} from "react"
+import {useState, useEffect} from "react"
 import { InputComponent } from "../../components/common/InputComponent"
+import { jwtDecode } from "jwt-decode";
+import { useCookies } from "react-cookie";
+import { getUserInfo } from '../../backend/User';
+
+export interface userType{
+  _id: number,
+  fullName: string,
+  username: string,
+  email: string,
+  password: string,
+  isAdmin: boolean,
+  createdAt: string,
+  updatedAt: string,
+  tasks: []
+}
+
 
 const Profile = () => { 
-     
+
+  const [cookies] = useCookies()
+  const [isLoading, setIsloading] = useState<boolean>(false)
+  const [userTasks, setUserTasks] = useState<userType | null>(null)
+
+  const token = cookies.access_token
+  const decodedValue:any = jwtDecode(token as string)
+
+  console.log(decodedValue)
+
+  useEffect(() => {
+    const handleGetUserInfo = async() => {
+      setIsloading(true)
+      try {
+        const data = await getUserInfo()
+        setUserTasks(data)
+        setIsloading(false)
+      } catch (error) {
+         console.log(error)
+      }
+      
+    }
+    handleGetUserInfo()
+  },[])
+
   return (
     <div className="bg-[#FFFFFF]">
     <div className="flex flex-col items-start pt-[13px] pl-[20px]">
@@ -21,12 +61,12 @@ const Profile = () => {
 
                 <div className="flex flex-col items-start ">
                   <label htmlFor="first-name" className="text-[13px] text-[#666666] font-normal">
-                    First Name
+                    Full Name
                   </label>
                   <div className="w-full">
                     <InputComponent
                       name="firstName"
-                      value={""}
+                      value={userTasks?.fullName}
                       disabled
                       className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"
                       type="text"
@@ -35,21 +75,6 @@ const Profile = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-start ">
-                  <label htmlFor="first-name" className="text-[13px] text-[#666666] font-normal">
-                    Last Name
-                  </label>
-                  <div className="w-full">
-                    <InputComponent
-                      name="lastName"
-                      className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"
-                      type="text"
-                      placeholder=""
-                      value={""}
-                      disabled
-                    />
-                  </div>
-                </div>
 
               </div>      
 
@@ -64,7 +89,7 @@ const Profile = () => {
                     name="email"
                     className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"                    type="text"
                     placeholder="yabatech@uset.com"
-                    // value={formData.email}
+                    value={userTasks?.email}
                     disabled
                   />
                 </div>

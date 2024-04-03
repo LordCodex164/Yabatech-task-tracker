@@ -5,3 +5,8 @@ export const selectedValues = [
        {label: "low", value: "low"},
 ]
 
+export const selectedTaskValues = [
+       {label: "not started", value: "not started"},
+       {label: "in progress", value: "in progress"},
+       {label: "complete", value: "complete"},
+]

@@ -8,7 +8,8 @@ import AdminComponent from '../components/AdminComponent'
 import { UseGlobalAuth } from '../AuthProvider/AuthProvider'
 import AssignComponent from '../components/AdminComponent/Assign'
 import Profile from '../pages/Profile/Profile'
-import ViewTasks from '../components/StaffComponent/view'
+import ListTasks from '../components/StaffComponent/list'
+import ViewTask from '../components/StaffComponent/ViewTask'
 import Root from '../Root'
 
 const Router = () => {
@@ -26,9 +27,10 @@ const Router = () => {
        <Route path='' element={<DashBoardLayout/>}>
   
          {/* Staff Route */}
-         <Route path='/staff'>
+         <Route path='staff'>
            <Route path='' element={<StaffComponent/>} />
-           <Route path='viewTask' element={<ViewTasks/>}/>
+           <Route path='listTask' element={<ListTasks/>}/>
+          <Route path='viewTask/:id' element={<ViewTask/>}/>
         </Route>
 
          {/* Admin Route */}
