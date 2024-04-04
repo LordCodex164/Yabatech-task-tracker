@@ -6,7 +6,6 @@ import { getUserInfo } from '../../backend/User';
 import { TailSpin } from 'react-loader-spinner'
 import Chart from 'chart.js/auto';
 
-
 const view = () => {
 
   const [cookies] = useCookies()
@@ -17,7 +16,7 @@ const view = () => {
   const[selected, setSelected] = useState(false)
   const [selectedValue, setSelectedValue] = useState("not started")
   const [isLoading, setIsloading] = useState<boolean>(false)
-  const [taskStatus, setTaskStatus] = useState("not started")
+  const [taskStatus, setTaskStatus] = useState("all")
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const view = () => {
 
   const tasksTab = ["not started", "in progress", "completed"]
 
-  console.log(userTasks)
+  console.log(taskStatus)
   return (
     <>
      {isLoading ? 
@@ -59,29 +58,29 @@ const view = () => {
     <div className='bg-[#fff] px-[40px] py-[40px]'>
 
       <div className='flex flex-row items-center gap-[40px] xl:gap-[60px]'>
-        <span className='px-[25px] py-[15px] rounded-full bg-[#fcd4d4] shadow-2xl'> 
+        <button onClick={() => setTaskStatus("all")} className={`px-[14px] py-[12px] rounded-full ${taskStatus == "all" &&  "bg-[#fcd4d4]"} shadow-2xl`}> 
           My Tasks
-          </span>
+          </button>
 
 
          <div className='grid grid-cols-1 gap-[20px] sm:grid-cols-2 md:flex md:flex-row'>
             {tasksTab.map((item) => (
-              <button onClick={() => setTaskStatus(item)} className={`px-[10px] $ py-[10px] cursor-pointer rounded-full bg-[#fff]  shadow-sm hover:shadow-2xl`}>{item}</button>
+              <button onClick={() => setTaskStatus(item)} className={`px-[14px] py-[12px] ${taskStatus == item && "bg-[#fcd4d4] " }  cursor-pointer rounded-full  shadow-sm hover:shadow-2xl`}>{item}</button>
             ))}
          </div>
       </div>
 
-        {userTasks ? userTasks.filter((item) => item?.taskStatus === taskStatus ).map((item:any, index:any) => (
-          <div key={index} className='flex justify-between px-[30px] shadow-md bg-[#aac8e6] my-[25px] items-center py-[45px] rounded-md'>
-            <div className='flex flex-col'>
-              <p>{item.taskName}</p>
-              <p className='text-[20px] font-bold'>Status: <span className='text-red-500'>{item.taskStatus}</span></p>
-            </div>
-             <span className='cursor cursor-pointer bg-[#a0ebcc] hover:bg-[#53e381] hover:text-white px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task</span>
-          </div>
-        )) : (
-          <span>You don't have Tasks</span>
-        ) }
+      {userTasks ? userTasks.filter((item) => taskStatus === "all" || item?.taskStatus === taskStatus ).map((item:any, index:any) => (
+        <div key={index} className='flex justify-between px-[30px] shadow-md bg-[#aac8e6] my-[25px] items-center py-[45px] rounded-md'>
+        <div className='flex flex-col'>
+            <p>{item.taskName}</p>
+            <p className='text-[20px] font-bold'>Status: <span className='text-red-500'>{item.taskStatus}</span></p>
+        </div>
+        <span className='cursor cursor-pointer bg-[#a0ebcc] hover:bg-[#53e381] hover:text-white px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task</span>
+    </div>
+    )) : (
+    <span>You don't have Tasks</span>
+     )}
     </div>
     }
     </>

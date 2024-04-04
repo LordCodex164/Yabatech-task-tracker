@@ -8,5 +8,5 @@ export const selectedValues = [
 export const selectedTaskValues = [
        {label: "not started", value: "not started"},
        {label: "in progress", value: "in progress"},
-       {label: "complete", value: "complete"},
+       {label: "completed", value: "completed"},
 ]

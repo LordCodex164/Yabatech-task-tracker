@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { updateTask } from '../../backend/Task'
 import DropDownComponent from '../common/Dropdown'
 import { selectedTaskValues } from '../../constants'
-
+import { Navigate, useNavigate } from 'react-router-dom'
 const EditTaskForm = ({id}: {id:number}) => {
 
   const [isLoading, setIsloading] = useState(false)
@@ -10,13 +10,15 @@ const EditTaskForm = ({id}: {id:number}) => {
   const[taskSelected, setTaskSelected] = useState(false)
   const [selectedTaskValue, setSelectedTaskValue] = useState({taskStatus: "not started"})
 
+  const navigate = useNavigate()
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsloading(true)
 
     try {
-      const data = await updateTask(id, selectedTaskValue)
-      console.log(data)
+      await updateTask(id, selectedTaskValue)
+      navigate("/staff/listTask")
       setIsloading(false)
     } catch (error) {
       setIsloading(false)

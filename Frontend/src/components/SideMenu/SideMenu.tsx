@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation} from 'react-router-dom'
 import cx from "classnames"
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import { ImProfile } from 'react-icons/im'
@@ -21,8 +21,6 @@ const SideMenu = () => {
   const decodedValue:any = jwtDecode(token as string)
 
   const {pathname} = useLocation()
-
-  console.log(pathname)
 
   const menuItems = [
     {

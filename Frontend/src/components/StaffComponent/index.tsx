@@ -5,6 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { TrendStatsCard } from '../common/TrendCard';
 import { getUserInfo } from '../../backend/User';
 import { TailSpin } from 'react-loader-spinner';
+import {Pie} from "react-chartjs-2"
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -15,24 +16,24 @@ interface StaffMember {
 }
 
 interface tasksProps {
-  id:number,
-  name: string,
-  status: "not started" | "in progress" | "completed",
+  id?:number,
+  taskName: string,
+  taskStatus: "not started" | "in progress" | "completed",
   timeStarted?: Date;
-  deadline?: Date;
+  deadLine?: Date;
+  assignedUser: string;
+  description: string;
 }
 
 
 const StaffComponent = () => {
 
-  const [admin, setAdmin] = useState<AuthDataProps>()
-  const [data, setData] = useState<StaffMember[] | any[]>([])
-  const [assignedUsers, setAssignedUsers] = useState<any[]>([])
-  const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
+  
   const[isLoading, setIsLoading] = useState<boolean>(false)
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
-  const [userTasks, setUserTasks] = useState([])
+  const [taskCategory, setTaskCategory] = useState({completedTasks: [] as tasksProps[], inProgressTasks: [] as tasksProps[], unFinishedTasks: [] as tasksProps[]})
+  const [userTasks, setUserTasks] = useState<any[]>([])
   
   const {userData} = UseGlobalAuth()
 
@@ -52,21 +53,26 @@ const StaffComponent = () => {
       try {
         const data = await getUserInfo()
       setUserTasks(data.tasks)
-      let finishedUsers:any[] = []
-      let unAssignedUsers:any[] = []
-      for(let i=0; i < data.length; i++) {
-        if(data[i].tasks.length > 0) { 
-          finishedUsers.push(data[i])
+      let unFinishedTasks:tasksProps[] = []
+      let inProgressTasks:tasksProps[] = []
+      let completedTasks:tasksProps[] = []
+
+      for(let i= 0; i < data.tasks?.length; i++){
+        if(data.tasks[i].taskStatus == "not started"){
+          unFinishedTasks.push(data.tasks[i])
         }
-        else if(data[i].tasks.length <= 0){
-          unAssignedUsers.push(data[i])
+
+        else if(data.tasks[i].taskStatus == "in progress"){
+          inProgressTasks.push(data.tasks[i])
         }
-       } 
-       setAssignedUsers(finishedUsers)
-       setUnAssignedUsers(unAssignedUsers)
+
+        else if(data.tasks[i].taskStatus == "completed"){
+          completedTasks.push(data.tasks[i])
+        }
+      }
+      setTaskCategory({completedTasks, unFinishedTasks, inProgressTasks})
        setIsLoading(false)
       } catch (error:any) {
-         console.log(error)
          throw new Error(error)
       }
       
@@ -74,31 +80,31 @@ const StaffComponent = () => {
     handleGetUserInfo()
   },[])
 
-  //
   
-  // const ddata = {
-  //   labels: ["finished", "in progress", "not started"],
-  //   datasets: [
-  //     {
-  //       label: '# of Votes',
-  //       data: [8, 5, 3],
-  //       backgroundColor: [
-  //         'rgba(255, 99, 132, 0.2)',
-  //         'rgba(54, 162, 235, 0.2)',
-  //         'rgba(255, 206, 86, 0.2)',
-  //       ],
-  //       borderColor: [
-  //         'rgba(255, 99, 132, 1)',
-  //         'rgba(54, 162, 235, 1)',
-  //         'rgba(255, 206, 86, 1)',
-  //       ],
-  //       borderWidth: 2,
-  //     },
-  //   ],
-  // };
+  
+  const data = {
+    labels: ["finished", "in progress", "not started"],
+    datasets: [
+      {
+        label: '# of Votes',
+        data: [8, 5, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 2,
+      },
+    ],
+  };
 
 
-  //
+  
 
 
   if(!userData || userData.isAdmin) {
@@ -138,9 +144,9 @@ const StaffComponent = () => {
      />
      <hr className='xl:ml-[-1em] border-[2px] bg-[#000] '/> 
      <TrendStatsCard
-     title="Number Of Your Completed Tasks"
+     title="Number Of Your Unfinished Tasks"
      trendIcon={''}
-     amount={assignedUsers.length}
+     amount={taskCategory.unFinishedTasks.length}
      trendtitle="Last 30 days"
      amountClassName={0 ? 'text-red-500' : ''}
      />
@@ -148,24 +154,26 @@ const StaffComponent = () => {
      <TrendStatsCard
      title="Number Of Your Tasks in Progress"
      trendIcon={''}
-     amount={unAssignedUsers.length}
+     amount={taskCategory.inProgressTasks.length}
      trendtitle="Last 30 days"
      amountClassName={0 ? 'text-red-500' : ''}
      />
        <hr className='xl:ml-[-1em] bg-[#000] xl:mr-[-1em]'/> 
        <TrendStatsCard
-     title="Number Of Your Uncompleted Tasks"
+     title="Number Of Your Completed Tasks"
      trendIcon={''}
-     amount={unAssignedUsers.length}
+     amount={taskCategory.completedTasks.length}
      trendtitle="Last 30 days"
      amountClassName={0 ? 'text-red-500' : ''}
      />
 
-     
-
+  
     </div>
     </div>
     }
+     <div >
+      <Pie data={data}/>
+     </div>
     
     </>
     

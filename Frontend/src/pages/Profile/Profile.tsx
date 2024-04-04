@@ -35,10 +35,9 @@ const Profile = () => {
         const data = await getUserInfo()
         setUserTasks(data)
         setIsloading(false)
-      } catch (error) {
-         console.log(error)
+      } catch (error:any) {
+         throw new Error(error?.message)
       }
-      
     }
     handleGetUserInfo()
   },[])
