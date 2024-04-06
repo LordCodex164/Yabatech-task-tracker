@@ -16,10 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(
-  cors({
-    origin: "https://velvety-lily-713bff.netlify.app",
-    credentials: true,
-  })
+  cors()
 );
 
 mongoose
@@ -35,6 +32,6 @@ app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/task", TaskRoute);
 
-app.listen(8000, () => {
+app.listen(8000 || process.env.PORT, () => {
   console.log("app is connected and listening on port 8000");
 });
