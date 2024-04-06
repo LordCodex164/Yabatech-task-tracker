@@ -74,6 +74,22 @@ const Profile = () => {
                   </div>
                 </div>
 
+                <div className="flex flex-col items-start ">
+                  <label htmlFor="first-name" className="text-[13px] text-[#666666] font-normal">
+                    Username
+                  </label>
+                  <div className="w-full">
+                    <InputComponent
+                      name="firstName"
+                      value={userTasks?.username}
+                      disabled
+                      className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"
+                      type="text"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+
 
               </div>      
 

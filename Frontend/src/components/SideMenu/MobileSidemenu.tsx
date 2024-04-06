@@ -53,23 +53,49 @@ interface MobileProps {
             to: "/profile",
             icon: <ImProfile/>
           },
-          {
-            paths: ['/auth/register'],
-            label: 'Logout',
-            to: '/auth/register',
-            icon: <FiLogOut/>
-          },
         ]
-
-        const renderMenuItem = (menuItem: any) => {
-            const handleMenuItemClick = () => {
+         const isActive = (paths: string[]) => {
+                return paths.some((path) => pathname.startsWith(path));
+              }; 
+              
+              const handleMenuItemClick = () => {
               setIsMenuOpen(false);
               handleShowMobileMenu();
             };
 
-            const isActive = (paths: string[]) => {
-                return paths.some((path) => pathname.startsWith(path));
-              };
+
+        const renderMenuItem = (menuItem: any) => {
+           
+            
+
+              if(menuItem.label === "Logout" ) {
+                return (
+                <li key={menuItem.to}>
+                 <Link to={"/auth"}
+                  onClick={logout}
+                  className={cx({
+                    'h-[55px] flex justify-center items-center mt-[150px]': true,
+                      'w-full': !isCollapsed,
+                      'w-[59px]': isCollapsed,
+                      "hover:before:content-[''] hover:before:w-[10px] ": true,
+                      'hove] hover:before:h-[55px] hover:bg-[#e75045] text-white': true,
+                      'hover:before:relative  hover:rounded-r-[5px]': true,
+                      " visited:text-red-800": true
+                  })}
+                  >
+                     <div>
+                      {!isCollapsed && 
+                      <div className='text-[#000] text-center font-extralight text-[30px] flex gap-5 items-center'> 
+                         {menuItem.label}
+                         <span>{menuItem.icon}</span>
+                      </div>
+                      }
+                     </div>
+                  </Link>
+                </li>
+                )
+                
+              }
 
             return (
               <li key={menuItem.to} className="group mb-3 mt-4">

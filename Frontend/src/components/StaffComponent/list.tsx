@@ -76,7 +76,7 @@ const view = () => {
             <p>{item.taskName}</p>
             <p className='text-[20px] font-bold'>Status: <span className='text-red-500'>{item.taskStatus}</span></p>
         </div>
-        <span className='cursor cursor-pointer bg-[#a0ebcc] hover:bg-[#53e381] hover:text-white px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task to Update</span>
+        <span className='cursor cursor-pointer bg-[#a0ebcc] hover:bg-[#53e381] hover:text-white whitespace-nowrap px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task</span>
     </div>
     )) : (
     <span>You don't have Tasks</span>

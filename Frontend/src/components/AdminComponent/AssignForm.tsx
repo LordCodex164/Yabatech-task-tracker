@@ -4,7 +4,6 @@ import { selectedValues } from '../../constants';
 import { InputComponent } from '../common/InputComponent';
 import { createTasks } from '../../backend/Task';
 import { useStaffStore } from '../../state/useStaffStore';
-import io from "socket.io-client"
 
  // Connect to the Socket.io server
 
