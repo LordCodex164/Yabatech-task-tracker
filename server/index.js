@@ -15,9 +15,9 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(
-  cors()
-);
+app.use(cors({
+  origin: 'https://velvety-lily-713bff.netlify.app/'
+}));
 
 mongoose
   .connect(process.env.mongoUrL)
