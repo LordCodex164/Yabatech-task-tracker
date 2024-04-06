@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import AssignForm from './AssignForm';
 import { useStaffStore, userType } from '../../state/useStaffStore';
+import ViewTaskAdmin from './ViewTaskAdmin';
+
 
 export interface StaffMember {
     id: number;
@@ -53,35 +55,14 @@ const Assign = () => {
  const [staffId, setStaffId] = useState<number>()
  const [staffName, setStaffName] = useState<string>()
  const [staffsState, setStaffsState] = useState<userType[]>([])
-
+ const [showViewForm, setShowViewForm] = useState(false)
+ const [specificStaffState, setSpecificStaffState] = useState<userType>()
  const {staffs, getAllStaffs} = useStaffStore( ( state ) =>  ( {
   staffs: state.staffs,
   getAllStaffs: state.getAllStaffs,
 } ))
 
-  //fetch all the list of staffs
-
-  //assign them tasks by clicking on each staff
-
-  /*
-  const staff = [
-    {
-      id: 1,
-      name,
-      tasks: []
-    }
-  ]
-
-  let tasks = []
-
-  for(key in staff) {
-    key.tasks 
-  }
-  */
-
-  
-   
-
+ 
   useEffect(() => {
    setData(dummyData)
 
@@ -101,11 +82,24 @@ const Assign = () => {
   }, [])
 
   const openForm = (id:number, name:string) => {
+    setShowViewForm(false)
     setIsSideAssignForm(true)
-    console.log(id)
-    console.log(name)
     setStaffId(id)
     setStaffName(name)
+  }
+
+  const openViewForm = (id:number) => {
+    console.log(id)
+    setStaffId(id)
+    setShowViewForm(true)
+    const specificiedStaff = staffsState.find((item:any) => item._id === id)
+    console.log(specificiedStaff)
+    setSpecificStaffState(specificiedStaff)
+    console.log(specificStaffState)
+  }
+
+  const closeViewForm = () => {
+    setShowViewForm(false)
   }
 
   const closeForm = () => {
@@ -128,31 +122,29 @@ const Assign = () => {
     <div className='px-[40px] py-[40px]'>
       <div className='lg:px-[40px] pt-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
         <span className='pl-[50px] font-bold text-[30px]'>List of Staffs</span>
-        <ul>
+        <ul className='flex flex-col'>
           {staffsState.map((item) => (
           <div key={item?._id}>
-            <li className='flex my-[5px] flex-col lg:flex-row items-start justify-between px-[50px]'>
+            <li className='flex my-[5px] flex-row items-start justify-between px-[50px]'>
              <div className='flex flex-col'>
               <p>{item?.fullName}</p>  
               <p>{item?.email}</p>
              </div>
            
              {item?.tasks.length > 0 ?
-            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username)}> View Tasks </button> :
+            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openViewForm(item._id)}> View Tasks </button> :
             <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username)}>Assign</button>
             }
 
-
-             
-             
           </li>
           {isSideAssignForm && <AssignForm  create={handleCreateTasks} staffId={staffId} username={staffName}  close={closeForm}/> }
-          </div>
+
           
+          </div>
         ))}
         </ul>
-       
-    </div>
+       {showViewForm && <ViewTaskAdmin open={openForm} close={closeViewForm} specificStaff={specificStaffState} staffId={staffId} /> }
+    </div> 
     </div>
   )
 }

@@ -10,8 +10,18 @@ export interface userType{
     isAdmin: boolean,
     createdAt: string,
     updatedAt: string,
-    tasks: []
+    tasks: tasksProps[]
 }
+
+export interface tasksProps {
+    id?:number,
+    taskName: string,
+    taskStatus: "not started" | "in progress" | "completed",
+    timeStarted?: Date;
+    deadLine?: Date;
+    assignedUser: string;
+    description: string;
+  }
 
 interface UseStore {
     staffs: userType[];
@@ -26,7 +36,6 @@ export const useStaffStore = create<UseStore>((set, get) => ({
     set({isLoading: true})
      try {
     const staffs = await getAllUsers ()
-    console.log(staffs) 
     set({staffs, isLoading: true})
     return staffs
      } catch (error:any) {

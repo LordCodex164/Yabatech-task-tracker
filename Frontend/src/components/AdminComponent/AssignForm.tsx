@@ -4,6 +4,9 @@ import { selectedValues } from '../../constants';
 import { InputComponent } from '../common/InputComponent';
 import { createTasks } from '../../backend/Task';
 import { useStaffStore } from '../../state/useStaffStore';
+import io from "socket.io-client"
+
+ // Connect to the Socket.io server
 
 interface AssignFormProps {
     close: () => void;
@@ -19,7 +22,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [priority, setPrority] = useState("")
-    const [deadline, setDeadline] = useState<boolean>(true)
+    const [deadline, setDeadline] = useState<Date>()
     const [isLoading, setIsLoading] = useState(false)
 
 
@@ -54,7 +57,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
 
   return (
     <>
-    <div id='drawer-navigation' className=' fixed right-0 top-0 bottom-0 shadow-transparent bg-blue-300 px-5 py-10 min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
+    <div className='fixed right-0 top-0 bottom-0 shadow-transparent bg-blue-300 px-5 py-10 min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
        {/* let create the menu */}
        <div className='flex gap-[10px] items-center'>
 
@@ -69,7 +72,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
 
        <div className='py-4 overflow-y-auto'>
          
-         <h2>Create a Task For this Staff</h2>
+         <h2>Assign a Task For this Staff</h2>
 
           <div className='w-full mt-[20px]'>
           
@@ -130,7 +133,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
              </div>
 
              <button type='button' onClick={() => handleCreateForm(name, description, username as string, "high")} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
-                {isLoading ? "saving" : "save" }
+                {isLoading ? "saving" : "Assign" }
              </button>
           </form>
         

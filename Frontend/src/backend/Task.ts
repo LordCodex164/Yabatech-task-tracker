@@ -43,6 +43,17 @@ export const updateTask = async (id:number, data:{taskStatus: string}) => {
     }
 }
 
+export const deleteTask = async (id:number) => {
+   
+  try {
+     const response = await axios.delete(`${BASE_URL}/task/deleteTask/${id}`)
+     return response.data
+  } catch (error:any) {
+      toast.error(error?.message)
+      throw new Error(error?.message)
+  }
+}
+
 export const getAllTasks = async (username:string) => {
    
      try {
