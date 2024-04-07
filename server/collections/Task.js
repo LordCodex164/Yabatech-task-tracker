@@ -9,6 +9,10 @@ export const createTask = async (req, res) => {
       assignedUser: req.body.assignedUser,
       deadLine: req.body.deadLine,
       taskStatus: req.body.taskStatus,
+
+  assignedBy: req.body.assignedBy,
+priority: req.body.priority
+   
     });
 
     const theAssignedUser = await User.findOne({
