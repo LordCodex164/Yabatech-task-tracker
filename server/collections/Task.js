@@ -11,7 +11,7 @@ export const createTask = async (req, res) => {
       taskStatus: req.body.taskStatus,
 
   assignedBy: req.body.assignedBy,
-priority: req.body.priority
+priority: req.body.priority,
    
     });
 
