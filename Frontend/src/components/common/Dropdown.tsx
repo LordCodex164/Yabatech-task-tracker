@@ -30,7 +30,7 @@ const DropDownComponent = ({options, selectedValue, setSelectedValue, selected,s
                         {options.map((item) => (
                         <li onClick={() => {
                           console.log(item.value)
-                          setSelectedValue({taskStatus : item.value})
+                          setSelectedValue(item.value)
                           }} className={`list list-none justify-start px-3 py-1 cursor-pointer w-full text-center flex ${item.label === selectedValue && "bg-green-100 text-[#139C33] whitespace-nowrap rounded"} inline-flex flex-row`} key={item.label}>
                           {item.value}
                         </li>

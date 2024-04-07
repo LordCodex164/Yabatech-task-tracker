@@ -15,16 +15,18 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
+
 
 mongoose
   .connect(process.env.mongoUrL)
   .then(() => console.log("db connected"))
   .catch((err) => console.log("db is not connected. This is the" + err));
  
- app.get('/', (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-  })
+ 
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });

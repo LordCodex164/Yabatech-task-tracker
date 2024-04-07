@@ -10,7 +10,7 @@ import { useStaffStore } from '../../state/useStaffStore';
 interface AssignFormProps {
     close: () => void;
     staffId: number | undefined;
-    create: (id:number, name:string, description:string, priority:string, deadline:boolean) => void | any;
+    create: (id:number, name:string, description:string, priority:string, deadline:string) => void | any;
     username: string | undefined
 }
 
@@ -21,7 +21,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [priority, setPrority] = useState("")
-    const [deadline, setDeadline] = useState<Date>()
+    const [deadline, setDeadline] = useState<string | undefined>(new Date().toISOString().substring(0, 10))
     const [isLoading, setIsLoading] = useState(false)
 
 
@@ -34,25 +34,31 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
        setTimeout(() => {
         setIsLoading(true)
        }, 3000) 
+
        const taskData = {
         taskName,
         description,
         assignedUser,
-        deadLine,
+        deadLine: deadLine,
         taskStatus: "not started"
        }
+       console.log(taskData)
        try {
-        const data = await createTasks(taskData)
-        console.log(data)
-        await getAllStaffs()
+       const data = await createTasks(taskData)
+       console.log(data)
+       setIsLoading(false)
        } catch (error) {
          console.log(error)
+         setIsLoading(false)
        }
-         
-        // setIsLoading(false)
+        
          close()
     }
 
+    const handleCreateDealine = (e:any) => {
+      console.log(e.target.value)
+      setDeadline(e.target.value)
+    }
 
   return (
     <>
@@ -71,7 +77,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
 
        <div className='py-4 overflow-y-auto'>
          
-         <h2>Assign a Task For this Staff</h2>
+         <h2>Assign a Task to this Staff</h2>
 
           <div className='w-full mt-[20px]'>
           
@@ -125,13 +131,14 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
                     value={deadline}
                     className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"
                     placeholder="yabatech@uset.com"
+                    handleChange={handleCreateDealine}
                     // value={formData.email}
                     restrictPreviousDates
                   />   
                 </div>
              </div>
 
-             <button type='button' onClick={() => handleCreateForm(name, description, username as string, "high")} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
+             <button type='button' onClick={() => handleCreateForm(name, description, username as string, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
                 {isLoading ? "saving" : "Assign" }
              </button>
           </form>

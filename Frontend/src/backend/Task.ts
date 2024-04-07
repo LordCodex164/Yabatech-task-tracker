@@ -1,10 +1,10 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 
-const BASE_URL = "https://yabatech-task-tracker.onrender.com/api"
+const BASE_URL = "http://localhost:8000/api"
 
 
-export const createTasks = async (data: {taskName: string, description: string, assignedUser: string | undefined, deadLine: string, taskStatus: string}) => {
+export const createTasks = async (data: {taskName: string, description: string, assignedUser: string | undefined, deadLine: string | undefined, taskStatus: string}) => {
    const {taskName, description, assignedUser, deadLine, taskStatus} = data
    const taskData = {
     taskName,
@@ -13,6 +13,7 @@ export const createTasks = async (data: {taskName: string, description: string, 
     deadLine,
     taskStatus
    }
+   console.log(taskData)
     try {
        const response = await axios.post(`${BASE_URL}/task/createTask`, taskData)
        return response

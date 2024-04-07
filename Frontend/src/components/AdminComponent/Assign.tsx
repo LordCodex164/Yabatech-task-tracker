@@ -16,8 +16,7 @@ export interface StaffMember {
     name: string,
     status: "not started" | "in progress" | "completed",
     priority: "high" | "low",
-    timeStarted?: Date;
-    deadline?: boolean;
+    deadline?: Date;
   }
   
   export const dummyData: StaffMember[] = [
