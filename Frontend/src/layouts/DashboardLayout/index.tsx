@@ -35,9 +35,6 @@ const MainLayout = () => {
 
 // console.log(user)
 
-if(!cookies.access_token) {
-  return <Navigate to={"/auth"}/>
-}
 
   return (
     <>
