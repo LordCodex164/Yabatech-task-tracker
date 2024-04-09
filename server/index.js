@@ -22,7 +22,7 @@ const corsOptions = {
 };
 
 // Use cors with the above options for all routes
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '"*"'); // Specific origin
