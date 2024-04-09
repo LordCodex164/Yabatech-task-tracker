@@ -1,4 +1,5 @@
-[build]
-  command = "npm run build"
-  functions = "functions"
-  publish = "dist"
+[[redirects]]
+  force = true
+  from = "/"
+  status = 200
+  to = "https://task-tracker-server-bmfb.onrender.com/api"
