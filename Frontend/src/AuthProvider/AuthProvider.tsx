@@ -6,7 +6,8 @@ import { register, Signin } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
 import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
-// import jwt from "jsonwebtoken"
+import { useJwt } from "react-jwt";
+
 export interface AuthDataProps {
         name: string;
         email: string;
@@ -31,6 +32,7 @@ export const AuthProvider = ({children}:any) => {
     const [role, setRole] = useState<string>("")
     const [allStaffs, setAllStaffs] = useState([])
     const [cookies, setCookies] = useCookies()
+
 
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
@@ -102,11 +104,11 @@ export const AuthProvider = ({children}:any) => {
       try {
         const response = await Signin(user)
         const {data} = response    
-        const token = String(cookies.access_token)
+        const token = cookies.access_token
         if(token) {
-        const decodedValue:any = jwtDecode(token)
+         const { decodedToken } = useJwt(token);
         setUserData(data)
-        if(decodedValue?.isAdmin) {
+        if((decodedToken as any)?.isAdmin) {
            navigate("/admin")
         }
         else {
