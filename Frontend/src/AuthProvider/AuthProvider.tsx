@@ -107,6 +107,7 @@ export const AuthProvider = ({children}:any) => {
         const token = cookies.access_token
         if(token) {
          const { decodedToken } = useJwt(token);
+         console.log(decodedToken)
         setUserData(data)
         if((decodedToken as any)?.isAdmin) {
            navigate("/admin")
