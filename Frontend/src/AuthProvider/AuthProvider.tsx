@@ -102,9 +102,9 @@ export const AuthProvider = ({children}:any) => {
       try {
         const response = await Signin(user)
         const {data} = response    
-        const token = cookies.access_token
-        const secretKey = process.env.jwtKey
-        const decodedValue:any = jwtDecode(token,{ header: true })
+        const token = String(cookies.access_token)
+        if(token) {
+        const decodedValue:any = jwtDecode(token)
         setUserData(data)
         if(decodedValue?.isAdmin) {
            navigate("/admin")
@@ -112,6 +112,9 @@ export const AuthProvider = ({children}:any) => {
         else {
           navigate("/staff")
         }
+        }
+       
+        
       } catch (error:any) {
         toast.error(error?.message || error.message.data)
         throw new Error(error?.message)
