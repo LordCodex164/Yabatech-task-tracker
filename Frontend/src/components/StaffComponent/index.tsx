@@ -86,25 +86,24 @@ const StaffComponent = () => {
     labels: ["finished", "in progress", "not started"],
     datasets: [
       {
-        label: '# of Votes',
-        data: [8, 5, 3],
+        label: '# of Task Category',
+        data: [taskCategory.completedTasks.length, taskCategory.inProgressTasks.length, taskCategory.unFinishedTasks.length],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
+          'rgba(56, 201, 86, 1)',
           'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          
         ],
-        borderColor: [
+        borderColor: [ 
+          'rgba(56, 255, 86, 1)',
+          'rgba(54, 162, 235, 1)', 
           'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
+         
         ],
         borderWidth: 2,
       },
     ],
   };
-
-
-  
 
 
   if(!userData || userData.isAdmin) {
@@ -130,11 +129,15 @@ const StaffComponent = () => {
     
      <p  className='text-right pt-[10px] pr-[30px]'>Welcome Staff <span className='font-bold '>{username}</span> </p> 
      
-      <div className='px-[20px] pt-[10px]'>
+    {userTasks.length < 1 ?
+    
+    <div className='px-[20px] pt-[10px]'>
         <p>You currently  don't have any avaliable reports</p>
       </div>
 
-    <div className='mx-[20px]'>
+      :
+
+      <div className='mx-[20px]'>
       <TrendStatsCard
      title="Number of Your Tasks"
      trendIcon={''}
@@ -167,13 +170,19 @@ const StaffComponent = () => {
      amountClassName={0 ? 'text-red-500' : ''}
      />
 
-  
+   <div className='mt-[20px]'>
+       <span>Report Chart for your Tasks</span>
+      <Pie className='max-w-[250px] max-h-[310px]' data={data}/>
+     </div>
     </div>
+  
+  
+    } 
+
+    
     </div>
     }
-     <div >
-      <Pie data={data}/>
-     </div>
+    
     
     </>
     

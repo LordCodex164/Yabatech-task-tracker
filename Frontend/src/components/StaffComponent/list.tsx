@@ -59,7 +59,7 @@ const view = () => {
 
       <div className='flex flex-row items-center gap-[40px] xl:gap-[60px]'>
         <button onClick={() => setTaskStatus("all")} className={`px-[14px] py-[12px] rounded-full ${taskStatus == "all" &&  "bg-[#fcd4d4]"} shadow-2xl`}> 
-          My Tasks
+          All Tasks
           </button>
 
 
@@ -76,7 +76,7 @@ const view = () => {
             <p>{item.taskName}</p>
             <p className='text-[20px] font-bold'>Status: <span className='text-red-500'>{item.taskStatus}</span></p>
         </div>
-        <span className='cursor cursor-pointer bg-[#a0ebcc] hover:bg-[#53e381] hover:text-white px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task</span>
+        <span className='cursor cursor-pointer bg-[#a0ebcc] hover:bg-[#53e381] hover:text-white whitespace-nowrap px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task</span>
     </div>
     )) : (
     <span>You don't have Tasks</span>

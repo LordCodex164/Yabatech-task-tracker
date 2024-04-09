@@ -15,7 +15,6 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-// CORS options
 const corsOptions = {
   origin: "https://dazzling-praline-5c3ff0.netlify.app",
   methods: ["GET", "POST", "PUT", "DELETE"], // Example methods you may want to allow
@@ -25,7 +24,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", '"*"'); // Specific origin
+  res.header("Access-Control-Allow-Origin", "*"); // Specific origin
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"

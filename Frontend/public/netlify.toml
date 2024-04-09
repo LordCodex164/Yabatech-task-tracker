@@ -1,0 +1,5 @@
+[[redirects]]
+  force = true
+  from = "/"
+  status = 200
+  to = "https://task-tracker-server-bmfb.onrender.com/api"

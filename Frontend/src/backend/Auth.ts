@@ -1,7 +1,7 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 
-const BASE_URL = "http://localhost:8000/api"
+const BASE_URL = "https://yabatech-task-tracker.onrender.com/api"
 
 export const register = async (data : {fullName: string; username:string, email: string, password:string, isAdmin:boolean}) => {
     const  {fullName, username, email, password, isAdmin} = data

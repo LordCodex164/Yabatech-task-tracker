@@ -2,59 +2,75 @@ import React, {useEffect, useState} from 'react'
 import DropDownComponent from '../common/Dropdown';
 import { selectedValues } from '../../constants';
 import { InputComponent } from '../common/InputComponent';
-import { createTasks } from '../../backend/Task';
+import { createTasks, } from '../../backend/Task';
 import { useStaffStore } from '../../state/useStaffStore';
+import { UseGlobalAuth } from '../../AuthProvider/AuthProvider';
+import { getAllUsers } from '../../backend/User';
+import { useNavigate } from 'react-router-dom';
 
 interface AssignFormProps {
     close: () => void;
     staffId: number | undefined;
-    create: (id:number, name:string, description:string, priority:string, deadline:boolean) => void | any;
-    username: string | undefined
+    username: string | undefined;
+    email: string
 }
 
-const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
+const AssignForm = ({close, staffId, username, email}: AssignFormProps) => {
 
     const[selected, setSelected] = useState(false)
     const [selectedValue, setSelectedValue] = useState("low")
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [priority, setPrority] = useState("")
-    const [deadline, setDeadline] = useState<boolean>(true)
+    const [deadline, setDeadline] = useState<string | undefined>(new Date().toISOString().substring(0, 10))
     const [isLoading, setIsLoading] = useState(false)
 
+    const {userData} = UseGlobalAuth()
+
+    const navigate = useNavigate()
 
     const {getAllStaffs} = useStaffStore( ( state ) =>  ( {
       staffs: state.staffs,
       getAllStaffs: state.getAllStaffs,
     } ))
 
-    const handleCreateForm = async (taskName:string, description:string, assignedUser:string, deadLine:string) => {
+    const handleCreateForm = async (taskName:string, description:string, assignedUser:string, priority:string, deadLine:string) => {
        setTimeout(() => {
         setIsLoading(true)
        }, 3000) 
+
        const taskData = {
         taskName,
         description,
-        assignedUser,
-        deadLine,
+        assignedUser: email,
+        assignedBy: userData.email,
+        Priority: priority,
+        deadLine: deadLine,
         taskStatus: "not started"
        }
+       console.log(taskData)
        try {
-        const data = await createTasks(taskData)
-        console.log(data)
-        await getAllStaffs()
+       const data = await createTasks(taskData)
+       navigate("/admin")
+       getAllStaffs()
+       console.log(data)
+       setIsLoading(false)
        } catch (error) {
          console.log(error)
+         setIsLoading(false)
        }
-         
-        // setIsLoading(false)
+        
          close()
     }
 
+    const handleCreateDealine = (e:any) => {
+      console.log(e.target.value)
+      setDeadline(e.target.value)
+    }
 
   return (
     <>
-    <div id='drawer-navigation' className=' fixed right-0 top-0 bottom-0 shadow-transparent bg-blue-300 px-5 py-10 min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
+    <div className='fixed right-0 top-0 bottom-0 shadow-transparent bg-blue-300 px-5 py-10 min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
        {/* let create the menu */}
        <div className='flex gap-[10px] items-center'>
 
@@ -69,7 +85,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
 
        <div className='py-4 overflow-y-auto'>
          
-         <h2>Create a Task For this Staff</h2>
+         <h2>Assign a Task to this Staff</h2>
 
           <div className='w-full mt-[20px]'>
           
@@ -123,14 +139,15 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
                     value={deadline}
                     className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"
                     placeholder="yabatech@uset.com"
+                    handleChange={handleCreateDealine}
                     // value={formData.email}
                     restrictPreviousDates
                   />   
                 </div>
              </div>
 
-             <button type='button' onClick={() => handleCreateForm(name, description, username as string, "high")} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
-                {isLoading ? "saving" : "save" }
+             <button type='button' onClick={() => handleCreateForm(name, description, username as string, priority, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
+                {isLoading ? "saving" : "Assign" }
              </button>
           </form>
         

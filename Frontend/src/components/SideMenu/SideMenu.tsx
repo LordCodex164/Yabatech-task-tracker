@@ -20,6 +20,8 @@ const SideMenu = () => {
   const token = cookies.access_token
   const decodedValue:any = jwtDecode(token as string)
 
+  console.log(decodedValue)
+
   const {pathname} = useLocation()
 
   const menuItems = [
@@ -125,7 +127,7 @@ const SideMenu = () => {
   }, [])
 
   return (
-    <aside className={cx("relative text-center bg-[#8996d7] border-r-[2px] border-[#8879e6] pt-[40px] px-[15px]", {
+    <aside className={cx("relative hidden sm:block top-0 bottom-0 min-h-screen text-center bg-[#8996d7] border-r-[2px] border-[#8879e6] pt-[40px] px-[15px]", {
       "w-[50px]": isCollapsed,
       "w-[280px]": !isCollapsed
     })}>

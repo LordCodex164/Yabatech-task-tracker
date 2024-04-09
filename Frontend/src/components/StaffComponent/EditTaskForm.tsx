@@ -3,6 +3,7 @@ import { updateTask } from '../../backend/Task'
 import DropDownComponent from '../common/Dropdown'
 import { selectedTaskValues } from '../../constants'
 import { Navigate, useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 const EditTaskForm = ({id}: {id:number}) => {
 
   const [isLoading, setIsloading] = useState(false)
@@ -18,6 +19,7 @@ const EditTaskForm = ({id}: {id:number}) => {
 
     try {
       await updateTask(id, selectedTaskValue)
+      toast.success("you have successfully updated your task")
       navigate("/staff/listTask")
       setIsloading(false)
     } catch (error) {
@@ -29,7 +31,7 @@ const EditTaskForm = ({id}: {id:number}) => {
   return (
     <div className='border px-[30px] border-[#000] bg-[#fff] flex flex-col text-center items-center min-h-[300px]'>
         <form onSubmit={handleSubmit} action="">
-          <p className='pl-[20px] mb-[40px]'>Update Task</p>
+          <p className='pl-[20px] mb-[40px] pt-[35px]'>Update Task</p>
           
           <DropDownComponent selected={taskSelected} setSelected={setTaskSelected} selectedValue={selectedTaskValue.taskStatus} setSelectedValue={setSelectedTaskValue} options={selectedTaskValues}/>
 

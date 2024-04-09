@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import SideMenu from '../../components/SideMenu/SideMenu'
 import TopBar from '../../components/TopBar/TopBar'
 import { useCookies } from "react-cookie";
-
+import { UseGlobalAuth } from '../../AuthProvider/AuthProvider';
 interface User {
   name: string, 
   email: string, 
@@ -20,7 +20,7 @@ const MainLayout = () => {
 //   const user = localStorage.getItem                           
 // */
 
-// const {userData} = UseGlobalAuth()
+ const {userData} = UseGlobalAuth()
 
 // useEffect(() => {
 //  setUser(userData)
@@ -35,8 +35,8 @@ const MainLayout = () => {
 
 // console.log(user)
 
-if(!cookies.access_token) {
-  <Navigate to={"/auth"}/>
+if(!cookies.access_token && !userData) {
+  return <Navigate to={"/auth"}/>
 }
 
   return (

@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { STORAGE_TOKEN } from './constants';
 import { useCookies } from 'react-cookie';
 
 export default function Root() {
