@@ -5,6 +5,8 @@ const TaskSchema = new mongoose.Schema(
     taskName: { type: String, require: true, unique: true },
     description: { type: String },
     assignedUser: { type: String, require: true },
+    assignedBy: { type: String, require: true },
+    Priority: { type: String, require: true },   
     deadLine: { type: String, require: true },
     taskStatus: { type: String, default: "not started" },
   },

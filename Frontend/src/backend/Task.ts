@@ -4,13 +4,15 @@ import toast from "react-hot-toast"
 const BASE_URL = "http://localhost:8000/api"
 
 
-export const createTasks = async (data: {taskName: string, description: string, assignedUser: string | undefined, deadLine: string | undefined, taskStatus: string}) => {
-   const {taskName, description, assignedUser, deadLine, taskStatus} = data
+export const createTasks = async (data: {taskName: string, description: string, assignedUser: string | undefined, deadLine: string | undefined, taskStatus: string, Priority:string, assignedBy:string,}) => {
+   const {taskName, description, assignedUser, deadLine, Priority, assignedBy, taskStatus} = data
    const taskData = {
     taskName,
     description,
     assignedUser,
     deadLine,
+    Priority,
+    assignedBy,
     taskStatus
    }
    console.log(taskData)

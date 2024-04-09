@@ -56,6 +56,7 @@ const Assign = () => {
  const [staffsState, setStaffsState] = useState<userType[]>([])
  const [showViewForm, setShowViewForm] = useState(false)
  const [specificStaffState, setSpecificStaffState] = useState<userType>()
+ const [staffemail, setStaffEmail] = useState("")
  const {staffs, getAllStaffs} = useStaffStore( ( state ) =>  ( {
   staffs: state.staffs,
   getAllStaffs: state.getAllStaffs,
@@ -66,25 +67,32 @@ const Assign = () => {
    setData(dummyData)
 
    const handleGetAllTasks = async () => {
-   const data = await getAllStaffs()
-  let filteredStaffs = []
-   for(let i = 0; i < data.length; i++) {
-    staffs[i]
-    if(data[i].isAdmin == false) {
+    try {
+      const data = await getAllStaffs()
+      console.log(data)
+      let filteredStaffs = []
+      for(let i = 0; i < data.length; i++) {
+      staffs[i]
+      if(data[i].isAdmin == false) {
       filteredStaffs.push(staffs[i])
+      }
+      }
+     setStaffsState(filteredStaffs)
+    } catch (error:any) {
+      throw new Error(error?.message)
     }
-   }
-   setStaffsState(filteredStaffs)
+   
    }
    handleGetAllTasks()
    
   }, [])
 
-  const openForm = (id:number, name:string) => {
+  const openForm = (id:number, name:string, email:string) => {
     setShowViewForm(false)
     setIsSideAssignForm(true)
     setStaffId(id)
     setStaffName(name)
+    setStaffEmail(email)
   }
 
   const openViewForm = (id:number) => {
@@ -105,16 +113,16 @@ const Assign = () => {
     setIsSideAssignForm(false)
   }
 
-  const handleCreateTasks = (id:number, name:string, description:string, priority:string, deadine:boolean) => {
-    let task = {
-      name, 
-      description,
-      priority,
-      deadine
-     }
-   const updatedData = data.map((item) => item.id == id ? {...item, tasks: [...item.tasks, task]} : item )
-   setData(updatedData)
-  }
+  // const handleCreateTasks = (id:number, name:string, description:string, priority:string, deadLine:boolean) => {
+  //   let task = {
+  //     name, 
+  //     description,
+  //     priority,
+  //     deadLine
+  //    }
+  //  const updatedData = data.map((item) => item.id == id ? {...item, tasks: [...item.tasks, task]} : item )
+  //  setData(updatedData)
+  // }
 
 
   return (
@@ -132,11 +140,11 @@ const Assign = () => {
            
              {item?.tasks.length > 0 ?
             <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openViewForm(item._id)}> View Tasks </button> :
-            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username)}>Assign</button>
+            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username, item.email)}>Assign</button>
             }
 
           </li>
-          {isSideAssignForm && <AssignForm  create={handleCreateTasks} staffId={staffId} username={staffName}  close={closeForm}/> }
+          {isSideAssignForm && <AssignForm email={staffemail}  staffId={staffId} username={staffName}  close={closeForm}/> }
 
           
           </div>

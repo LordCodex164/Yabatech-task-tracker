@@ -30,3 +30,23 @@ export const sendTaskNotification = async (assignerEmail, assignedUserEmail, tas
     console.error('Error sending task notification:', error);
   }
 };
+
+export const sendReminderTaskNotification = async (assignerEmail, assignedUserEmail, taskStatus) => {
+  try {
+    // Compose the email message
+    const mailOptions = {
+      from: assignerEmail,
+      to: assignedUserEmail,
+      subject: 'Task Status Reminder',
+      text: `Dear ${assignedUserEmail}, Kindly Complete your unfinished task.
+       Best regards,
+       ${assignerEmail}`,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+    console.log('Task notification sent successfully');
+  } catch (error) {
+    console.error('Error sending task notification:', error);
+  }
+};

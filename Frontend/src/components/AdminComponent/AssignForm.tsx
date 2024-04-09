@@ -2,19 +2,20 @@ import React, {useEffect, useState} from 'react'
 import DropDownComponent from '../common/Dropdown';
 import { selectedValues } from '../../constants';
 import { InputComponent } from '../common/InputComponent';
-import { createTasks } from '../../backend/Task';
+import { createTasks, } from '../../backend/Task';
 import { useStaffStore } from '../../state/useStaffStore';
-
- // Connect to the Socket.io server
+import { UseGlobalAuth } from '../../AuthProvider/AuthProvider';
+import { getAllUsers } from '../../backend/User';
+import { useNavigate } from 'react-router-dom';
 
 interface AssignFormProps {
     close: () => void;
     staffId: number | undefined;
-    create: (id:number, name:string, description:string, priority:string, deadline:string) => void | any;
-    username: string | undefined
+    username: string | undefined;
+    email: string
 }
 
-const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
+const AssignForm = ({close, staffId, username, email}: AssignFormProps) => {
 
     const[selected, setSelected] = useState(false)
     const [selectedValue, setSelectedValue] = useState("low")
@@ -24,13 +25,16 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
     const [deadline, setDeadline] = useState<string | undefined>(new Date().toISOString().substring(0, 10))
     const [isLoading, setIsLoading] = useState(false)
 
+    const {userData} = UseGlobalAuth()
+
+    const navigate = useNavigate()
 
     const {getAllStaffs} = useStaffStore( ( state ) =>  ( {
       staffs: state.staffs,
       getAllStaffs: state.getAllStaffs,
     } ))
 
-    const handleCreateForm = async (taskName:string, description:string, assignedUser:string, deadLine:string) => {
+    const handleCreateForm = async (taskName:string, description:string, assignedUser:string, priority:string, deadLine:string) => {
        setTimeout(() => {
         setIsLoading(true)
        }, 3000) 
@@ -38,13 +42,17 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
        const taskData = {
         taskName,
         description,
-        assignedUser,
+        assignedUser: email,
+        assignedBy: userData.email,
+        Priority: priority,
         deadLine: deadLine,
         taskStatus: "not started"
        }
        console.log(taskData)
        try {
        const data = await createTasks(taskData)
+       navigate("/admin")
+       getAllStaffs()
        console.log(data)
        setIsLoading(false)
        } catch (error) {
@@ -138,7 +146,7 @@ const AssignForm = ({close, create, staffId, username}: AssignFormProps) => {
                 </div>
              </div>
 
-             <button type='button' onClick={() => handleCreateForm(name, description, username as string, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
+             <button type='button' onClick={() => handleCreateForm(name, description, username as string, priority, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
                 {isLoading ? "saving" : "Assign" }
              </button>
           </form>
