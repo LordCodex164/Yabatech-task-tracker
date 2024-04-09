@@ -15,8 +15,15 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.options('https://dazzling-praline-5c3ff0.netlify.app', cors()) // include before other routes
+// CORS options
+const corsOptions = {
+  origin: 'https://dazzling-praline-5c3ff0.netlify.app',
+  allowedHeaders: ['Content-Type', 'Authorization'], // Example headers you may want to allow
+  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Example methods you may want to allow
+};
 
+// Use cors with the above options for all routes
+app.use(cors(corsOptions));
 
 mongoose
   .connect(process.env.mongoUrL)
@@ -27,6 +34,14 @@ mongoose
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
+});
+
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'https://dazzling-praline-5c3ff0.netlify.app'); // Specific origin
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Include other headers you want to allow
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Include other methods you want to allow
+  next();
 });
 
 app.use("/api/auth", AuthRoute);
