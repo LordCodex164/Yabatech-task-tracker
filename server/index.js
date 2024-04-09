@@ -16,12 +16,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "https://yabatech-task-tracker-1.onrender.com",
-  methods: ["GET", "POST", "PUT", "DELETE"], // Example methods you may want to allow
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 };
 
-// Use cors with the above options for all routes
 app.use(cors(corsOptions));
 
 mongoose
