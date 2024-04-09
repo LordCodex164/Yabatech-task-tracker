@@ -15,12 +15,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.options('*', cors()) // include before other routes
-
-app.use(cors({
-  origin: true,
-  credentials: true
-}));
+app.options('https://dazzling-praline-5c3ff0.netlify.app', cors()) // include before other routes
 
 
 mongoose
