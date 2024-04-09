@@ -25,7 +25,7 @@ const corsOptions = {
 app.use(cors());
 
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', ''); // Specific origin
+  res.header('Access-Control-Allow-Origin', '*'); // Specific origin
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Include other headers you want to allow
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Include other methods you want to allow
   next();
