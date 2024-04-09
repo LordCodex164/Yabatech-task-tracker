@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "https://dazzling-praline-5c3ff0.netlify.app",
+  origin: "https://yabatech-task-tracker-1.onrender.com",
   methods: ["GET", "POST", "PUT", "DELETE"], // Example methods you may want to allow
   credentials: true
 };
