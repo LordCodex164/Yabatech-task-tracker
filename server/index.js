@@ -16,30 +16,21 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'https://dazzling-praline-5c3ff0.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Example methods you may want to allow
+  origin: "https://dazzling-praline-5c3ff0.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE"], // Example methods you may want to allow
 };
 
 // Use cors with the above options for all routes
 app.use(cors(corsOptions));
 
-
-
 mongoose
   .connect(process.env.mongoUrL)
   .then(() => console.log("db connected"))
   .catch((err) => console.log("db is not connected. This is the" + err));
- 
- 
-
-
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
-
-
-
 
 app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);

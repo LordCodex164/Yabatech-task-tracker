@@ -1,6 +1,6 @@
 import Task from "../models/Task.js";
 import User from "../models/User.js";
-import nodecron from "node-cron"
+import nodecron from "node-cron";
 import { sendTaskNotification } from "../notification.js";
 
 export const createTask = async (req, res) => {
@@ -13,7 +13,6 @@ export const createTask = async (req, res) => {
       taskStatus: req.body.taskStatus,
       assignedBy: req.body.assignedBy,
       priority: req.body.priority,
-   
     });
 
     const theAssignedUser = await User.findOne({
@@ -24,33 +23,41 @@ export const createTask = async (req, res) => {
     const savedTask = await newTask.save();
     theAssignedUser.tasks.push(savedTask);
     theAssignedUser.save();
-    
-    sendTaskNotification("adenirandaniel565@gmail", "adenirandaniel575@gmail.com", "not started")
+
+    sendTaskNotification(
+      "adenirandaniel565@gmail",
+      "adenirandaniel575@gmail.com",
+      "not started"
+    );
     //since it is automated, we will now use crom
     // Schedule a cron job to run every day
-   nodecron.schedule('0 0 * * *', async () => {
-  // Get all tasks from the database
-  const tasks = await Task.find();
+    nodecron.schedule("0 0 * * *", async () => {
+      // Get all tasks from the database
+      const tasks = await Task.find();
 
-  // Calculate the reminder date (one day before the deadline) for each task
-  tasks.forEach((task) => {
-    const deadline = new Date(task.deadLine);
-    const reminderDate = new Date(deadline);
-    reminderDate.setDate(reminderDate.getDate() - 1);
+      // Calculate the reminder date (one day before the deadline) for each task
+      tasks.forEach((task) => {
+        const deadline = new Date(task.deadLine);
+        const reminderDate = new Date(deadline);
+        reminderDate.setDate(reminderDate.getDate() - 1);
 
-    // Check if the current date matches the reminder date
-    const currentDate = new Date();
-    if (
-      currentDate.getFullYear() === reminderDate.getFullYear() &&
-      currentDate.getMonth() === reminderDate.getMonth() &&
-      currentDate.getDate() === reminderDate.getDate()
-    ) {
-      // Send the reminder notification to the assigned user
-      sendReminderNotification(task.assignedUser, task.taskName, reminderDate);
-    }
-  });
-});
-    console.log(theAssignedUser)
+        // Check if the current date matches the reminder date
+        const currentDate = new Date();
+        if (
+          currentDate.getFullYear() === reminderDate.getFullYear() &&
+          currentDate.getMonth() === reminderDate.getMonth() &&
+          currentDate.getDate() === reminderDate.getDate()
+        ) {
+          // Send the reminder notification to the assigned user
+          sendReminderNotification(
+            task.assignedUser,
+            task.taskName,
+            reminderDate
+          );
+        }
+      });
+    });
+    console.log(theAssignedUser);
 
     res.status(200).json(savedTask);
   } catch (err) {
@@ -133,7 +140,4 @@ export const getTasks = async (req, res) => {
   }
 };
 
-
-export const getStaffToNotify = () => {
-
-}
+export const getStaffToNotify = () => {};
