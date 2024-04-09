@@ -6,7 +6,7 @@ import { register, Signin } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
 import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
 export interface AuthDataProps {
         name: string;
         email: string;
@@ -104,7 +104,7 @@ export const AuthProvider = ({children}:any) => {
         const {data} = response    
         const token = cookies.access_token
         const secretKey = process.env.jwtKey
-        const decodedValue:any = jwt.verify(token, secretKey as any)
+        const decodedValue:any = jwtDecode(token, secretKey as any)
         setUserData(data)
         if(decodedValue?.isAdmin) {
            navigate("/admin")
