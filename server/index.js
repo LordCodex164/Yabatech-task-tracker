@@ -18,7 +18,7 @@ app.use(cookieParser());
 // CORS options
 const corsOptions = {
   origin: 'https://dazzling-praline-5c3ff0.netlify.app',
-  allowedHeaders: ['Content-Type', 'Authorization'], // Example headers you may want to allow
+  allowedHeaders: ['Content-Type', 'application/json'], // Example headers you may want to allow
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Example methods you may want to allow
 };
 
@@ -38,7 +38,7 @@ app.get("/health", (req, res) => {
 
 
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'https://dazzling-praline-5c3ff0.netlify.app'); // Specific origin
+  res.header('Access-Control-Allow-Origin', '"*"'); // Specific origin
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Include other headers you want to allow
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Include other methods you want to allow
   next();
