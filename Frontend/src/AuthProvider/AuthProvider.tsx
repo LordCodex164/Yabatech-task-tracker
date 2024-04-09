@@ -104,7 +104,7 @@ export const AuthProvider = ({children}:any) => {
         const {data} = response    
         const token = cookies.access_token
         const secretKey = process.env.jwtKey
-        const decodedValue:any = jwtDecode(token, secretKey as any)
+        const decodedValue:any = jwtDecode(token,{ header: true })
         setUserData(data)
         if(decodedValue?.isAdmin) {
            navigate("/admin")
