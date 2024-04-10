@@ -2,9 +2,8 @@ import React, {useState, useContext, createContext, useEffect, useCallback} from
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../backendConnection';
-import { register, Signin } from '../backend/Auth';
+import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
-import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
 import { useJwt } from "react-jwt";
 import {testApi} from "../backend/test"
@@ -102,7 +101,7 @@ export const AuthProvider = ({children}:any) => {
           return;
       }
       try {
-          const response = await Signin({ email, password });
+          const response = await signIn({ email, password });
           const { data } = response;
           setUserData(data);
          localStorage.setItem('cookieToken', JSON.stringify((decodedToken as any).isAdmin));

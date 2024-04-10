@@ -1,39 +1,53 @@
-import axios from "axios"
-import toast from "react-hot-toast"
+const BASE_URL = "https://yabatech-task-tracker.onrender.com/api";
 
-const BASE_URL = "https://yabatech-task-tracker.onrender.com/api"
+export const register = async (data: { fullName: string; username: string; email: string; password: string; isAdmin: boolean }) => {
+  const { fullName, username, email, password, isAdmin } = data;
+  const user = {
+    fullName,
+    username,
+    email,
+    password,
+    isAdmin
+  };
+  try {
+    const response = await fetch(`${BASE_URL}/auth/register`, {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      mode: "no-cors" // Use "no-cors" as the fetch mode
+    });
 
-export const register = async (data : {fullName: string; username:string, email: string, password:string, isAdmin:boolean}) => {
-    const  {fullName, username, email, password, isAdmin} = data
-    const user = {
-        fullName,
-        username,
-        email,
-        password,
-        isAdmin
-    }
-    try {
-       const response = await axios.post(`${BASE_URL}/auth/register`, user)
-       return response.data
-    } catch (error:any) {
-        toast.error(error?.message)
-    }
-}
+    return response.json();
+  } catch (error: any) {
+    // Handle error
+    console.error(error);
+    throw new Error(error?.message);
+  }
+};
 
-export const Signin = async (data : {email: string, password:string}) => {
-   const {email, password} = data
-    const body = {
-        email,
-        password
-    }
-    try {
-       const response = await axios.post(`${BASE_URL}/auth/login`, body, {
-        withCredentials: true
-       })
-       return response
-    } catch (error:any) {
-        toast.error(error?.message)
-        throw new Error(error?.message)
-    }
-}
+export const signIn = async (data: { email: string; password: string }) => {
+  const { email, password } = data;
+  const body = {
+    email,
+    password
+  };
 
+  try {
+    const response = await fetch(`${BASE_URL}/auth/login`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      mode: "no-cors" // Use "no-cors" as the fetch mode
+    });
+
+    return response.json();
+  } catch (error: any) {
+    // Handle error
+    console.error(error);
+    throw new Error(error?.message);
+  }
+};
