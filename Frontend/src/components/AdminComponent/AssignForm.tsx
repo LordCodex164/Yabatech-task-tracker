@@ -15,7 +15,7 @@ interface AssignFormProps {
     email: string
 }
 
-const AssignForm = ({close, staffId, username, email}: AssignFormProps) => {
+const AssignForm = ({close, username, email}: AssignFormProps) => {
 
     const[selected, setSelected] = useState(false)
     const [selectedValue, setSelectedValue] = useState("low")
