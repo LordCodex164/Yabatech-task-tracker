@@ -11,24 +11,17 @@ dotenv.config();
 
 const app = express();
 
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 
 app.use(cookieParser());
 
-<<<<<<< HEAD
-const corsOptions = {
-  origin: "https://dazzling-praline-5c3ff0.netlify.app",
-  methods: ["GET", "POST", "PUT", "DELETE"], // Example methods you may want to allow
-  credentials: true,
-};
-=======
-app.use(cors({
-  credentials: true
-}))
->>>>>>> 1732bfe3da9bc58ccedb198d8c89340e0d1ea065
-
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 
 mongoose
   .connect(process.env.mongoUrL)
@@ -39,7 +32,14 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
 
-app.use("/api/auth", cors({origin: "https://yabatech-task-tracker-1.onrender.com/auth", credentials: true}), AuthRoute);
+app.use(
+  "/api/auth",
+  cors({
+    origin: "https://yabatech-task-tracker-1.onrender.com/auth",
+    credentials: true,
+  }),
+  AuthRoute
+);
 app.use("/api/user", UserRoute);
 app.use("/api/task", TaskRoute);
 
