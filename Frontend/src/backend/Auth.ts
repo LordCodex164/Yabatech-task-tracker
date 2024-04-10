@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:8000/api";
+import axios from "axios"
+
+const BASE_URL = "https://yabatech-task-tracker.onrender.com/api";
 
 export const register = async (data: { fullName: string; username: string; email: string; password: string; isAdmin: boolean }) => {
   const { fullName, username, email, password, isAdmin } = data;
@@ -26,7 +28,7 @@ export const register = async (data: { fullName: string; username: string; email
   }
 };
 
-export const signIn = async (data: { email: string; password: string }) => {
+export const signIn = async (data: { email: string; password: string }) : Promise<any> => {
   const { email, password } = data;
   const body = {
     email,
@@ -41,11 +43,9 @@ export const signIn = async (data: { email: string; password: string }) => {
         "Content-Type": "application/json"
       },
       credentials: 'include',
-    });
+    })
+    return response.json()
 
-    console.log("response", response)
-
-    return response.json();
   } catch (error: any) {
     // Handle error
     console.error(error);

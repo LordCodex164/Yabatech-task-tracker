@@ -1,7 +1,6 @@
-import React, {useState, useContext, createContext, useEffect, useCallback} from 'react'
+import {useState, useContext, createContext, useEffect} from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { serverUrl } from '../backendConnection';
 import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
 import { useCookies } from "react-cookie";
@@ -103,11 +102,11 @@ export const AuthProvider = ({children}:any) => {
       }
       try {
           const response = await signIn({ email, password });
-          const { data } = response;
-          setUserData(data);
+          console.log(response)
+          setUserData(response);
          localStorage.setItem('cookieToken', JSON.stringify((decodedToken as any).isAdmin));
          
-          if(!data.isAdmin) {
+          if(!response.isAdmin) {
             navigate("/admin")
           }
           navigate("/staff")
