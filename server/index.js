@@ -17,18 +17,23 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(cors())
+app.use(cors({
+  credentials: true
+}))
+
 
 mongoose
   .connect(process.env.mongoUrL)
   .then(() => console.log("db connected"))
   .catch((err) => console.log("db is not connected. This is the" + err));
 
-app.get("/", (req, res) => {
-  res.status(200).json({ status: "testing" });
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "UP" });
 });
 
-
+app.use("/api/auth", AuthRoute);
+app.use("/api/user", UserRoute);
+app.use("/api/task", TaskRoute);
 
 app.listen(8000 || process.env.PORT, () => {
   console.log("app is connected and listening on port 8000");

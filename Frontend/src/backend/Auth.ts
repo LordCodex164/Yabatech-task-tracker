@@ -1,7 +1,7 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 
-const BASE_URL = "https://test-server-7tbf.onrender.com"
+const BASE_URL = "https://yabatech-task-tracker.onrender.com/api"
 
 export const register = async (data : {fullName: string; username:string, email: string, password:string, isAdmin:boolean}) => {
     const  {fullName, username, email, password, isAdmin} = data
@@ -27,12 +27,13 @@ export const Signin = async (data : {email: string, password:string}) => {
         password
     }
     try {
-       const response = await axios.post(`${BASE_URL}/auth/login`, body)
+       const response = await axios.post(`${BASE_URL}/auth/login`, body, {
+        withCredentials: true
+       })
        return response
     } catch (error:any) {
         toast.error(error?.message)
         throw new Error(error?.message)
     }
 }
-
 
