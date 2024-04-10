@@ -59,7 +59,7 @@ const Assign = () => {
  const [staffemail, setStaffEmail] = useState("")
  const {staffs, getAllStaffs} = useStaffStore( ( state ) =>  ( {
   staffs: state.staffs,
-  getAllStaffs: state.getAllStaffs,
+  getAllStaffs: state.getAllStaffs
 } ))
 
  
