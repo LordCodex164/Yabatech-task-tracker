@@ -105,7 +105,7 @@ export const AuthProvider = ({children}:any) => {
           const { data } = response;
           if (tokenState) {
               setUserData(data);
-              if ((decodedToken as any)?.isAdmin) {
+              if ((decodedToken as any).isAdmin) {
                   navigate('/admin');
               } else {
                   navigate('/staff');
