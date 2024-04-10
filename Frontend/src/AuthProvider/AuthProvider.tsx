@@ -116,7 +116,7 @@ export const AuthProvider = ({children}:any) => {
   useEffect(() => {
      const getItem = JSON.parse(localStorage.getItem("cookieToken") as unknown as string)
      if(getItem){
-      console.log(getItem)
+     
      }
   }, [])
     useEffect(() => {
