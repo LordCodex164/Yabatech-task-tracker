@@ -32,8 +32,12 @@ export const AuthProvider = ({children}:any) => {
     const [role, setRole] = useState<string>("")
     const [allStaffs, setAllStaffs] = useState([])
     const [cookies, setCookies] = useCookies()
+    const [token, setToken] = useState()
 
+    const tokenState = cookies.access_token;
+    const {decodedToken} = useJwt(tokenState)
 
+    console.log(decodedToken)
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
@@ -90,41 +94,28 @@ export const AuthProvider = ({children}:any) => {
             }    
      }
 
-     const login = async (email:string, password:string) => {
-     
-      const user = {
-        email,
-        password,
-       }
-      
-       if(!email || !password) {
-        toast.error("Please fill in the important details")
-        return;
+  // Login function
+  const login = async (email: string, password: string) => {
+      if (!email || !password) {
+          toast.error('Please fill in the important details');
+          return;
       }
       try {
-        const response = await Signin(user)
-        const {data} = response    
-        const token = cookies.access_token
-        if(token) {
-         const { decodedToken } = useJwt(token);
-         console.log(decodedToken)
-        setUserData(data)
-        if((decodedToken as any)?.isAdmin) {
-           navigate("/admin")
-        }
-        else {
-          navigate("/staff")
-        }
-        }
-       
-        
+          const response = await Signin({ email, password });
+          const { data } = response;
+          if (tokenState) {
+              setUserData(data);
+              if ((decodedToken as any)?.isAdmin) {
+                  navigate('/admin');
+              } else {
+                  navigate('/staff');
+              }
+          }
       } catch (error:any) {
-        toast.error(error?.message || error.message.data)
-        throw new Error(error?.message)
+          toast.error(error?.message || error.message.data);
+          throw new Error(error?.message);
       }
-
-     }
-
+  };
     useEffect(() => {
 
      const handleGetUserInfo = async() => {
