@@ -12,6 +12,7 @@ const TopBar = ({data}:any) => {
   const [showProfile, setShowProfile] = useState<boolean>(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+  console.log(data)
 
   const handleShowProfile = () => {
     setShowProfile(!showProfile)

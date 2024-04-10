@@ -15,6 +15,8 @@ const SideMenu = ({data}:any) => {
 
   const {pathname} = useLocation()
 
+  console.log(data)
+
   const menuItems = [
     {
       paths: data.isAdmin ? ['/Dashboard'] : ["/staff"],
