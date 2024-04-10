@@ -23,6 +23,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.options("*", cors(corsOptions));
+
 mongoose
   .connect(process.env.mongoUrL)
   .then(() => console.log("db connected"))
