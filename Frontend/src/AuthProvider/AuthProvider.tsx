@@ -2,10 +2,11 @@ import React, {useState, useContext, createContext, useEffect, useCallback} from
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { serverUrl } from '../backendConnection';
-import { register, Signin } from '../backend/Auth';
+import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
-import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
+import { useJwt } from "react-jwt";
+import {testApi} from "../backend/test"
 
 export interface AuthDataProps {
         name: string;
@@ -31,7 +32,10 @@ export const AuthProvider = ({children}:any) => {
     const [role, setRole] = useState<string>("")
     const [allStaffs, setAllStaffs] = useState([])
     const [cookies, setCookies] = useCookies()
+    const [token, setToken] = useState()
 
+    const tokenState = cookies.access_token;
+    const {decodedToken} = useJwt(tokenState)
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
@@ -62,6 +66,9 @@ export const AuthProvider = ({children}:any) => {
           
      }
 
+     useEffect(() => {
+        testApi()
+     }, [])
 
      const registerStaff = async (username:string, fullName:string, email:string, password:string, isAdmin:false):Promise<void> => {
       const user = {
@@ -78,6 +85,7 @@ export const AuthProvider = ({children}:any) => {
           }
           try {
             const data = await register(user)
+            console.log("data",data)
             toast.success("Successfully registered")
             setTimeout(() => {
               navigate("/auth")
@@ -88,36 +96,34 @@ export const AuthProvider = ({children}:any) => {
             }    
      }
 
-     const login = async (email:string, password:string) => {
-     
-      const user = {
-        email,
-        password,
-       }
-      
-       if(!email || !password) {
-        toast.error("Please fill in the important details")
-        return;
+      const login = async (email: string, password: string) => {
+      if (!email || !password) {
+          toast.error('Please fill in the important details');
+          return;
       }
       try {
-        const response = await Signin(user)
-        const {data} = response    
-        const token = cookies.access_token
-        const decodedValue:any = jwtDecode(token as string)
-        setUserData(data)
-        if(decodedValue?.isAdmin) {
-           navigate("/admin")
-        }
-        else {
+          const response = await signIn({ email, password });
+          const { data } = response;
+          setUserData(data);
+         localStorage.setItem('cookieToken', JSON.stringify((decodedToken as any).isAdmin));
+         
+          if(!data.isAdmin) {
+            navigate("/admin")
+          }
           navigate("/staff")
-        }
+              
       } catch (error:any) {
-        toast.error(error?.message || error.message.data)
-        throw new Error(error?.message)
+          toast.error(error?.message || error.message.data);
+          throw new Error(error?.message);
       }
+  };
 
+  useEffect(() => {
+     const getItem = JSON.parse(localStorage.getItem("cookieToken") as unknown as string)
+     if(getItem){
+      console.log(getItem)
      }
-
+  }, [])
     useEffect(() => {
 
      const handleGetUserInfo = async() => {

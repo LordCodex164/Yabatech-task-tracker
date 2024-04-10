@@ -1,7 +1,7 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 
-const BASE_URL = "https://yabatech-task-tracker.onrender.com/api"
+const BASE_URL = "https://task-tracker-server-bmfb.onrender.com/api"
 
 
 export const createTasks = async (data: {taskName: string, description: string, assignedUser: string | undefined, deadLine: string | undefined, taskStatus: string, Priority:string, assignedBy:string,}) => {

@@ -11,7 +11,6 @@ export default function Root() {
       <div id="detail">
         <Outlet />
       </div>
-      {!cookies.access_token && <Navigate to={"/auth"} />}
     </>
   );
 }

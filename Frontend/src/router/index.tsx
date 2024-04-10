@@ -19,7 +19,7 @@ const Router = () => {
    <Routes>
    
         {/* Authentication Route */}
-        <Route path='auth' element={<Root/>}>
+        <Route path='auth'>
            <Route path='Register' element={<Register/>}/>
            <Route path='' element={<Login/>}/>
         </Route>

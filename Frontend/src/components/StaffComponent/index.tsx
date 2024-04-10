@@ -106,9 +106,7 @@ const StaffComponent = () => {
   };
 
 
-  if(!userData || userData.isAdmin) {
-    return <Navigate to={"/auth"}/>
-   }
+
 
   return (
     <>

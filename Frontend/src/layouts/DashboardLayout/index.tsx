@@ -14,30 +14,11 @@ const MainLayout = () => {
 
   const [cookies, setCookies] = useCookies()
 
-//   const [user, setUser] = useState<User | null>(null)
-//   const [isAdmin, setIsAdmin] = useState(false)
-// /*  using localstorage
-//   const user = localStorage.getItem                           
-// */
-
  const {userData} = UseGlobalAuth()
 
-// useEffect(() => {
-//  setUser(userData)
-//  console.log(user)
-// }, [])
-
-// useEffect(() => {
-//  if(user?.role === "admin"){
-//   setIsAdmin(true)
-//  }
-// }, [])
-
-// console.log(user)
-
-if(!cookies.access_token && !userData) {
-  return <Navigate to={"/auth"}/>
-}
+  if(!userData){
+    return <Navigate to="/auth"/>
+  }
 
   return (
     <>

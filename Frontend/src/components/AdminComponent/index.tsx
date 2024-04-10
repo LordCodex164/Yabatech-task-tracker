@@ -32,7 +32,7 @@ const AdminComponent = () => {
   const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
   const [staffsState, setStaffsState] = useState<userType[]>([])
 
-  const {authData, userData} = UseGlobalAuth()
+  const {userData} = UseGlobalAuth()
 
   const {staffs, getAllStaffs} = useStaffStore( ( state ) =>  ( {
     staffs: state.staffs,
@@ -69,9 +69,7 @@ const AdminComponent = () => {
    }, [])
 
   
-if(!userData || !userData.isAdmin) {
-   return <Navigate to={"/auth"}/>
-  }
+  console.log(userData)
 
   return (
     <div className='acquisitions h-full'>
