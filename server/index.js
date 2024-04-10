@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: "https://yabatech-task-tracker-1.onrender.com",
+  origin: false,
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 };
