@@ -27,9 +27,7 @@ export const Signin = async (data : {email: string, password:string}) => {
         password
     }
     try {
-       const response = await axios.post(`${BASE_URL}/auth/login`, body, {
-        withCredentials: true
-       })
+       const response = await axios.post(`${BASE_URL}/auth/login`, body)
        return response
     } catch (error:any) {
         toast.error(error?.message)
