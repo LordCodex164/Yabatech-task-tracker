@@ -24,7 +24,10 @@ app.use( cors({
   exposedHeaders: ["set-cookie"]
 }))
 
-app.options("*", cors())
+app.options("*", cors(
+  { credentials: true,
+  exposedHeaders: ["set-cookie"]
+}))
 
 mongoose
   .connect(process.env.mongoUrL)
