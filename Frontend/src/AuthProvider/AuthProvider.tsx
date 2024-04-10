@@ -7,6 +7,7 @@ import { getUserInfo } from '../backend/User';
 import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
 import { useJwt } from "react-jwt";
+import {testApi} from "../backend/test"
 
 export interface AuthDataProps {
         name: string;
@@ -66,6 +67,9 @@ export const AuthProvider = ({children}:any) => {
           
      }
 
+     useEffect(() => {
+        testApi()
+     }, [])
 
      const registerStaff = async (username:string, fullName:string, email:string, password:string, isAdmin:false):Promise<void> => {
       const user = {
