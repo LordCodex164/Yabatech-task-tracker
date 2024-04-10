@@ -31,7 +31,6 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173/auth");
   try {
     const user = await User.findOne({ email: req.body.email });
     !user && res.status(404).json("User not found");

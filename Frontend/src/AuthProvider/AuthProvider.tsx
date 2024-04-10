@@ -85,6 +85,7 @@ export const AuthProvider = ({children}:any) => {
           }
           try {
             const data = await register(user)
+            console.log("data",data)
             toast.success("Successfully registered")
             setTimeout(() => {
               navigate("/auth")

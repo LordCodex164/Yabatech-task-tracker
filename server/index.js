@@ -31,7 +31,7 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
 
-app.use("/api/auth", AuthRoute);
+app.use("/api/auth", cors({origin: "https://yabatech-task-tracker-1.onrender.com/auth", credentials: true}), AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/task", TaskRoute);
 
