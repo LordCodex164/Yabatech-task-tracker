@@ -93,7 +93,7 @@ export const AuthProvider = ({children}:any) => {
      }
 
   // Login function
-  const login = async (email: string, password: string) => {
+      const login = async (email: string, password: string) => {
       if (!email || !password) {
           toast.error('Please fill in the important details');
           return;

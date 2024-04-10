@@ -32,7 +32,7 @@ const AdminComponent = () => {
   const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
   const [staffsState, setStaffsState] = useState<userType[]>([])
 
-  const {authData, userData} = UseGlobalAuth()
+  const {userData} = UseGlobalAuth()
 
   const {staffs, getAllStaffs} = useStaffStore( ( state ) =>  ( {
     staffs: state.staffs,
