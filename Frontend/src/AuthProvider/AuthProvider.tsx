@@ -106,7 +106,7 @@ export const AuthProvider = ({children}:any) => {
           setUserData(response);
          localStorage.setItem('cookieToken', JSON.stringify((decodedToken as any).isAdmin));
           if(response) {
-            if(response.isAdmin === true) {
+            if(response?.isAdmin === true) {
             navigate("/admin")
           }
           navigate("/staff")
