@@ -43,7 +43,6 @@ export const signIn = async (data: { email: string; password: string }) : Promis
         "Content-Type": "application/json"
       },
       credentials: 'include',
-      mode: "no-cors" 
     })
     return response.json()
 
