@@ -31,6 +31,7 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "https://yabatech-task-tracker-1.onrender.com");
   try {
     const user = await User.findOne({ email: req.body.email });
     !user && res.status(404).json("User not found");

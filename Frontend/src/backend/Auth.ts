@@ -16,7 +16,6 @@ export const register = async (data: { fullName: string; username: string; email
       headers: {
         "Content-Type": "application/json"
       },
-      mode: "no-cors" // Use "no-cors" as the fetch mode
     });
 
     return response.json();
@@ -41,7 +40,7 @@ export const signIn = async (data: { email: string; password: string }) => {
       headers: {
         "Content-Type": "application/json"
       },
-      mode: "no-cors" // Use "no-cors" as the fetch mode
+      credentials: 'include',
     });
 
     return response.json();
