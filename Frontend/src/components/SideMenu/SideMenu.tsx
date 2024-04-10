@@ -9,7 +9,7 @@ import { RxDashboard } from 'react-icons/rx'
 import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
 
-const SideMenu = () => {
+const SideMenu = ({data}:any) => {
 
   const [isCollapsed, setIsCollapsed] = useState(false)
 
@@ -26,15 +26,15 @@ const SideMenu = () => {
 
   const menuItems = [
     {
-      paths: decodedValue.isAdmin ? ['/Dashboard'] : ["/staff"],
-      label: decodedValue.isAdmin  ? 'Dashboard' : "Home",
-      to: decodedValue.isAdmin  ? '/admin' : "/staff",
+      paths: data.isAdmin ? ['/Dashboard'] : ["/staff"],
+      label: data.isAdmin  ? 'Dashboard' : "Home",
+      to: data.isAdmin  ? '/admin' : "/staff",
       icon: <RxDashboard/>
     },
     {
-      paths: decodedValue.isAdmin  ? ['/Assign'] : ["Tasks"],
-      label: decodedValue.isAdmin  ? 'Assign' : "Tasks",
-      to: decodedValue.isAdmin  ? '/admin/assign' : "/staff/listTask",
+      paths: data.isAdmin  ? ['/Assign'] : ["Tasks"],
+      label: data.isAdmin  ? 'Assign' : "Tasks",
+      to: data.isAdmin  ? '/admin/assign' : "/staff/listTask",
       icon: <GrDashboard/>
     },
     {

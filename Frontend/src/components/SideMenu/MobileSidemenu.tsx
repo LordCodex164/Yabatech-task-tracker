@@ -27,24 +27,21 @@ interface MobileProps {
 
         const [isMenuOpen, setIsMenuOpen] = useState(false);
       
-        const token = cookies.access_token
-        const decodedValue:any = jwtDecode(token as string)
-      
-        console.log(decodedValue)
-      
         const {pathname} = useLocation()
+
+        const {userData} = UseGlobalAuth()
       
         const menuItems = [
           {
-            paths: decodedValue.isAdmin ? ['/Dashboard'] : ["/staff"],
-            label: decodedValue.isAdmin  ? 'Dashboard' : "Home",
-            to: decodedValue.isAdmin  ? '/admin' : "/staff",
+            paths: userData.isAdmin ? ['/Dashboard'] : ["/staff"],
+            label: userData.isAdmin  ? 'Dashboard' : "Home",
+            to: userData.isAdmin  ? '/admin' : "/staff",
             icon: <RxDashboard/>
           },
           {
-            paths: decodedValue.isAdmin  ? ['/Assign'] : ["Tasks"],
-            label: decodedValue.isAdmin  ? 'Assign' : "Tasks",
-            to: decodedValue.isAdmin  ? '/admin/assign' : "/staff/listTask",
+            paths: userData.isAdmin  ? ['/Assign'] : ["Tasks"],
+            label: userData.isAdmin  ? 'Assign' : "Tasks",
+            to: userData.isAdmin  ? '/admin/assign' : "/staff/listTask",
             icon: <GrDashboard/>
           },
           {
@@ -66,8 +63,6 @@ interface MobileProps {
 
         const renderMenuItem = (menuItem: any) => {
            
-            
-
               if(menuItem.label === "Logout" ) {
                 return (
                 <li key={menuItem.to}>

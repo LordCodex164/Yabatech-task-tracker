@@ -7,7 +7,7 @@ import { BiMenu } from 'react-icons/bi';
 import { FaNimblr } from 'react-icons/fa';
 import { FiMenu } from 'react-icons/fi';
 
-const TopBar = () => {
+const TopBar = ({data}:any) => {
 
   const [showProfile, setShowProfile] = useState<boolean>(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false);

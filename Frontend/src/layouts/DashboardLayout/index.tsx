@@ -23,9 +23,9 @@ const MainLayout = () => {
   return (
     <>
     <div className='flex min-h-screen w-full'>
-      <SideMenu/>
+      <SideMenu data={userData}/>
       <div className='w-full'>
-        <TopBar/>
+        <TopBar data={userData}/>
         <div id='detail'>
         <Outlet/>
        </div>
