@@ -17,7 +17,7 @@ const MainLayout = () => {
  const {userData} = UseGlobalAuth()
 
   if(!userData){
-    <Navigate to="/auth"/>
+    return <Navigate to="/auth"/>
   }
 
   return (
