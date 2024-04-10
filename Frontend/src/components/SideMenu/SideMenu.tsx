@@ -18,7 +18,7 @@ const SideMenu = () => {
   const [cookies] = useCookies()
 
   const token = cookies.access_token
-  const decodedValue:any = jwtDecode(token as string)
+  const decodedValue:any = jwtDecode(String((token as string)))
 
   console.log(decodedValue)
 

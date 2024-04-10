@@ -33,8 +33,6 @@ export const AuthProvider = ({children}:any) => {
     const [cookies, setCookies] = useCookies()
     const [token, setToken] = useState()
 
-    const tokenState = cookies.access_token;
-    const {decodedToken} = useJwt(tokenState)
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
