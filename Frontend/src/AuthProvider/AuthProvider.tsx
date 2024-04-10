@@ -37,8 +37,6 @@ export const AuthProvider = ({children}:any) => {
     const tokenState = cookies.access_token;
     const {decodedToken} = useJwt(tokenState)
 
-    console.log(decodedToken)
-
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
             fullName,
@@ -103,19 +101,26 @@ export const AuthProvider = ({children}:any) => {
       try {
           const response = await Signin({ email, password });
           const { data } = response;
-          if (tokenState) {
-              setUserData(data);
-              if ((decodedToken as any).isAdmin) {
-                  navigate('/admin');
-              } else {
-                  navigate('/staff');
-              }
+          setUserData(data);
+         localStorage.setItem('cookieToken', JSON.stringify((decodedToken as any).isAdmin));
+         
+          if(!data.isAdmin) {
+            navigate("/admin")
           }
+          navigate("/staff")
+              
       } catch (error:any) {
           toast.error(error?.message || error.message.data);
           throw new Error(error?.message);
       }
   };
+
+  useEffect(() => {
+     const getItem = JSON.parse(localStorage.getItem("cookieToken") as unknown as string)
+     if(getItem){
+      console.log(getItem)
+     }
+  }, [])
     useEffect(() => {
 
      const handleGetUserInfo = async() => {

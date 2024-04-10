@@ -69,9 +69,7 @@ const AdminComponent = () => {
    }, [])
 
   
-if(!userData || !userData.isAdmin) {
-   return <Navigate to={"/auth"}/>
-  }
+  console.log(userData)
 
   return (
     <div className='acquisitions h-full'>
