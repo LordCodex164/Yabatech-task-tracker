@@ -106,13 +106,13 @@ export const AuthProvider = ({children}:any) => {
           setUserData(response);
          localStorage.setItem('cookieToken', JSON.stringify((decodedToken as any).isAdmin));
           if(response) {
-            if(!response.isAdmin) {
+            if(response.isAdmin === true) {
             navigate("/admin")
           }
           navigate("/staff")
           }
           else{
-            toast.success("it it working well")
+            toast.success("it is well")
           }
               
       } catch (error:any) {
