@@ -102,11 +102,19 @@ export const AuthProvider = ({children}:any) => {
       }
       try {
           const response = await signIn({ email, password });
-          console.log(response)
-          setUserData(response);
-         localStorage.setItem('cookieToken', JSON.stringify((decodedToken as any).isAdmin));
-          navigate("/")
-              
+          if(response && response !== null) {
+            console.log(response);
+            setUserData(response);
+            
+            // Ensure the response contains the expected data before accessing isAdmin
+            if(response.isAdmin) {
+                localStorage.setItem('cookieToken', JSON.stringify(response.isAdmin));
+            }
+            navigate("/");
+        } else {
+            // Handle case where response is null or missing expected data
+            toast.error('Invalid response data. Please try again.');
+        }
       } catch (error:any) {
           toast.error(error?.message || error.message.data);
           throw new Error(error?.message);
