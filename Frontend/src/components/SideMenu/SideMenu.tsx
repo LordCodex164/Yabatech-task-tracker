@@ -6,21 +6,12 @@ import { ImProfile } from 'react-icons/im'
 import { GrDashboard } from 'react-icons/gr'
 import { FiLogOut } from 'react-icons/fi'
 import { RxDashboard } from 'react-icons/rx'
-import { jwtDecode } from "jwt-decode";
-import { useCookies } from "react-cookie";
 
 const SideMenu = ({data}:any) => {
 
   const [isCollapsed, setIsCollapsed] = useState(false)
 
   const {logout} = UseGlobalAuth()
-
-  const [cookies] = useCookies()
-
-  const token = cookies.access_token
-  const decodedValue:any = jwtDecode(String((token as string)))
-
-  console.log(decodedValue)
 
   const {pathname} = useLocation()
 
