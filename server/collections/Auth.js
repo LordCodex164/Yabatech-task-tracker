@@ -51,6 +51,8 @@ export const login = async (req, res) => {
 
     const { password, ...others } = user._doc;
 
+
+    
     // Set the cookie
     res.cookie("access_token", token, {
       httpOnly: true,
@@ -59,7 +61,7 @@ export const login = async (req, res) => {
       secure: true,
     });
 
-    // Send the response
+    // Send the response after setting the cookie
     return res.status(200).json(others);
   } catch (err) {
     return res.status(500).json(err);
