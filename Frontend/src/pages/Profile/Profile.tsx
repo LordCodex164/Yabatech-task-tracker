@@ -23,11 +23,6 @@ const Profile = () => {
   const [isLoading, setIsloading] = useState<boolean>(false)
   const [userTasks, setUserTasks] = useState<userType | null>(null)
 
-  const token = cookies.access_token
-  const decodedValue:any = jwtDecode(token as string)
-
-  console.log(decodedValue)
-
   useEffect(() => {
     const handleGetUserInfo = async() => {
       setIsloading(true)
