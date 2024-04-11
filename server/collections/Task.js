@@ -92,7 +92,7 @@ export const deleteTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
     const taskAssignedUser = await User.findOne({
-      username: task.assignedUser,
+      email: task.assignedUser,
     });
     taskAssignedUser.tasks.pull(task);
     taskAssignedUser.save();
