@@ -62,7 +62,7 @@ export const getLoggedInUser = async (req, res) => {
       }
       const userId = data.id;
       const userInfo = await User.findById(userId);
-      res.set().status(200).json(userInfo);
+      res.status(200).json(userInfo);
     });
   } catch (err) {
     res.status(500).json(err);
