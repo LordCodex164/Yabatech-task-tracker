@@ -26,6 +26,8 @@ app.use( cors({
 
 app.options("*", cors(
   { credentials: true,
+   methods: ["GET", "POST", "PUT", "DELETE"],
+  exposedHeaders: ["set-cookie"]
 }))
 
 mongoose
