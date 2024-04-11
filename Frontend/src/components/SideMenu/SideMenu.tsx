@@ -15,8 +15,6 @@ const SideMenu = ({data}:any) => {
 
   const {pathname} = useLocation()
 
-  console.log(data)
-
   const menuItems = [
     {
       paths: data.isAdmin ? ['/Dashboard'] : ["/staff"],
@@ -46,8 +44,7 @@ const SideMenu = ({data}:any) => {
 
 
   const isActive = (paths: string[]) => {
-    console.log(paths)
-    console.log(paths.some((path) => pathname.startsWith(path))) 
+  
   }
 
   const handleToggleSidebar = () => {

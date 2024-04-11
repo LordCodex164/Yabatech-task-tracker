@@ -31,8 +31,6 @@ export const AuthProvider = ({children}:any) => {
     const [role, setRole] = useState<string>("")
     const [allStaffs, setAllStaffs] = useState([])
     const [cookies, setCookies] = useCookies()
-    const [token, setToken] = useState()
-
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
@@ -49,7 +47,6 @@ export const AuthProvider = ({children}:any) => {
           }
           try {
           const data = await register(user)
-          console.log(data)
           toast.success("Successfully registered")
           setAuthData(data as unknown as AuthDataProps)
           setTimeout(() => {
@@ -101,7 +98,6 @@ export const AuthProvider = ({children}:any) => {
       try {
           const response = await signIn({ email, password });
           if(response && response !== null) {
-            console.log(response);
             setUserData(response);
             
             // Ensure the response contains the expected data before accessing isAdmin
@@ -122,13 +118,13 @@ export const AuthProvider = ({children}:any) => {
   useEffect(() => {
      const getItem = JSON.parse(localStorage.getItem("cookieToken") as unknown as string)
      if(getItem){
-     
      }
   }, [])
     useEffect(() => {
 
      const handleGetUserInfo = async() => {
       const data = await getUserInfo()
+      console.log("data", data)
       const {fullName, username, email, isAdmin} = data
       setUserData({
         fullName,

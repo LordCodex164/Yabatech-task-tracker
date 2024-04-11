@@ -25,9 +25,6 @@ interface tasksProps {
 }
 
 const AdminComponent = () => {
-
-  const [admin, setAdmin] = useState<AuthDataProps>()
-  const [data, setData] = useState<StaffMember[] | any[]>([])
   const [assignedUsers, setAssignedUsers] = useState<any[]>([])
   const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
   const [staffsState, setStaffsState] = useState<userType[]>([])
@@ -52,7 +49,6 @@ const AdminComponent = () => {
      if(data[i].isAdmin == false) {
        filteredStaffs.push(staffs[i])
        if(data[i].tasks.length > 0) {
-        console.log(data[i])
         finishedUsers.push(data[i])
        }
        if(data[i].tasks.length <= 0) {
@@ -67,9 +63,6 @@ const AdminComponent = () => {
     handleGetAllTasks()
     
    }, [])
-
-  
-  console.log(userData)
 
   return (
     <div className='acquisitions h-full'>
