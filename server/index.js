@@ -26,7 +26,6 @@ app.use( cors({
 
 app.options("*", cors(
   { credentials: true,
-  exposedHeaders: ["set-cookie"]
 }))
 
 mongoose

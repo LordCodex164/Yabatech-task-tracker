@@ -50,6 +50,7 @@ export const getUser = async (req, res) => {
 };
 
 export const getLoggedInUser = async (req, res) => {
+  
   try {
     const token = req.cookies.access_token;
     if (!token) {
@@ -61,7 +62,7 @@ export const getLoggedInUser = async (req, res) => {
       }
       const userId = data.id;
       const userInfo = await User.findById(userId);
-      res.status(200).json(userInfo);
+      res.set().status(200).json(userInfo);
     });
   } catch (err) {
     res.status(500).json(err);
