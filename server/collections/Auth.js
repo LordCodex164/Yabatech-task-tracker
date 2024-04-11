@@ -58,7 +58,6 @@ export const login = async (req, res) => {
       sameSite: "None",
       secure: true,
       domain: ".onrender.com",
-      overwrite:true,
     });
 
     // Send the response
