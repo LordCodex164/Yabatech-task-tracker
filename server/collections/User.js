@@ -50,16 +50,11 @@ export const getUser = async (req, res) => {
 };
 
 export const getLoggedInUser = async (req, res) => {
-  
   try {
-    const token = req.cookies.access_token;
-    if (!token) {
-      return res.status(401).json("Unauthorized");
-    }
+    const token = req.cookies.access_token
+    !token && res.status(401).json("Unauthorized");
     jwt.verify(token, process.env.jwtKey, async (err, data) => {
-      if (err) {
-        return res.status(401).json("Invalid token");
-      }
+      err && res.status(401).json("Invalid token");
       const userId = data.id;
       const userInfo = await User.findById(userId);
       res.status(200).json(userInfo);
@@ -68,7 +63,6 @@ export const getLoggedInUser = async (req, res) => {
     res.status(500).json(err);
   }
 };
-
 
 export const getUsers = async (req, res) => {
   try {
