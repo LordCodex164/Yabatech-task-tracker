@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
-import {testApi} from "../backend/test"
 
 export interface AuthDataProps {
         name: string;
@@ -52,10 +51,6 @@ export const AuthProvider = ({children}:any) => {
           
           
      }
-
-     useEffect(() => {
-        testApi()
-     }, [])
 
      const registerStaff = async (username:string, fullName:string, email:string, password:string, isAdmin:false):Promise<void> => {
       const user = {
