@@ -35,6 +35,7 @@ const StaffComponent = () => {
   const [username, setUsername] = useState("")
   const [taskCategory, setTaskCategory] = useState({completedTasks: [] as tasksProps[], inProgressTasks: [] as tasksProps[], unFinishedTasks: [] as tasksProps[]})
   const [userTasks, setUserTasks] = useState<any[]>([])
+  const[isAdmin, setIsAdmin] = useState(false)
   
   const {userData} = UseGlobalAuth()
   const [cookies] = useCookies(["access_token"]);
@@ -44,9 +45,10 @@ const StaffComponent = () => {
     const handleGetUserInfo = async() => {
       setIsLoading(true)
       try {
-        const data = await getUserInfo(accessToken)
+      const data = await getUserInfo(accessToken)
       setUserTasks(data.tasks)
       setEmail(data.email)
+      setIsAdmin(data.isAdmin)
      setUsername(data.username)
       let unFinishedTasks:tasksProps[] = []
       let inProgressTasks:tasksProps[] = []
@@ -101,7 +103,9 @@ const StaffComponent = () => {
   };
 
 
-
+if(isAdmin) {
+   return <Navigate to={"/auth"}/>
+}
 
   return (
     <>
