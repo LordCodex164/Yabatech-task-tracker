@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import { AuthDataProps, UseGlobalAuth } from '../../AuthProvider/AuthProvider'
+import { useEffect, useState } from 'react'
+import {UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
 import { TrendStatsCard } from '../common/TrendCard';
 import StaffPerformance from '../Performance/StaffPerformance';
 import { useStaffStore, userType } from '../../state/useStaffStore';
@@ -10,19 +8,6 @@ import { useStaffStore, userType } from '../../state/useStaffStore';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface StaffMember {
-  name: string;
-  email: string;
-  tasks: tasksProps[] | []
-}
-
-interface tasksProps {
-  id:number,
-  name: string,
-  status: "not started" | "in progress" | "completed",
-  timeStarted?: Date;
-  deadline?: Date;
-}
 
 const AdminComponent = () => {
   const [assignedUsers, setAssignedUsers] = useState<any[]>([])

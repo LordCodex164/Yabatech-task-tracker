@@ -5,8 +5,7 @@ import { useCookies } from "react-cookie";
 
 const BASE_URL = "https://yabatech-task-tracker.onrender.com/api/user"
 
-const [cookies] = useCookies(["access_token"]);
-const accessToken = cookies.access_token;
+
 
 export const getAllUsers = async () => {
     try {
@@ -30,12 +29,13 @@ export const getSpecificUser = async (id:number) => {
     }
 }
 
-export const getUserInfo = async () => {
+export const getUserInfo = async (token:string) => {
+    
     try {
         const response = await axios.get(`${BASE_URL}/getLoggedInUser`, {
             withCredentials: true,
                 headers: {
-                    "Authorization": `Bearer ${accessToken}`
+                    "Authorization": `Bearer ${token}`
                 }
            })
         return response.data

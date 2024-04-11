@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
 import { useCookies } from "react-cookie";
-import { useJwt } from "react-jwt";
 import {testApi} from "../backend/test"
 
 export interface AuthDataProps {
@@ -26,11 +25,9 @@ export const AuthProvider = ({children}:any) => {
 
     const navigate = useNavigate()
     const [authData, setAuthData] = useState<AuthDataProps | null>()
-    const [isLoading, setIsloading] = useState<boolean>(false)
     const [userData, setUserData] = useState<userData | null>(null)
-    const [role, setRole] = useState<string>("")
-    const [allStaffs, setAllStaffs] = useState([])
-    const [cookies, setCookies] = useCookies()
+    const [cookies] = useCookies(["access_token"]);
+      const accessToken = cookies.access_token;
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
@@ -40,7 +37,6 @@ export const AuthProvider = ({children}:any) => {
             password,
             isAdmin
            } 
-           setIsloading(true)
           if(!username || !email || !fullName || !password) {
             toast.error("Please fill in the important details")
             return;
@@ -115,6 +111,8 @@ export const AuthProvider = ({children}:any) => {
       }
   };
 
+  
+
   useEffect(() => {
      const getItem = JSON.parse(localStorage.getItem("cookieToken") as unknown as string)
      if(getItem){
@@ -123,7 +121,7 @@ export const AuthProvider = ({children}:any) => {
     useEffect(() => {
 
      const handleGetUserInfo = async() => {
-      const data = await getUserInfo()
+      const data = await getUserInfo(accessToken)
       console.log("data", data)
       const {fullName, username, email, isAdmin} = data
       setUserData({
@@ -138,13 +136,13 @@ export const AuthProvider = ({children}:any) => {
      
    
   const logout = () => {
-   setCookies("acesss_token", null)
+   
   }
 
 
 
 
-  return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, role, logout, userData}}>
+  return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, logout, userData}}>
        {children}
     </AuthContext.Provider>
   
