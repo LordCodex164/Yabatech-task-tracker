@@ -52,15 +52,19 @@ export const login = async (req, res) => {
     const { password, ...others } = user._doc;
 
 
-    // Send the response
-    return res.cookie("access_token", token, {
+    
+    // Set the cookie
+    res.cookie("access_token", token, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 3000,
       sameSite: "None",
       secure: true,
-      overwrite:true,
-      domain: "onrender.com",
-    }).status(200).json(others);
+      domain: ".onrender.com",
+      overwrite: true // Corrected spelling
+    });
+
+    // Send the response after setting the cookie
+    return res.status(200).json(others);
   } catch (err) {
     return res.status(500).json(err);
   }
