@@ -52,9 +52,6 @@ export const signIn = async (data: SignInData): Promise<any> => {
 
   try {
     const response: AxiosResponse = await axios.post(`${BASE_URL}/auth/login`, body, {
-      headers: {
-        "Content-Type": "application/json"
-      },
       withCredentials: true  // Include credentials in the request
     });
 
