@@ -1,6 +1,3 @@
-import axios, { AxiosResponse } from "axios";
-
-// Define the base URL
 const BASE_URL = "https://yabatech-task-tracker.onrender.com/api";
 
 interface UserData {
@@ -34,7 +31,7 @@ export const register = async (data:UserData) => {
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: "include" // Include credentials in the request
+      credentials: "include"
     });
 
     return await response.json();
@@ -52,7 +49,6 @@ export const signIn = async (data:SignInData) => {
     email,
     password
   };
-
   try {
     const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
