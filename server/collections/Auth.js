@@ -58,11 +58,9 @@ export const login = async (req, res) => {
       httpOnly: false,
       maxAge: 259200000,
       path: "/",
-      secure: true, // Ensure cookie is only sent over HTTPS
+      secure: true, 
       sameSite: "None"
     });
-
-    // Send the response after setting the cookie
     return res.status(200).json(others);
   } catch (err) {
     return res.status(500).json(err);
