@@ -57,7 +57,6 @@ export const login = async (req, res) => {
     res.cookie("access_token", token, {
       httpOnly: true,
       maxAge: 259200000,
-      domain: ".onrender.com",
       path: "/",
       secure: true, // Ensure cookie is only sent over HTTPS
       sameSite: "None"
