@@ -6,6 +6,7 @@ import { TrendStatsCard } from '../common/TrendCard';
 import { getUserInfo } from '../../backend/User';
 import { TailSpin } from 'react-loader-spinner';
 import {Pie} from "react-chartjs-2"
+import { useCookies } from "react-cookie";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -36,23 +37,17 @@ const StaffComponent = () => {
   const [userTasks, setUserTasks] = useState<any[]>([])
   
   const {userData} = UseGlobalAuth()
-
-  useEffect(() => {
-  
-   const handleGetUserInfo = async() => {
-    const data = await getUserInfo()
-    setEmail(data.email)
-    setUsername(data.username)
-  }
-  handleGetUserInfo()
-  },[])
+  const [cookies] = useCookies(["access_token"]);
+  const accessToken = cookies.access_token;
 
   useEffect(() => {
     const handleGetUserInfo = async() => {
       setIsLoading(true)
       try {
-        const data = await getUserInfo()
+        const data = await getUserInfo(accessToken)
       setUserTasks(data.tasks)
+      setEmail(data.email)
+     setUsername(data.username)
       let unFinishedTasks:tasksProps[] = []
       let inProgressTasks:tasksProps[] = []
       let completedTasks:tasksProps[] = []

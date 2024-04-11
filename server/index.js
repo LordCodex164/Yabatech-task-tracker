@@ -11,24 +11,39 @@ dotenv.config();
 
 const app = express();
 
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(cors())
+app.use( cors({
+  origin: "https://yabatech-task-tracker-1.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  exposedHeaders: ["*"]
+}))
+
+app.options("*", cors(
+  { 
+    credentials: true,
+    origin: "https://yabatech-task-tracker-1.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    exposedHeaders: ["*"]
+}))
 
 mongoose
   .connect(process.env.mongoUrL)
   .then(() => console.log("db connected"))
   .catch((err) => console.log("db is not connected. This is the" + err));
 
-app.get("/", (req, res) => {
-  res.status(200).json({ status: "testing" });
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "UP" });
 });
 
-
+app.use("/api/auth", AuthRoute);
+app.use("/api/user", UserRoute);
+app.use("/api/task", TaskRoute);
 
 app.listen(8000 || process.env.PORT, () => {
   console.log("app is connected and listening on port 8000");

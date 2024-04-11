@@ -1,7 +1,11 @@
 import axios from "axios"
 import toast from "react-hot-toast"
+import Cookies from "js-cookie"
+import { useCookies } from "react-cookie";
 
 const BASE_URL = "https://yabatech-task-tracker.onrender.com/api/user"
+
+
 
 export const getAllUsers = async () => {
     try {
@@ -25,10 +29,14 @@ export const getSpecificUser = async (id:number) => {
     }
 }
 
-export const getUserInfo = async () => {
+export const getUserInfo = async (token:string) => {
+    
     try {
         const response = await axios.get(`${BASE_URL}/getLoggedInUser`, {
-            withCredentials: true
+            withCredentials: true,
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
            })
         return response.data
     } catch (error:any) {

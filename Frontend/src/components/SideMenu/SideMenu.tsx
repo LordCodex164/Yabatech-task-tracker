@@ -6,35 +6,26 @@ import { ImProfile } from 'react-icons/im'
 import { GrDashboard } from 'react-icons/gr'
 import { FiLogOut } from 'react-icons/fi'
 import { RxDashboard } from 'react-icons/rx'
-import { jwtDecode } from "jwt-decode";
-import { useCookies } from "react-cookie";
 
-const SideMenu = () => {
+const SideMenu = ({data}:any) => {
 
   const [isCollapsed, setIsCollapsed] = useState(false)
 
   const {logout} = UseGlobalAuth()
 
-  const [cookies] = useCookies()
-
-  const token = cookies.access_token
-  const decodedValue:any = jwtDecode(token as string)
-
-  console.log(decodedValue)
-
   const {pathname} = useLocation()
 
   const menuItems = [
     {
-      paths: decodedValue.isAdmin ? ['/Dashboard'] : ["/staff"],
-      label: decodedValue.isAdmin  ? 'Dashboard' : "Home",
-      to: decodedValue.isAdmin  ? '/admin' : "/staff",
+      paths: data.isAdmin ? ['/Dashboard'] : ["/staff"],
+      label: data.isAdmin  ? 'Dashboard' : "Home",
+      to: data.isAdmin  ? '/admin' : "/staff",
       icon: <RxDashboard/>
     },
     {
-      paths: decodedValue.isAdmin  ? ['/Assign'] : ["Tasks"],
-      label: decodedValue.isAdmin  ? 'Assign' : "Tasks",
-      to: decodedValue.isAdmin  ? '/admin/assign' : "/staff/listTask",
+      paths: data.isAdmin  ? ['/Assign'] : ["Tasks"],
+      label: data.isAdmin  ? 'Assign' : "Tasks",
+      to: data.isAdmin  ? '/admin/assign' : "/staff/listTask",
       icon: <GrDashboard/>
     },
     {
@@ -53,8 +44,7 @@ const SideMenu = () => {
 
 
   const isActive = (paths: string[]) => {
-    console.log(paths)
-    console.log(paths.some((path) => pathname.startsWith(path))) 
+  
   }
 
   const handleToggleSidebar = () => {

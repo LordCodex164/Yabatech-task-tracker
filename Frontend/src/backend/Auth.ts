@@ -1,39 +1,67 @@
-import axios from "axios"
-import toast from "react-hot-toast"
+import axios, { AxiosResponse } from "axios";
 
-const BASE_URL = "https://test-server-7tbf.onrender.com"
+// Define the base URL
+const BASE_URL = "https://yabatech-task-tracker.onrender.com/api";
 
-export const register = async (data : {fullName: string; username:string, email: string, password:string, isAdmin:boolean}) => {
-    const  {fullName, username, email, password, isAdmin} = data
-    const user = {
-        fullName,
-        username,
-        email,
-        password,
-        isAdmin
-    }
-    try {
-       const response = await axios.post(`${BASE_URL}/auth/register`, user)
-       return response.data
-    } catch (error:any) {
-        toast.error(error?.message)
-    }
+interface UserData {
+  fullName: string;
+  username: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
 }
 
-export const Signin = async (data : {email: string, password:string}) => {
-   const {email, password} = data
-    const body = {
-        email,
-        password
-    }
-    try {
-       const response = await axios.post(`${BASE_URL}/auth/login`, body, {
-        withCredentials: true
-       })
-       return response
-    } catch (error:any) {
-        toast.error(error?.message)
-        throw new Error(error?.message)
-    }
+interface SignInData {
+  email: string;
+  password: string;
 }
 
+// Function to register a user using Axios
+export const register = async (data: UserData): Promise<any> => {
+  const { fullName, username, email, password, isAdmin } = data;
+  const user = {
+    fullName,
+    username,
+    email,
+    password,
+    isAdmin
+  };
+
+  try {
+    const response: AxiosResponse = await axios.post(`${BASE_URL}/auth/register`, user, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    return response.data;
+  } catch (error: any) {
+    // Handle error
+    console.error(error);
+    throw new Error(error?.message);
+  }
+};
+
+// Function to sign in a user using Axios
+export const signIn = async (data: SignInData): Promise<any> => {
+  const { email, password } = data;
+  const body = {
+    email,
+    password
+  };
+
+  try {
+    const response: AxiosResponse = await axios.post(`${BASE_URL}/auth/login`, body, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      withCredentials: true  // Include credentials in the request
+    });
+
+    return response.data;
+  } catch (error: any) {
+    // Handle error
+    console.error(error);
+    throw new Error(error?.message);
+  }
+};

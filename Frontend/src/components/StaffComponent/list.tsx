@@ -4,17 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import { getUserInfo } from '../../backend/User';
 import { TailSpin } from 'react-loader-spinner'
-import Chart from 'chart.js/auto';
+
 
 const view = () => {
 
-  const [cookies] = useCookies()
-
-  const token = cookies.access_token
-  const decodedValue:any = jwtDecode(token as string)
+  const [cookies] = useCookies(["access_token"]);
+  const accessToken = cookies.access_token;
   const [userTasks, setUserTasks] = useState<any[]>([])
-  const[selected, setSelected] = useState(false)
-  const [selectedValue, setSelectedValue] = useState("not started")
   const [isLoading, setIsloading] = useState<boolean>(false)
   const [taskStatus, setTaskStatus] = useState("all")
   const navigate = useNavigate()
@@ -23,7 +19,7 @@ const view = () => {
     const handleGetUserInfo = async() => {
       setIsloading(true)
       try {
-        const data = await getUserInfo()
+        const data = await getUserInfo(accessToken)
         setUserTasks(data.tasks)
         setIsloading(false)
       } catch (error) {
@@ -39,8 +35,6 @@ const view = () => {
   }
 
   const tasksTab = ["not started", "in progress", "completed"]
-
-  console.log(taskStatus)
   return (
     <>
      {isLoading ? 

@@ -19,20 +19,16 @@ export interface userType{
 
 const Profile = () => { 
 
-  const [cookies] = useCookies()
   const [isLoading, setIsloading] = useState<boolean>(false)
   const [userTasks, setUserTasks] = useState<userType | null>(null)
-
-  const token = cookies.access_token
-  const decodedValue:any = jwtDecode(token as string)
-
-  console.log(decodedValue)
-
+  const [cookies] = useCookies(["access_token"]);
+  const accessToken = cookies.access_token;
+   
   useEffect(() => {
     const handleGetUserInfo = async() => {
       setIsloading(true)
       try {
-        const data = await getUserInfo()
+        const data = await getUserInfo(accessToken)
         setUserTasks(data)
         setIsloading(false)
       } catch (error:any) {

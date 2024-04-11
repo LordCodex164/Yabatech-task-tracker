@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import SideMenu from '../../components/SideMenu/SideMenu'
 import TopBar from '../../components/TopBar/TopBar'
-import { useCookies } from "react-cookie";
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider';
 interface User {
   name: string, 
@@ -11,8 +10,6 @@ interface User {
 }
 
 const MainLayout = () => {
-
-  const [cookies, setCookies] = useCookies()
 
  const {userData} = UseGlobalAuth()
 
@@ -23,9 +20,9 @@ const MainLayout = () => {
   return (
     <>
     <div className='flex min-h-screen w-full'>
-      <SideMenu/>
+      <SideMenu data={userData}/>
       <div className='w-full'>
-        <TopBar/>
+        <TopBar data={userData}/>
         <div id='detail'>
         <Outlet/>
        </div>
