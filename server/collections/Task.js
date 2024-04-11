@@ -16,7 +16,7 @@ export const createTask = async (req, res) => {
     });
 
     const theAssignedUser = await User.findOne({
-      username: newTask.assignedUser,
+      email: newTask.assignedUser,
     });
 
     !theAssignedUser && res.status(404).json("This user does not exist");
