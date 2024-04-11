@@ -16,8 +16,8 @@ interface SignInData {
   password: string;
 }
 
-// Function to register a user using Axios
-export const register = async (data: UserData): Promise<any> => {
+// Function to register a user using Fetch API
+export const register = async (data:UserData) => {
   const { fullName, username, email, password, isAdmin } = data;
   const user = {
     fullName,
@@ -28,22 +28,25 @@ export const register = async (data: UserData): Promise<any> => {
   };
 
   try {
-    const response: AxiosResponse = await axios.post(`${BASE_URL}/auth/register`, user, {
+    const response = await fetch(`${BASE_URL}/auth/register`, {
+      method: "POST",
+      body: JSON.stringify(user),
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      credentials: "include" // Include credentials in the request
     });
 
-    return response.data;
-  } catch (error: any) {
+    return await response.json();
+  } catch (error:any) {
     // Handle error
     console.error(error);
     throw new Error(error?.message);
   }
 };
 
-// Function to sign in a user using Axios
-export const signIn = async (data: SignInData): Promise<any> => {
+// Function to sign in a user using Fetch API
+export const signIn = async (data:SignInData) => {
   const { email, password } = data;
   const body = {
     email,
@@ -51,12 +54,17 @@ export const signIn = async (data: SignInData): Promise<any> => {
   };
 
   try {
-    const response: AxiosResponse = await axios.post(`${BASE_URL}/auth/login`, body, {
-      withCredentials: true  // Include credentials in the request
+    const response = await fetch(`${BASE_URL}/auth/login`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include" // Include credentials in the request
     });
 
-    return response.data;
-  } catch (error: any) {
+    return await response.json();
+  } catch (error:any) {
     // Handle error
     console.error(error);
     throw new Error(error?.message);
