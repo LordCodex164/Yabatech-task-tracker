@@ -55,7 +55,7 @@ export const login = async (req, res) => {
     
     // Set the cookie
     res.cookie("access_token", token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 259200000,
       path: "/",
       secure: true, // Ensure cookie is only sent over HTTPS
