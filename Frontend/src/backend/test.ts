@@ -1,7 +1,7 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 
-const BASE_URL = "https://task-tracker-server-bmfb.onrender.com"
+const BASE_URL = "http://localhost:8000/api"
 
 export const testApi = async() => {
     try {
