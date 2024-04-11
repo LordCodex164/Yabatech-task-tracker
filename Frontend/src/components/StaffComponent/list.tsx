@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useCookies } from "react-cookie";
 import { getUserInfo } from '../../backend/User';
 import { TailSpin } from 'react-loader-spinner'
 
 
 const view = () => {
-
-  const [cookies] = useCookies(["access_token"]);
-  const accessToken = cookies.access_token;
   const [userTasks, setUserTasks] = useState<any[]>([])
   const [isLoading, setIsloading] = useState<boolean>(false)
   const [taskStatus, setTaskStatus] = useState("all")
@@ -19,7 +14,7 @@ const view = () => {
     const handleGetUserInfo = async() => {
       setIsloading(true)
       try {
-        const data = await getUserInfo(accessToken)
+        const data = await getUserInfo()
         setUserTasks(data.tasks)
         setIsloading(false)
       } catch (error) {

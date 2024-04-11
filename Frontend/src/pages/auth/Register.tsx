@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
-import {Link, useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
+import {useState} from 'react'
+import {Link} from 'react-router-dom'
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 
 const Register = () => {
@@ -12,9 +11,6 @@ const Register = () => {
   const[name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
-  const navigate = useNavigate()
-
  
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

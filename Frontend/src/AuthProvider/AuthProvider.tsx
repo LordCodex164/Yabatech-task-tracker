@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
-import { useCookies } from "react-cookie";
 import {testApi} from "../backend/test"
 
 export interface AuthDataProps {
@@ -26,10 +25,8 @@ export const AuthProvider = ({children}:any) => {
     const navigate = useNavigate()
     const [authData, setAuthData] = useState<AuthDataProps | null>()
     const [userData, setUserData] = useState<userData | null>(null)
-    const [cookies] = useCookies(["access_token"]);
-      const accessToken = cookies.access_token;
 
-     const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
+    const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
             fullName,
             username,
@@ -121,7 +118,7 @@ export const AuthProvider = ({children}:any) => {
     useEffect(() => {
 
      const handleGetUserInfo = async() => {
-      const data = await getUserInfo(accessToken)
+      const data = await getUserInfo()
       console.log("data", data)
       const {fullName, username, email, isAdmin} = data
       setUserData({

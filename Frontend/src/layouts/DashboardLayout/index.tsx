@@ -1,13 +1,8 @@
-import React, {useEffect, useState} from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import SideMenu from '../../components/SideMenu/SideMenu'
 import TopBar from '../../components/TopBar/TopBar'
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider';
-interface User {
-  name: string, 
-  email: string, 
-  role: string
-}
+
 
 const MainLayout = () => {
 

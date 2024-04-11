@@ -4,7 +4,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { TrendStatsCard } from '../common/TrendCard';
 import StaffPerformance from '../Performance/StaffPerformance';
 import { useStaffStore, userType } from '../../state/useStaffStore';
-
+import { TailSpin } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -13,6 +14,7 @@ const AdminComponent = () => {
   const [assignedUsers, setAssignedUsers] = useState<any[]>([])
   const [unAssignedUsers, setUnAssignedUsers] = useState<any[]>([])
   const [staffsState, setStaffsState] = useState<userType[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const {userData} = UseGlobalAuth()
 
@@ -25,7 +27,9 @@ const AdminComponent = () => {
   useEffect(() => {
  
     const handleGetAllTasks = async () => {
-    const data = await getAllStaffs()
+      setIsLoading(true)
+    try {
+      const data = await getAllStaffs()
     let filteredStaffs = []
     let finishedUsers:any[] = []
     let unAssignedUsers:any[] = []
@@ -44,19 +48,39 @@ const AdminComponent = () => {
     setStaffsState(filteredStaffs)
     setAssignedUsers(finishedUsers)
     setUnAssignedUsers(unAssignedUsers)
+    setIsLoading(false)
+    } catch (error:any) {
+      toast.error(error?.message || error?.response.data)
+    }
+    
     }
     handleGetAllTasks()
     
    }, [])
 
   return (
-    <div className='acquisitions h-full'>
+    <> 
+    {isLoading ?
+     <TailSpin
+     visible={true}
+     height="80"
+     width="80"
+     color="#8996d7"
+     ariaLabel="tail-spin-loading"
+     radius="1"
+     wrapperStyle={{}}
+     wrapperClass="flex justify-center h-[100vh] items-center"
+     />
+
+     :
+   
+     <div className='acquisitions h-full'>
     
-     <p  className='text-right pt-[10px] pr-[30px]'>Welcome Admin <span className='font-bold '>{userData?.username}</span> </p> 
+     <p  className='text-right pt-[10px] pr-[30px]'>Hello Admin <span className='font-bold '>{userData?.username}</span> </p> 
      
-      <div className='px-[20px] pt-[10px]'>
+      {staffsState.length < 1 && <div className='px-[20px] pt-[10px]'>
         <p>You currently  don't have any avaliable reports</p>
-      </div>
+      </div>}
      
     <div className='mx-[20px]'>
       <TrendStatsCard
@@ -92,8 +116,10 @@ const AdminComponent = () => {
      </div>
 
     </div>
-    </div>
-     
+    </div>    
+    }
+    </>
+   
   )
 }
 

@@ -1,8 +1,7 @@
 import {useState, useEffect} from "react"
 import { InputComponent } from "../../components/common/InputComponent"
-import { jwtDecode } from "jwt-decode";
-import { useCookies } from "react-cookie";
 import { getUserInfo } from '../../backend/User';
+import { TailSpin } from 'react-loader-spinner';
 
 export interface userType{
   _id: number,
@@ -21,14 +20,12 @@ const Profile = () => {
 
   const [isLoading, setIsloading] = useState<boolean>(false)
   const [userTasks, setUserTasks] = useState<userType | null>(null)
-  const [cookies] = useCookies(["access_token"]);
-  const accessToken = cookies.access_token;
    
   useEffect(() => {
     const handleGetUserInfo = async() => {
       setIsloading(true)
       try {
-        const data = await getUserInfo(accessToken)
+        const data = await getUserInfo()
         setUserTasks(data)
         setIsloading(false)
       } catch (error:any) {
@@ -39,7 +36,19 @@ const Profile = () => {
   },[])
 
   return (
-    <div className="bg-[#FFFFFF]">
+    <>
+    {isLoading ?
+      <TailSpin
+      visible={true}
+      height="80"
+      width="80"
+      color="#8996d7"
+      ariaLabel="tail-spin-loading"
+      radius="1"
+      wrapperStyle={{}}
+      wrapperClass="flex justify-center h-[100vh] items-center"
+      /> :
+     <div className="bg-[#FFFFFF]">
     <div className="flex flex-col items-start pt-[13px] pl-[20px]">
 
       <div className="flex flex-col gap-[7px]">
@@ -114,6 +123,10 @@ const Profile = () => {
 
     </div>
   </div>
+    }
+    
+    </>
+    
   )
 }
 
