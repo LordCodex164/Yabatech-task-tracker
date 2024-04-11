@@ -56,11 +56,11 @@ export const login = async (req, res) => {
     // Set the cookie
     res.cookie("access_token", token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 3000,
-      sameSite: "None",
-      secure: true,
+      maxAge: 259200000,
       domain: ".onrender.com",
-      overwrite: true // Corrected spelling
+      path: "/",
+      secure: true, // Ensure cookie is only sent over HTTPS
+      sameSite: "None"
     });
 
     // Send the response after setting the cookie
