@@ -68,7 +68,7 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
-    const theAssignedUser = await User.findOne({ username: task.assignedUser });
+    const theAssignedUser = await User.findOne({ email: task.assignedUser });
     theAssignedUser.tasks.pull(task);
 
     const updatedTask = await Task.findByIdAndUpdate(
