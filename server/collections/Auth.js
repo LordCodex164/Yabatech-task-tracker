@@ -59,7 +59,7 @@ export const login = async (req, res) => {
       sameSite: "None",
       secure: true,
       overwrite:true,
-      domain: ".yabatech-task-tracker-1.onrender.com",
+      domain: "onrender.com",
     }).status(200).json(others);
   } catch (err) {
     return res.status(500).json(err);
