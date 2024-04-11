@@ -57,7 +57,8 @@ export const login = async (req, res) => {
       maxAge: 24 * 60 * 60 * 3000,
       sameSite: "None",
       secure: true,
-      domain: ".onrender.com",
+      domain: "yabatech-task-tracker-1.onrender.com",
+      overwrite:true
     });
 
     // Send the response
