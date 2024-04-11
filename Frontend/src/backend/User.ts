@@ -30,7 +30,7 @@ export const getSpecificUser = async (id:number) => {
 }
 
 export const getUserInfo = async (token:string) => {
-    
+    console.log(token)
     try {
         const response = await axios.get(`${BASE_URL}/getLoggedInUser`, {
             withCredentials: true,
