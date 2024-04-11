@@ -51,18 +51,16 @@ export const login = async (req, res) => {
 
     const { password, ...others } = user._doc;
 
-    // Set the cookie
-    res.cookie("access_token", token, {
+
+    // Send the response
+    return res.cookie("access_token", token, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 3000,
       sameSite: "None",
       secure: true,
       domain: "yabatech-task-tracker-1.onrender.com",
       overwrite:true
-    });
-
-    // Send the response
-    return res.status(200).json(others);
+    }).status(200).json(others);
   } catch (err) {
     return res.status(500).json(err);
   }
