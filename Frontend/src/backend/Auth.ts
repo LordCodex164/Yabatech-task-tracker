@@ -1,8 +1,23 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios";
 
+// Define the base URL
 const BASE_URL = "https://yabatech-task-tracker.onrender.com/api";
 
-export const register = async (data: { fullName: string; username: string; email: string; password: string; isAdmin: boolean }) => {
+interface UserData {
+  fullName: string;
+  username: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+}
+
+interface SignInData {
+  email: string;
+  password: string;
+}
+
+// Function to register a user using Axios
+export const register = async (data: UserData): Promise<any> => {
   const { fullName, username, email, password, isAdmin } = data;
   const user = {
     fullName,
@@ -11,16 +26,15 @@ export const register = async (data: { fullName: string; username: string; email
     password,
     isAdmin
   };
+
   try {
-    const response = await fetch(`${BASE_URL}/auth/register`, {
-      method: "POST",
-      body: JSON.stringify(user),
+    const response: AxiosResponse = await axios.post(`${BASE_URL}/auth/register`, user, {
       headers: {
         "Content-Type": "application/json"
-      },
+      }
     });
 
-    return response.json();
+    return response.data;
   } catch (error: any) {
     // Handle error
     console.error(error);
@@ -28,7 +42,8 @@ export const register = async (data: { fullName: string; username: string; email
   }
 };
 
-export const signIn = async (data: { email: string; password: string }) : Promise<any> => {
+// Function to sign in a user using Axios
+export const signIn = async (data: SignInData): Promise<any> => {
   const { email, password } = data;
   const body = {
     email,
@@ -36,16 +51,14 @@ export const signIn = async (data: { email: string; password: string }) : Promis
   };
 
   try {
-    const response = await fetch(`${BASE_URL}/auth/login`, {
-      method: "POST",
-      body: JSON.stringify(body),
+    const response: AxiosResponse = await axios.post(`${BASE_URL}/auth/login`, body, {
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: 'include',
-    })
-    return response.json()
+      withCredentials: true  // Include credentials in the request
+    });
 
+    return response.data;
   } catch (error: any) {
     // Handle error
     console.error(error);
