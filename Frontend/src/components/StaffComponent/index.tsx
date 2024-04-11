@@ -125,7 +125,7 @@ if(isAdmin) {
 
       :
 
-      <div className='mx-[20px]'>
+      <div className='mx-[20px] mt-[40px] lg:mt-[60px]'>
       <TrendStatsCard
      title="Number of Your Tasks"
      trendIcon={''}
