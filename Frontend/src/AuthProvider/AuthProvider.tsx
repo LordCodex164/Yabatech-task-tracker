@@ -27,7 +27,7 @@ export const AuthProvider = ({children}:any) => {
     const [authData, setAuthData] = useState<AuthDataProps | null>()
     const [userData, setUserData] = useState<userData | null>(null)
     const [cookies] = useCookies(["access_token"]);
-      const accessToken = cookies.access_token;
+    const accessToken = cookies.access_token;
 
      const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
@@ -121,7 +121,9 @@ export const AuthProvider = ({children}:any) => {
     useEffect(() => {
 
      const handleGetUserInfo = async() => {
+    
       const data = await getUserInfo(accessToken)
+      console.log(accessToken)
       console.log("data", data)
       const {fullName, username, email, isAdmin} = data
       setUserData({
