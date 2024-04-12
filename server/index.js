@@ -17,20 +17,24 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use( cors({
-  origin: "https://dazzling-praline-5c3ff0.netlify.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-  exposedHeaders: ["*"]
-}))
+app.use(
+  cors({
+    origin: "https://dazzling-praline-5c3ff0.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    exposedHeaders: ["*"],
+  })
+);
 
-app.options("*", cors(
-  { 
+app.options(
+  "*",
+  cors({
     credentials: true,
     origin: "https://dazzling-praline-5c3ff0.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    exposedHeaders: ["*"]
-}))
+    exposedHeaders: ["*"],
+  })
+);
 
 mongoose
   .connect(process.env.mongoUrL)
