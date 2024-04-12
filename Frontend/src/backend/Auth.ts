@@ -71,7 +71,6 @@ export const signOut = async () => {
   try {
     const response = await fetch(`${BASE_URL}/auth/logout`, {
       method: "POST",
-      body: JSON.stringify(""),
       headers: {
         "Content-Type": "application/json"
       },
