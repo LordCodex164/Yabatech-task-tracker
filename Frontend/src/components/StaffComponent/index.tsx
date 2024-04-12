@@ -1,19 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import { AuthDataProps, UseGlobalAuth } from '../../AuthProvider/AuthProvider'
+import { useEffect, useState } from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { TrendStatsCard } from '../common/TrendCard';
 import { getUserInfo } from '../../backend/User';
 import { TailSpin } from 'react-loader-spinner';
 import {Pie} from "react-chartjs-2"
+import { Navigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface StaffMember {
-  name: string;
-  email: string;
-  tasks: tasksProps[] | []
-}
 
 interface tasksProps {
   id?:number,
@@ -28,24 +23,11 @@ interface tasksProps {
 
 const StaffComponent = () => {
 
-  
   const[isLoading, setIsLoading] = useState<boolean>(false)
-  const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [taskCategory, setTaskCategory] = useState({completedTasks: [] as tasksProps[], inProgressTasks: [] as tasksProps[], unFinishedTasks: [] as tasksProps[]})
   const [userTasks, setUserTasks] = useState<any[]>([])
-  
-  const {userData} = UseGlobalAuth()
-
-  useEffect(() => {
-  
-   const handleGetUserInfo = async() => {
-    const data = await getUserInfo()
-    setEmail(data.email)
-    setUsername(data.username)
-  }
-  handleGetUserInfo()
-  },[])
+  const[isAdmin, setIsAdmin] = useState<boolean>(false)
 
   useEffect(() => {
     const handleGetUserInfo = async() => {
@@ -53,6 +35,8 @@ const StaffComponent = () => {
       try {
         const data = await getUserInfo()
       setUserTasks(data.tasks)
+      setUsername(data.username)
+      setIsAdmin(data.isAdmin)
       let unFinishedTasks:tasksProps[] = []
       let inProgressTasks:tasksProps[] = []
       let completedTasks:tasksProps[] = []
@@ -75,12 +59,11 @@ const StaffComponent = () => {
       } catch (error:any) {
          throw new Error(error)
       }
-      
     }
     handleGetUserInfo()
   },[])
 
-  
+   
   
   const data = {
     labels: ["finished", "in progress", "not started"],
@@ -105,7 +88,14 @@ const StaffComponent = () => {
     ],
   };
 
-
+if(isAdmin) {
+  return (
+    <>
+   {toast.error("you are not authenticated")}
+  <Navigate to={"/auth"}/>
+    </>
+  )  
+}
 
 
   return (
@@ -125,7 +115,7 @@ const StaffComponent = () => {
      
   <div className='acquisitions h-full'>
     
-     <p  className='text-right pt-[10px] pr-[30px]'>Welcome Staff <span className='font-bold '>{username}</span> </p> 
+     <p  className='text-right pt-[10px] pr-[30px]'>Hello Staff <span className='font-bold '>{username}</span> </p> 
      
     {userTasks.length < 1 ?
     
@@ -135,7 +125,7 @@ const StaffComponent = () => {
 
       :
 
-      <div className='mx-[20px]'>
+      <div className='mx-[20px] mt-[40px] lg:mt-[60px]'>
       <TrendStatsCard
      title="Number of Your Tasks"
      trendIcon={''}

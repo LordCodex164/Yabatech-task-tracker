@@ -1,8 +1,20 @@
-import axios from "axios"
-
 const BASE_URL = "https://yabatech-task-tracker.onrender.com/api";
 
-export const register = async (data: { fullName: string; username: string; email: string; password: string; isAdmin: boolean }) => {
+interface UserData {
+  fullName: string;
+  username: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+}
+
+interface SignInData {
+  email: string;
+  password: string;
+}
+
+// Function to register a user using Fetch API
+export const register = async (data:UserData) => {
   const { fullName, username, email, password, isAdmin } = data;
   const user = {
     fullName,
@@ -11,6 +23,7 @@ export const register = async (data: { fullName: string; username: string; email
     password,
     isAdmin
   };
+
   try {
     const response = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
@@ -18,23 +31,24 @@ export const register = async (data: { fullName: string; username: string; email
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "include"
     });
 
-    return response.json();
-  } catch (error: any) {
+    return await response.json();
+  } catch (error:any) {
     // Handle error
     console.error(error);
     throw new Error(error?.message);
   }
 };
 
-export const signIn = async (data: { email: string; password: string }) : Promise<any> => {
+// Function to sign in a user using Fetch API
+export const signIn = async (data:SignInData) => {
   const { email, password } = data;
   const body = {
     email,
     password
   };
-
   try {
     const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
@@ -42,11 +56,11 @@ export const signIn = async (data: { email: string; password: string }) : Promis
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: 'include',
-    })
-    return response.json()
+      credentials: "include" // Include credentials in the request
+    });
 
-  } catch (error: any) {
+    return await response.json();
+  } catch (error:any) {
     // Handle error
     console.error(error);
     throw new Error(error?.message);

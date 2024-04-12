@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import { Link, Navigate, useLocation} from 'react-router-dom'
+import {useEffect, useState} from 'react'
+import { Link, useLocation} from 'react-router-dom'
 import cx from "classnames"
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 import { ImProfile } from 'react-icons/im'
@@ -14,8 +14,6 @@ const SideMenu = ({data}:any) => {
   const {logout} = UseGlobalAuth()
 
   const {pathname} = useLocation()
-
-  console.log(data)
 
   const menuItems = [
     {
@@ -46,8 +44,7 @@ const SideMenu = ({data}:any) => {
 
 
   const isActive = (paths: string[]) => {
-    console.log(paths)
-    console.log(paths.some((path) => pathname.startsWith(path))) 
+  
   }
 
   const handleToggleSidebar = () => {

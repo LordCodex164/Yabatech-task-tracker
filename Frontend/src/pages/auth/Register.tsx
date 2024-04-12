@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
-import {Link, useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
+import {useState} from 'react'
+import {Link} from 'react-router-dom'
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider'
 
 const Register = () => {
@@ -12,9 +11,6 @@ const Register = () => {
   const[name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
-  const navigate = useNavigate()
-
  
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -59,7 +55,7 @@ const Register = () => {
 
           <div className='flex flex-col gap-[20px]'>
             <button onClick={() => registerAdmin(userName, name, email, password, true)} type='button' className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as an admin</button>
-            <button onClick={() => registerStaff(userName, name, email, password, false)} type="submit" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as a staff</button>
+            <button onClick={() => registerStaff(userName, name, email, password, false)} type="button" className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register as a staff</button>
           </div>
 
           <div className="text-sm flex flex-col items-end justify-end">
