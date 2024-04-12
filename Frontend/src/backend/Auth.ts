@@ -66,3 +66,19 @@ export const signIn = async (data:SignInData) => {
     throw new Error(error?.message);
   }
 };
+
+export const signOut = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/logout`, {
+      method: "POST",
+      body: JSON.stringify(""),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include" // Include credentials in the request
+    })
+    return response.json()
+  } catch (error) {
+    
+  }
+}

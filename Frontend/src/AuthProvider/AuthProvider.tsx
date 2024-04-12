@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
+import { signOut } from '../backend/Auth';
 
 export interface AuthDataProps {
         name: string;
@@ -127,12 +128,10 @@ export const AuthProvider = ({children}:any) => {
     }, [])
      
    
-  const logout = () => {
-   
+  const logout = async() => {
+   const response = await signOut ()
+   console.log(response)
   }
-
-
-
 
   return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, logout, userData}}>
        {children}
