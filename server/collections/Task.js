@@ -16,7 +16,7 @@ export const createTask = async (req, res) => {
     });
 
     const theAssignedUser = await User.findOne({
-      username: newTask.assignedUser,
+      email: newTask.assignedUser,
     });
 
     !theAssignedUser && res.status(404).json("This user does not exist");
@@ -24,11 +24,7 @@ export const createTask = async (req, res) => {
     theAssignedUser.tasks.push(savedTask);
     theAssignedUser.save();
 
-    sendTaskNotification(
-      "adenirandaniel565@gmail",
-      "adenirandaniel575@gmail.com",
-      "not started"
-    );
+    sendTaskNotification(savedTask.assignedBy, savedTask.assignedUser);
     //since it is automated, we will now use crom
     // Schedule a cron job to run every day
     nodecron.schedule("0 0 * * *", async () => {
@@ -68,7 +64,7 @@ export const createTask = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
-    const theAssignedUser = await User.findOne({ username: task.assignedUser });
+    const theAssignedUser = await User.findOne({ email: task.assignedUser });
     theAssignedUser.tasks.pull(task);
 
     const updatedTask = await Task.findByIdAndUpdate(
@@ -92,7 +88,7 @@ export const deleteTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
     const taskAssignedUser = await User.findOne({
-      username: task.assignedUser,
+      email: task.assignedUser,
     });
     taskAssignedUser.tasks.pull(task);
     taskAssignedUser.save();

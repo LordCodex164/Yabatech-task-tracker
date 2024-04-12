@@ -60,19 +60,21 @@ export const login = async (req, res) => {
       sameSite: "None",
       secure: true,
     });
-
-    // Send the response after setting the cookie
     return res.status(200).json(others);
   } catch (err) {
     return res.status(500).json(err);
   }
 };
 
-
 export const logout = async (req, res) => {
   try {
     res
-      .clearCookie("access_token", { sameSite: "none", secure: true })
+      .clearCookie("access_token", {
+        httpOnly: false,
+        path: "/",
+        secure: true, 
+        sameSite: "None"
+      })
       .status(200)
       .json("You've logged out successfully");
   } catch (err) {

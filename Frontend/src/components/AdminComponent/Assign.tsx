@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import  {useEffect, useState} from 'react'
 import AssignForm from './AssignForm';
 import { useStaffStore, userType } from '../../state/useStaffStore';
 import ViewTaskAdmin from './ViewTaskAdmin';
-
+import { TailSpin } from 'react-loader-spinner';
 
 export interface StaffMember {
     id: number;
@@ -19,37 +19,9 @@ export interface StaffMember {
     deadline?: Date;
   }
   
-  export const dummyData: StaffMember[] = [
-    {
-      id: 1,
-      name: "user1",
-      email: "adenirandaniel565@gmail.com",
-      tasks: []
-    },
-    {
-      id: 2,
-      name: "user2",
-      email: "adenirandaniel575@gmail.com",
-      tasks: []
-    },
-    {
-      id: 3,
-      name: "user3",
-      email: "adenirandaniel585@gmail.com",
-      tasks: []
-    },
-    {
-      id: 4,
-      name: "user4",
-      email: "adenirandaniel595@gmail.com",
-      tasks: []
-    }
-  ]
-  
 const Assign = () => {
 
  const [isSideAssignForm, setIsSideAssignForm] = useState(false)
- const [data, setData] = useState<StaffMember[] | any[]>([])
  const [isLoading, setIsLoading] = useState(true)
  const [staffId, setStaffId] = useState<number>()
  const [staffName, setStaffName] = useState<string>()
@@ -64,12 +36,10 @@ const Assign = () => {
 
  
   useEffect(() => {
-   setData(dummyData)
-
    const handleGetAllTasks = async () => {
+    setIsLoading(true)
     try {
       const data = await getAllStaffs()
-      console.log(data)
       let filteredStaffs = []
       for(let i = 0; i < data.length; i++) {
       staffs[i]
@@ -78,7 +48,9 @@ const Assign = () => {
       }
       }
      setStaffsState(filteredStaffs)
+     setIsLoading(false)
     } catch (error:any) {
+      setIsLoading(false)
       throw new Error(error?.message)
     }
    
@@ -96,13 +68,10 @@ const Assign = () => {
   }
 
   const openViewForm = (id:number) => {
-    console.log(id)
     setStaffId(id)
     setShowViewForm(true)
     const specificiedStaff = staffsState.find((item:any) => item._id === id)
-    console.log(specificiedStaff)
     setSpecificStaffState(specificiedStaff)
-    console.log(specificStaffState)
   }
 
   const closeViewForm = () => {
@@ -113,19 +82,21 @@ const Assign = () => {
     setIsSideAssignForm(false)
   }
 
-  // const handleCreateTasks = (id:number, name:string, description:string, priority:string, deadLine:boolean) => {
-  //   let task = {
-  //     name, 
-  //     description,
-  //     priority,
-  //     deadLine
-  //    }
-  //  const updatedData = data.map((item) => item.id == id ? {...item, tasks: [...item.tasks, task]} : item )
-  //  setData(updatedData)
-  // }
-
 
   return (
+    <>
+    {isLoading ?
+    <TailSpin
+    visible={true}
+    height="80"
+    width="80"
+    color="#8996d7"
+    ariaLabel="tail-spin-loading"
+    radius="1"
+    wrapperStyle={{}}
+    wrapperClass="flex justify-center h-[100vh] items-center"
+    /> :
+
     <div className='px-[40px] py-[40px]'>
       <div className='lg:px-[40px] pt-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
         <span className='pl-[50px] font-bold text-[30px]'>List of Staffs</span>
@@ -153,6 +124,11 @@ const Assign = () => {
        {showViewForm && <ViewTaskAdmin open={openForm} close={closeViewForm} specificStaff={specificStaffState} staffId={staffId} /> }
     </div> 
     </div>
+  
+    }
+    
+    </>
+    
   )
 }
 

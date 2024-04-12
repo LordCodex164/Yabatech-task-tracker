@@ -3,8 +3,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
-import { useCookies } from "react-cookie";
-import {testApi} from "../backend/test"
+import { signOut } from '../backend/Auth';
 
 export interface AuthDataProps {
         name: string;
@@ -26,10 +25,8 @@ export const AuthProvider = ({children}:any) => {
     const navigate = useNavigate()
     const [authData, setAuthData] = useState<AuthDataProps | null>()
     const [userData, setUserData] = useState<userData | null>(null)
-    const [cookies] = useCookies(["access_token"]);
-    const accessToken = cookies.access_token;
 
-     const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
+    const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
         const user = {
             fullName,
             username,
@@ -55,10 +52,6 @@ export const AuthProvider = ({children}:any) => {
           
           
      }
-
-     useEffect(() => {
-        testApi()
-     }, [])
 
      const registerStaff = async (username:string, fullName:string, email:string, password:string, isAdmin:false):Promise<void> => {
       const user = {
@@ -121,9 +114,7 @@ export const AuthProvider = ({children}:any) => {
     useEffect(() => {
 
      const handleGetUserInfo = async() => {
-    
-      const data = await getUserInfo(accessToken)
-      console.log(accessToken)
+      const data = await getUserInfo()
       console.log("data", data)
       const {fullName, username, email, isAdmin} = data
       setUserData({
@@ -137,12 +128,10 @@ export const AuthProvider = ({children}:any) => {
     }, [])
      
    
-  const logout = () => {
-   
+  const logout = async() => {
+   const response = await signOut ()
+   console.log(response)
   }
-
-
-
 
   return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, logout, userData}}>
        {children}

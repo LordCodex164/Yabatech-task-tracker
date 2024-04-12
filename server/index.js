@@ -29,8 +29,11 @@ app.options("*", cors(
     credentials: true,
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    exposedHeaders: ["*"]
-}))
+    credentials: true,
+    exposedHeaders: ["*"],
+  })
+);
+
 
 mongoose
   .connect(process.env.mongoUrL)
