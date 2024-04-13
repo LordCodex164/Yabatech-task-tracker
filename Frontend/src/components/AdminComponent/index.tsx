@@ -52,10 +52,8 @@ const AdminComponent = () => {
     } catch (error:any) {
       toast.error(error?.message || error?.response.data)
     }
-    
     }
     handleGetAllTasks()
-    
    }, [])
 
   return (
