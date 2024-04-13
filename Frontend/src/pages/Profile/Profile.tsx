@@ -2,6 +2,7 @@ import {useState, useEffect} from "react"
 import { InputComponent } from "../../components/common/InputComponent"
 import { getUserInfo } from '../../backend/User';
 import { TailSpin } from 'react-loader-spinner';
+import EditProfile from "../../components/Profile/EditProfile";
 
 export interface userType{
   _id: number,
@@ -15,11 +16,12 @@ export interface userType{
   tasks: []
 }
 
-
 const Profile = () => { 
 
   const [isLoading, setIsloading] = useState<boolean>(false)
   const [userTasks, setUserTasks] = useState<userType | null>(null)
+  const [showIsEdit, setShowIsEdit] = useState<boolean>(false)
+  const [itemId, setItemId] = useState<number>() 
    
   useEffect(() => {
     const handleGetUserInfo = async() => {
@@ -35,6 +37,10 @@ const Profile = () => {
     handleGetUserInfo()
   },[])
 
+  const handleEditUser = () => {
+      setShowIsEdit(true)
+  }
+
   return (
     <>
     {isLoading ?
@@ -49,11 +55,14 @@ const Profile = () => {
       wrapperClass="flex justify-center h-[100vh] items-center"
       /> :
      <div className="bg-[#FFFFFF]">
-    <div className="flex flex-col items-start pt-[13px] pl-[20px]">
+    <div className="flex flex-col items-start pt-[13px] pl-[20px] pr-[20px]">
 
-      <div className="flex flex-col gap-[7px]">
-        <h3 className="text-[16px] md:text-[20px] text-[#00000]leading-6 font-semibold">Profile information</h3>
+      <div className="flex flex-col md:flex-row items-center  justify-between w-full">
+        <div>
+          <h3 className="text-[16px] md:text-[20px] text-[#00000]leading-6 font-semibold">Profile information</h3>
         <p className="text-[12px] md:text-[16px] md:leading-5 font-normal">View your profile information</p>
+        </div>
+          <button onClick={handleEditUser} className="bg bg-blue-600 px-[20px] py-[10px] mt-[10px]">Edit</button>
       </div>
       
       <form className="">
@@ -116,6 +125,8 @@ const Profile = () => {
               </div>
               
             </div>
+
+            {showIsEdit && <EditProfile userTasks={userTasks as userType}/>}
 
           </div>
         </form>

@@ -55,11 +55,10 @@ export const login = async (req, res) => {
     
     // Set the cookie
     res.cookie("access_token", token, {
-      httpOnly: false,
-      maxAge: 259200000,
-      path: "/",
-      secure: true, 
-      sameSite: "None"
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 3000,
+      sameSite: "None",
+      secure: true,
     });
     return res.status(200).json(others);
   } catch (err) {

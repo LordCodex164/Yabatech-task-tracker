@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import {useState} from 'react'
 import DropDownComponent from '../common/Dropdown';
 import { selectedValues } from '../../constants';
 import { InputComponent } from '../common/InputComponent';
 import { createTasks, } from '../../backend/Task';
 import { useStaffStore } from '../../state/useStaffStore';
 import { UseGlobalAuth } from '../../AuthProvider/AuthProvider';
-import { getAllUsers } from '../../backend/User';
 import { useNavigate } from 'react-router-dom';
 
 interface AssignFormProps {
@@ -53,7 +52,6 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
        const data = await createTasks(taskData)
        navigate("/admin")
        getAllStaffs()
-       console.log(data)
        setIsLoading(false)
        } catch (error) {
          console.log(error)
@@ -64,7 +62,6 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
     }
 
     const handleCreateDealine = (e:any) => {
-      console.log(e.target.value)
       setDeadline(e.target.value)
     }
 

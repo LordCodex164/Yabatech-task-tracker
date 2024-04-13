@@ -1,6 +1,6 @@
 import {useState, useContext, createContext, useEffect} from 'react'
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { register, signIn } from '../backend/Auth';
 import { getUserInfo } from '../backend/User';
 import { signOut } from '../backend/Auth';
@@ -88,12 +88,13 @@ export const AuthProvider = ({children}:any) => {
           const response = await signIn({ email, password });
           if(response && response !== null) {
             setUserData(response);
-            
-            // Ensure the response contains the expected data before accessing isAdmin
             if(response.isAdmin) {
                 localStorage.setItem('cookieToken', JSON.stringify(response.isAdmin));
+                navigate("/admin")
             }
-            navigate("/");
+            else {
+              navigate("/staff")
+            };
         } else {
             // Handle case where response is null or missing expected data
             toast.error('Invalid response data. Please try again.');
@@ -123,6 +124,12 @@ export const AuthProvider = ({children}:any) => {
         email,
         isAdmin
       })
+      if(data.isAdmin) {
+        navigate("/admin")
+      }
+      else {
+        navigate("/staff")
+      }
     }
     handleGetUserInfo()
     }, [])
@@ -130,7 +137,6 @@ export const AuthProvider = ({children}:any) => {
    
   const logout = async() => {
    const response = await signOut ()
-   console.log(response)
   }
 
   return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, logout, userData}}>
