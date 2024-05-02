@@ -2,7 +2,8 @@ import  {useState} from 'react'
 import { InputComponent } from '../common/InputComponent';
 import { updateSpecificUser } from '../../backend/User';
 import { userType } from '../../state/useStaffStore';
-
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = ({userTasks}: {userTasks: userType}) => {
 
@@ -10,6 +11,8 @@ const EditProfile = ({userTasks}: {userTasks: userType}) => {
     const [username, setUsername] = useState(userTasks.username)
     const [email, setEmail] = useState(userTasks.email)
     const [isEditing, setIsEditing] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleUpdateTask = async (fullName:string, username:string, email:string) => {
        setIsEditing(true)
@@ -21,6 +24,13 @@ const EditProfile = ({userTasks}: {userTasks: userType}) => {
        try {
         await updateSpecificUser(userTasks._id, data)
         setIsEditing(false)
+        toast.success("your profile has been updated successfully")
+         if(userTasks.isAdmin){
+          navigate("/admin")
+         }
+         else{
+          navigate("/staff")
+         }
        } catch (error:any) {
          setIsEditing(false)
          throw new Error(error?.message)
@@ -96,7 +106,7 @@ const EditProfile = ({userTasks}: {userTasks: userType}) => {
              
             <div className='w-full flex justify-center'>
                 <button type='button' onClick={() => handleUpdateTask(fullName, username, email)} className='mx-auto px-[20px] py-[10px] max-w-[420px]'>
-                  Edit
+                  {isEditing ? "Editing" : "Edit"}
                 </button>
             </div>
          

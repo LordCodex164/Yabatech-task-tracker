@@ -92,9 +92,12 @@ export const AuthProvider = ({children}:any) => {
                 localStorage.setItem('cookieToken', JSON.stringify(response.isAdmin));
                 navigate("/admin")
             }
-            else {
+            else if(response.isAdmin == false) {
               navigate("/staff")
-            };
+            }
+            else {
+              toast.error("wrong password")
+            }
         } else {
             // Handle case where response is null or missing expected data
             toast.error('Invalid response data. Please try again.');

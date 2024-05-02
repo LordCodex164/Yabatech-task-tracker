@@ -4,6 +4,12 @@ import toast from "react-hot-toast"
 
 const BASE_URL = "https://yabatech-task-tracker.onrender.com/api/user"
 
+interface userData {
+  fullName: string;
+  username: string;
+  email:string
+}
+
 export const getAllUsers = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/getUsers`, {
@@ -37,9 +43,9 @@ export const getUserInfo = async () => {
     }
 }
 
-export const updateSpecificUser = async (id:number) => {
+export const updateSpecificUser = async (id:number, data:userData) => {
     try {
-        const response = await axios.put(`${BASE_URL}/update/${id}`, {
+        const response = await axios.put(`${BASE_URL}/update/${id}`, data, {
             withCredentials: true
            })
         return response.data
