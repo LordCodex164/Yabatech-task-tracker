@@ -97,16 +97,17 @@ const Assign = () => {
     wrapperClass="flex justify-center h-[100vh] items-center"
     /> :
 
-    <div className='px-[40px] py-[40px]'>
-      <div className='lg:px-[40px] pt-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
+    <div className='p-[40px] overflow-y-hidden'>
+      <div className='lg:px-[40px] py-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
         <span className='pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul className='flex flex-col'>
           {staffsState.map((item) => (
-          <div key={item?._id}>
+          <div key={item?._id} className='ring ring-purple-600 hover:ring-purple-900 my-[20px] p-[20px]'>
             <li className='flex my-[5px] flex-row items-start justify-between px-[50px]'>
-             <div className='flex flex-col'>
-              <p>{item?.fullName}</p>  
-              <p>{item?.email}</p>
+             <div className='flex flex-col gap-[15px]'>
+              <p>Name: {item?.fullName}</p>  
+              <p>Email: {item?.email}</p>
+              <p>ID_Number: {item._id}</p>
              </div>
            
              {item?.tasks.length > 0 ?

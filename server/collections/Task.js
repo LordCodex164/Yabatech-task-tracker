@@ -24,7 +24,7 @@ export const createTask = async (req, res) => {
     theAssignedUser.tasks.push(savedTask);
     theAssignedUser.save();
 
-    sendTaskNotification(savedTask.assignedBy, savedTask.assignedUser);
+    sendTaskNotification(savedTask.assignedBy, savedTask.assignedUser, savedTask._id);
     //since it is automated, we will now use crom
     // Schedule a cron job to run every day
     nodecron.schedule("0 0 * * *", async () => {
@@ -48,7 +48,7 @@ export const createTask = async (req, res) => {
           sendReminderNotification(
             task.assignedUser,
             task.taskName,
-            reminderDate
+            reminderDate,
           );
         }
       });

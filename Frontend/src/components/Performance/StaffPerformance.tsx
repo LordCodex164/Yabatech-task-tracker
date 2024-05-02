@@ -59,7 +59,7 @@ const StaffPerformance = ({item}: {item:userType}) => {
     ],
   };
   return (
-    <div className='flex flex-col items-center border-[1px] border-[#8996d7]'>
+    <div className='flex flex-col items-center border-[1px] border-[#8996d7] p-[10px]'>
      <Pie className='max-w-[250px] max-h-[310px]' data={data}/>
       <p>Staff Name: {item.fullName}</p>
     </div>
