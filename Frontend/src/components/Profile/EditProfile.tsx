@@ -5,7 +5,7 @@ import { userType } from '../../state/useStaffStore';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const EditProfile = ({userTasks}: {userTasks: userType}) => {
+const EditProfile = ({userTasks, close}: {userTasks: userType, close: () => void}) => {
 
     const [fullName, setFullName] = useState(userTasks.fullName)
     const [username, setUsername] = useState(userTasks.username)

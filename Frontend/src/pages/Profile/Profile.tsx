@@ -126,7 +126,7 @@ const Profile = () => {
               
             </div>
 
-            {showIsEdit && <EditProfile userTasks={userTasks as userType}/>}
+            {showIsEdit && <EditProfile close={() => setShowIsEdit(false)} userTasks={userTasks as userType}/>}
 
           </div>
         </form>

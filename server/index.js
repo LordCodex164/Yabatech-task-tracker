@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://dazzling-praline-5c3ff0.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     exposedHeaders: ["*"],
@@ -30,7 +30,7 @@ app.options(
   "*",
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: "https://dazzling-praline-5c3ff0.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     exposedHeaders: ["*"],
   })
