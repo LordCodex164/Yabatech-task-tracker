@@ -6,6 +6,7 @@ interface UserData {
   email: string;
   password: string;
   isAdmin: boolean;
+  uniqueId: string
 }
 
 interface SignInData {
@@ -15,13 +16,14 @@ interface SignInData {
 
 // Function to register a user using Fetch API
 export const register = async (data:UserData) => {
-  const { fullName, username, email, password, isAdmin } = data;
+  const { fullName, username, email, password, isAdmin, uniqueId } = data;
   const user = {
     fullName,
     username,
     email,
     password,
-    isAdmin
+    isAdmin,
+    uniqueId
   };
 
   try {
