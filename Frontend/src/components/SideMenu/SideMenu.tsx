@@ -83,7 +83,7 @@ const SideMenu = ({data}:any) => {
       
     }
     return (
-      <li key={menuItem.to} >
+      <li key={menuItem.to}>
         <Link 
         to={menuItem.to}
         className={cx({
