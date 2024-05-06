@@ -10,7 +10,8 @@ export interface userType{
     isAdmin: boolean,
     createdAt: string,
     updatedAt: string,
-    tasks: tasksProps[]
+    tasks: tasksProps[],
+    uniqueId: string
 }
 
 export interface tasksProps {

@@ -107,7 +107,7 @@ const Assign = () => {
              <div className='flex flex-col gap-[15px]'>
               <p>Name: {item?.fullName}</p>  
               <p>Email: {item?.email}</p>
-              <p>ID_Number: {item._id}</p>
+              <p>Staff Id: {item.uniqueId}</p>
              </div>
            
              {item?.tasks.length > 0 ?

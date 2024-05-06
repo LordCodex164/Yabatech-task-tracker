@@ -13,7 +13,8 @@ export interface userType{
   isAdmin: boolean,
   createdAt: string,
   updatedAt: string,
-  tasks: []
+  tasks: [],
+  uniqueId: string,
 }
 
 const Profile = () => { 
@@ -119,6 +120,21 @@ const Profile = () => {
                     className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"                    type="text"
                     placeholder="yabatech@uset.com"
                     value={userTasks?.email}
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col items-start mt-5">
+                <label htmlFor="first-name" className="text-[13px] text-[#666666] font-normal">
+                  Staff Id
+                </label>
+                <div className="w-full ">
+                  <InputComponent
+                    name="email"
+                    className=" border bg-[#F2F2F2] border-[#138EFF] placeholder:text-[1rem] placeholder:text-[#000000] placeholder:font-normal h-[48px] rounded px-10  mb-[16px] w-full"                    type="text"
+                    placeholder="yabatech@uset.com"
+                    value={userTasks?.uniqueId}
                     disabled
                   />
                 </div>
