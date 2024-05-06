@@ -49,6 +49,6 @@ app.use("/api/auth", AuthRoute);
 app.use("/api/user", UserRoute);
 app.use("/api/task", TaskRoute);
 
-app.listen(8000 || process.env.PORT, () => {
+app.listen(8001 || process.env.PORT, () => {
   console.log("app is connected and listening on port 8000");
 });

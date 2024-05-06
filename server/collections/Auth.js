@@ -16,13 +16,7 @@ export const register = async (req, res) => {
       process.env.PassKey
     ).toString();
 
-    const newUser = new User({
-      fullName: req.body.fullName,
-      username: req.body.username,
-      email: req.body.email,
-      password: encryptedPassword,
-      isAdmin: req.body.isAdmin,
-    });
+    const newUser = new User({ ...req.body, password: encryptedPassword });
     const savedUser = await newUser.save();
     res.status(200).json(savedUser);
   } catch (err) {
@@ -51,8 +45,6 @@ export const login = async (req, res) => {
 
     const { password, ...others } = user._doc;
 
-
-    
     // Set the cookie
     res.cookie("access_token", token, {
       httpOnly: true,
@@ -72,8 +64,8 @@ export const logout = async (req, res) => {
       .clearCookie("access_token", {
         httpOnly: false,
         path: "/",
-        secure: true, 
-        sameSite: "None"
+        secure: true,
+        sameSite: "None",
       })
       .status(200)
       .json("You've logged out successfully");
