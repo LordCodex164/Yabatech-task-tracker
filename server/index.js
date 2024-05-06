@@ -23,6 +23,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
     exposedHeaders: ["*"],
+    preflightContinue: false,
   })
 );
 
@@ -33,6 +34,7 @@ app.options(
     origin: "https://dazzling-praline-5c3ff0.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     exposedHeaders: ["*"],
+    preflightContinue: false
   })
 );
 
