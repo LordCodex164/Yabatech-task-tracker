@@ -38,16 +38,17 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
         setIsLoading(true)
        }, 3000) 
 
+       console.log(priority)
        const taskData = {
         taskName,
         description,
         assignedUser: email,
         assignedBy: userData.email,
-        Priority: priority,
+        Priority: selectedValue,
         deadLine: deadLine,
         taskStatus: "not started"
        }
-       console.log(taskData)
+       console.log(selectedValue)
        try {
        const data = await createTasks(taskData)
        navigate("/admin")
