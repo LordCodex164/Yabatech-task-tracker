@@ -20,13 +20,15 @@ const ViewTaskAdmin = ({staffId, specificStaff, close, open}: any) => {
       description: string;
     }
 
+    const navigate = useNavigate()
+
     const handleDeleteTask = async(id:number) => {
       console.log(id)
       setIsDeleting(true)
       try {
         const data = await deleteTask(id)
         toast.success("task deleted successfully")
-
+        navigate("/admin")
       } catch (error) {
          console.log(error)
       }
