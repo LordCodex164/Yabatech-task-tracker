@@ -33,22 +33,20 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
       getAllStaffs: state.getAllStaffs,
     } ))
 
-    const handleCreateForm = async (taskName:string, description:string, assignedUser:string, priority:string, deadLine:string) => {
+    const handleCreateForm = async (taskName:string, description:string, deadLine:string) => {
        setTimeout(() => {
         setIsLoading(true)
        }, 3000) 
 
-       console.log(priority)
        const taskData = {
         taskName,
         description,
         assignedUser: email,
         assignedBy: userData.email,
-        Priority: selectedValue,
+        priority: selectedValue,
         deadLine: deadLine,
         taskStatus: "not started"
        }
-       console.log(selectedValue)
        try {
        const data = await createTasks(taskData)
        navigate("/admin")
@@ -144,7 +142,7 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
                 </div>
              </div>
 
-             <button type='button' onClick={() => handleCreateForm(name, description, username as string, priority, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
+             <button type='button' onClick={() => handleCreateForm(name, description, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
                 {isLoading ? "saving" : "Assign" }
              </button>
           </form>
