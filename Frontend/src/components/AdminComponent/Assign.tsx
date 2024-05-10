@@ -102,7 +102,7 @@ const Assign = () => {
         <span className='pl-[30px] lg:pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul className='flex flex-col'>
           {staffsState.map((item) => (
-          <div key={item?._id} className='mx-[20px] border-[2px] border-[#8996d7] my-[20px] p-[20px]'>
+          <div key={item?._id} className='mx-[20px] border-[2px] border-[#8996d7] rounded-[9px] my-[20px] p-[20px]'>
             <li className='flex my-[5px] flex-col md:flex-row  items-start justify-between'>
              <div className='flex flex-col gap-[15px] font-light '>
               <p>Name: {item?.fullName}</p>  
