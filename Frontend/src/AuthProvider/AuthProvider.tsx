@@ -26,13 +26,14 @@ export const AuthProvider = ({children}:any) => {
     const [authData, setAuthData] = useState<AuthDataProps | null>()
     const [userData, setUserData] = useState<userData | null>(null)
 
-    const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true):Promise<void> => {
+    const registerAdmin = async (username:string, fullName:string, email:string, password:string, isAdmin:true, uniqueId:string):Promise<void> => {
         const user = {
             fullName,
             username,
             email,
             password,
-            isAdmin
+            isAdmin,
+            uniqueId
            } 
           if(!username || !email || !fullName || !password) {
             toast.error("Please fill in the important details")
@@ -53,13 +54,14 @@ export const AuthProvider = ({children}:any) => {
           
      }
 
-     const registerStaff = async (username:string, fullName:string, email:string, password:string, isAdmin:false):Promise<void> => {
+     const registerStaff = async (username:string, fullName:string, email:string, password:string, isAdmin:false, uniqueId: string):Promise<void> => {
       const user = {
         fullName,
         username,
         email,
         password,
-        isAdmin
+        isAdmin,
+        uniqueId
        }
           localStorage.setItem("user", JSON.stringify(user as unknown as string))
           if(!username || !email || !fullName || !password) {

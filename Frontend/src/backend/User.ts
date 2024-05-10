@@ -2,7 +2,7 @@ import axios from "axios"
 import toast from "react-hot-toast"
 
 
-const BASE_URL = "http://localhost:8000/api/user"
+const BASE_URL = "https://yabatech-task-tracker.onrender.com/api/user"
 
 interface userData {
   fullName: string;

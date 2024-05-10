@@ -97,22 +97,22 @@ const Assign = () => {
     wrapperClass="flex justify-center h-[100vh] items-center"
     /> :
 
-    <div className='p-[40px] overflow-y-hidden'>
+    <div className='p-[20px] md:p-[40px] overflow-y-hidden'>
       <div className='lg:px-[40px] py-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
-        <span className='pl-[50px] font-bold text-[30px]'>List of Staffs</span>
+        <span className='pl-[30px] lg:pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul className='flex flex-col'>
           {staffsState.map((item) => (
-          <div key={item?._id} className='ring mx-[20px] my-[20px] p-[20px]'>
-            <li className='flex my-[5px] flex-col md:flex-row  items-start justify-between'>
-             <div className='flex flex-col gap-[15px]'>
+          <div key={item?._id} className='mx-[20px] border-[2px] border-[#8996d7] rounded-[9px] my-[20px] p-[20px]'>
+            <li className='flex my-[5px] flex-col gap-[15px] md:gap-0 md:flex-row  items-start justify-between'>
+             <div className='flex flex-col gap-[15px] font-light '>
               <p>Name: {item?.fullName}</p>  
               <p>Email: {item?.email}</p>
-              <p>ID_Number: {item?.uniqueId}</p>
+              <p>Staff Id: {item.uniqueId}</p>
              </div>
            
              {item?.tasks.length > 0 ?
-            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openViewForm(item._id)}> View Tasks </button> :
-            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username, item.email)}>Assign</button>
+            <button data-drawer-target="drawer-navigation" className='text-white hover:bg-[#c9ebf3] bg-[#9bd6e3] px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openViewForm(item._id)}> View Tasks </button> :
+            <button data-drawer-target="drawer-navigation" className='text-white hover:bg-[#c9ebf3] bg-[#9bd6e3] px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username, item.email)}>Assign</button>
             }
 
           </li>

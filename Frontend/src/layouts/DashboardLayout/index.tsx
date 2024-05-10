@@ -14,11 +14,11 @@ const MainLayout = () => {
 
   return (
     <>
-    <div className='flex overflow-y-hidden w-full'>
+    <div className='flex overflow-auto min-h-screen'>
       <SideMenu data={userData}/>
       <div className='w-full'>
         <TopBar data={userData}/>
-        <div id='detail'>
+        <div id='detail' className='overflow-visible'>
         <Outlet/>
        </div>
       </div>

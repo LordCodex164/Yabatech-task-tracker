@@ -1,7 +1,4 @@
-import axios, { AxiosResponse } from "axios";
-
-// Define the base URL
-const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = "https://yabatech-task-tracker.onrender.com/api";
 
 interface UserData {
   fullName: string;
@@ -9,6 +6,7 @@ interface UserData {
   email: string;
   password: string;
   isAdmin: boolean;
+  uniqueId: string
 }
 
 interface SignInData {
@@ -18,13 +16,14 @@ interface SignInData {
 
 // Function to register a user using Fetch API
 export const register = async (data:UserData) => {
-  const { fullName, username, email, password, isAdmin } = data;
+  const { fullName, username, email, password, isAdmin, uniqueId } = data;
   const user = {
     fullName,
     username,
     email,
     password,
-    isAdmin
+    isAdmin,
+    uniqueId
   };
 
   try {

@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema(
   {
-    taskName: { type: String, require: true, unique: true, default: null },
+    taskName: { type: String, required: true, unique: true, default: null },
     description: { type: String },
-    assignedUser: { type: String, require: true },
-    assignedBy: { type: String, require: true },
-    deadLine: { type: String, require: true },
-    priority: { type: String, require: true },
+    assignedUser: { type: String, required: true },
+    assignedBy: { type: String, required: true },
+    deadLine: { type: String, required: true },
+    priority: { type: String, required: true },
     taskStatus: { type: String, default: "not started" },
   },
   { timestamps: true }
