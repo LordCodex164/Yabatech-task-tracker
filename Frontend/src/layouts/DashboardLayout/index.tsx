@@ -18,7 +18,7 @@ const MainLayout = () => {
       <SideMenu data={userData}/>
       <div className='w-full'>
         <TopBar data={userData}/>
-        <div id='detail'>
+        <div id='detail' className='overflow-visible'>
         <Outlet/>
        </div>
       </div>
