@@ -1,5 +1,4 @@
 * {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   margin: 0;
@@ -54,9 +53,6 @@
 
 @layer base {
   html {
-    font-family: "QuickSand", ProductSans, system-ui, sans-serif;
-  }
-  img {
-    @apply inline-block;
+    font-family: "QuickSand", sans-serif;
   }
 }
