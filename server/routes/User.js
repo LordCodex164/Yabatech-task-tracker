@@ -14,10 +14,10 @@ import {
 
 const router = express.Router();
 
-router.put("/update/:id", verifyTokenAndAuthorization, updateUser);
-router.delete("/delete/:id", verifyTokenAndAuthorization, deleteUser);
-router.get("/getUser/:id", verifyTokenAndAuthorization, getUser);
-router.get("/getUsers", verifyTokenAndAdmin, getUsers);
+router.put("/update/:id", updateUser);
+router.delete("/delete/:id", deleteUser);
+router.get("/getUser/:id", getUser);
+router.get("/getUsers", getUsers);
 router.get("/getLoggedInUser", getLoggedInUser);
 
 export default router;
