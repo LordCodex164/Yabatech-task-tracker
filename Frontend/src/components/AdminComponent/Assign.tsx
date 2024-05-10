@@ -112,7 +112,7 @@ const Assign = () => {
            
              {item?.tasks.length > 0 ?
             <button data-drawer-target="drawer-navigation" className='text-white hover:bg-[#c9ebf3] bg-[#9bd6e3] px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openViewForm(item._id)}> View Tasks </button> :
-            <button data-drawer-target="drawer-navigation" className='text-white bg-blue-700 hover:bg-blue-900 px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username, item.email)}>Assign</button>
+            <button data-drawer-target="drawer-navigation" className='text-white hover:bg-[#c9ebf3] bg-[#9bd6e3] px-5 py-3 rounded-[12px] focus:ring-[5px]' onClick={() =>openForm(item._id, item.username, item.email)}>Assign</button>
             }
 
           </li>
