@@ -141,7 +141,8 @@ export const AuthProvider = ({children}:any) => {
      
    
   const logout = async() => {
-   const response = await signOut ()
+    await signOut ()
+    navigate("/auth")
   }
 
   return <AuthContext.Provider value={{authData, registerAdmin, registerStaff, login, logout, userData}}>
