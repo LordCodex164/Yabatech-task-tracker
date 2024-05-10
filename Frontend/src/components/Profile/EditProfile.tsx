@@ -105,7 +105,7 @@ const EditProfile = ({userTasks, close}: {userTasks: userType, close: () => void
           </div>
              
             <div className='w-full flex justify-center'>
-                <button type='button' onClick={() => handleUpdateTask(fullName, username, email)} className='mx-auto px-[20px] py-[10px] max-w-[420px]'>
+                <button type='button' onClick={() => handleUpdateTask(fullName, username, email)} className='mx-auto px-[20px] py-[10px] max-w-[420px] hover:bg-[#c9ebf3] bg-[#9bd6e3]'>
                   {isEditing ? "Editing" : "Edit"}
                 </button>
             </div>
