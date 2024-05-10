@@ -58,12 +58,12 @@ const Profile = () => {
      <div className="bg-[#FFFFFF]">
     <div className="flex flex-col items-start pt-[13px] pl-[20px] pr-[20px]">
 
-      <div className="flex flex-col md:flex-row items-center  justify-between w-full">
+      <div className="flex flex-col md:flex-row items-center  justify-between w-full px-[40px]">
         <div>
           <h3 className="text-[16px] md:text-[20px] text-[#00000]leading-6 font-semibold">Profile information</h3>
         <p className="text-[12px] md:text-[16px] md:leading-5 font-normal">View your profile information</p>
         </div>
-          <button onClick={handleEditUser} className=" bg-[#c9ebf3] px-[20px] hover:text-[#fff] py-[10px] mt-[10px]">Edit</button>
+          <button onClick={handleEditUser} className=" hover:bg-[#c9ebf3] bg-[#9bd6e3] px-[20px] text-[#fff] py-[10px] mt-[10px]">Edit</button>
       </div>
       
       <form className="">
