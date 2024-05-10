@@ -71,7 +71,7 @@ const Profile = () => {
             <hr className="border-t-1" />
 
         
-              <div className="flex gap-[5px] placeholder:text-[13.25px] min-h-[48px] mb-[16px] pl-[20px] rounded mt-[16px] min-w-full">
+              <div className="flex gap-[5px] placeholder:text-[13.25px] min-h-[48px] mb-[16px] pl-[28px] rounded mt-[16px] min-w-full">
 
                 <div className="flex flex-col items-start ">
                   <label htmlFor="first-name" className="text-[13px] text-[#666666] font-normal">
