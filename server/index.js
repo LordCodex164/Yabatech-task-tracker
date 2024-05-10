@@ -35,7 +35,6 @@ app.options(
     origin: "https://dazzling-praline-5c3ff0.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     exposedHeaders: ["*"],
-   optionsSuccessStatus: 204,
     preflightContinue: false,
     optionsSuccessStatus: 204
   })
