@@ -115,7 +115,7 @@ if(isAdmin) {
      
   <div className='acquisitions h-full'>
     
-     <p  className='text-right pt-[10px] pr-[30px]'>Hello Staff <span className='font-bold '>{username}</span> </p> 
+     <p  className='text-right pt-[10px] pr-[30px] my-[20px]'>Hello Staff <span className='font-bold '>{username}</span> </p> 
      
     {userTasks.length < 1 ?
     

@@ -74,7 +74,7 @@ const AdminComponent = () => {
    
      <div className='acquisitions h-full'>
     
-     <p  className='text-right pt-[10px] pr-[30px]'>Hello Admin <span className='font-bold '>{userData?.username}</span> </p> 
+     <p  className='text-right pt-[10px] pr-[30px] my-[20px]'>Hello Admin <span className='font-bold '>{userData?.username}</span> </p> 
      
       {staffsState.length < 1 && <div className='px-[20px] pt-[10px]'>
         <p>You currently  don't have any avaliable reports</p>
