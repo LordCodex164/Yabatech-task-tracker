@@ -38,7 +38,7 @@ const EditTaskForm = ({id}: {id:number}) => {
           
           <DropDownComponent selected={taskSelected} setSelected={setTaskSelected} selectedValue={selectedTaskValue} setSelectedValue={setSelectedTaskValue} options={selectedTaskValues}/>
 
-         <button className='bg-[#6a70c1] px-[10px] py-[10px] rounded-sm shadow-md hover:text-white hover:bg-[#67c3d3]'>{isLoading ? "Saving": "Save"}</button>
+         <button className='hover:bg-[#c9ebf3] bg-[#9bd6e3] px-[10px] py-[10px] rounded-sm shadow-md hover:text-white'>{isLoading ? "Saving": "Save"}</button>
         </form>
     </div>
   )
