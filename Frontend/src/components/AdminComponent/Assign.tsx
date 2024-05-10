@@ -97,14 +97,14 @@ const Assign = () => {
     wrapperClass="flex justify-center h-[100vh] items-center"
     /> :
 
-    <div className='p-[40px] overflow-auto'>
+    <div className='p-[20px] md:p-[40px] overflow-y-hidden'>
       <div className='lg:px-[40px] py-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
         <span className='pl-[30px] lg:pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul className='flex flex-col'>
           {staffsState.map((item) => (
-          <div key={item?._id} className='border-[2px] rounded-[10px] border-[#8996d7] mx-[20px] my-[20px] p-[20px]'>
-            <li className='flex my-[5px] flex-col md:flex-row gap-[15px] md:gap-0 items-start justify-between'>
-             <div className='flex flex-col gap-[15px]'>
+          <div key={item?._id} className='ring mx-[20px] my-[20px] p-[20px]'>
+            <li className='flex my-[5px] flex-col md:flex-row  items-start justify-between'>
+             <div className='flex flex-col gap-[15px] font-light '>
               <p>Name: {item?.fullName}</p>  
               <p>Email: {item?.email}</p>
               <p>Staff Id: {item.uniqueId}</p>

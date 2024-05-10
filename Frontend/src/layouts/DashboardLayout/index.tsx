@@ -14,7 +14,7 @@ const MainLayout = () => {
 
   return (
     <>
-    <div className='flex overflow-y-hidden w-full'>
+    <div className='flex overflow-auto success'>
       <SideMenu data={userData}/>
       <div className='w-full'>
         <TopBar data={userData}/>

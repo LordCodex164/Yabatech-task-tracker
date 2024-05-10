@@ -117,7 +117,7 @@ const SideMenu = ({data}:any) => {
   }, [])
 
   return (
-    <aside className={cx("relative hidden overflow-y-hidden sm:block top-0 bottom-0 min-h-screen text-center bg-[#8996d7] border-r-[2px] border-[#8879e6] pt-[40px] px-[15px]", {
+    <aside className={cx("relative hidden overflow-y-hidden sm:block top-0 bottom-0 text-center bg-[#8996d7] border-r-[2px] border-[#8879e6] pt-[40px] px-[15px]", {
       "w-[50px]": isCollapsed,
       "w-[280px]": !isCollapsed
     })}>
