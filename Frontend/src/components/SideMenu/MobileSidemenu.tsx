@@ -62,36 +62,6 @@ interface MobileProps {
 
 
         const renderMenuItem = (menuItem: any) => {
-           
-              if(menuItem.label === "Logout" ) {
-                return (
-                <li key={menuItem.to}>
-                 <Link to={"/auth"}
-                  onClick={logout}
-                  className={cx({
-                    'h-[55px] flex justify-center items-center mt-[150px]': true,
-                      'w-full': !isCollapsed,
-                      'w-[59px]': isCollapsed,
-                      "hover:before:content-[''] hover:before:w-[10px] ": true,
-                      'hove] hover:before:h-[55px] hover:bg-[#e75045] text-white': true,
-                      'hover:before:relative  hover:rounded-r-[5px]': true,
-                      " visited:text-red-800": true
-                  })}
-                  >
-                     <div>
-                      {!isCollapsed && 
-                      <div className='text-[#000] text-center font-extralight text-[30px] flex gap-5 items-center'> 
-                         {menuItem.label}
-                         <span>{menuItem.icon}</span>
-                      </div>
-                      }
-                     </div>
-                  </Link>
-                </li>
-                )
-                
-              }
-
             return (
               <li key={menuItem.to} className="group mb-3 mt-4">
                 <Link
@@ -159,7 +129,7 @@ interface MobileProps {
         className="flex items-center mt-[140px] w-[220px] text-white rounded hover:bg-opacity-90 transition duration-200 hover:before:bg-[#FF6702] hover:before:content-[''] hover:before:w-[10px] hover:before:rounded-l-[14px] hover:before:h-[55px] hover:bg-[#C9EBF3] hover:text-[#222222] hover:before:relative hover:before:left-[px] hover:rounded-r-[px]"
         style={{ marginRight: "10px", marginLeft: "10px" }}
       >
-        <span className="ml-12 gap-[10px] flex font-medium">
+        <span className="ml-12 gap-[10px] flex items-center font-medium">
           <FiLogOut/>
           Logout
         </span>

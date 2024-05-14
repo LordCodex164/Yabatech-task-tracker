@@ -33,7 +33,7 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
       getAllStaffs: state.getAllStaffs,
     } ))
 
-    const handleCreateForm = async (taskName:string, description:string, assignedUser:string, priority:string, deadLine:string) => {
+    const handleCreateForm = async (taskName:string, description:string, deadLine:string) => {
        setTimeout(() => {
         setIsLoading(true)
        }, 3000) 
@@ -43,11 +43,10 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
         description,
         assignedUser: email,
         assignedBy: userData.email,
-        Priority: priority,
+        priority: selectedValue,
         deadLine: deadLine,
         taskStatus: "not started"
        }
-       console.log(taskData)
        try {
        const data = await createTasks(taskData)
        navigate("/admin")
@@ -67,7 +66,7 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
 
   return (
     <>
-    <div className='fixed right-0 top-0 bottom-0 shadow-transparent bg-blue-300 px-5 py-10 min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
+    <div className='fixed right-0 top-0 bottom-0 shadow-transparent bg-blue-300 px-5 py-10 min-w-[320px] z-40 lg:min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
        {/* let create the menu */}
        <div className='flex gap-[10px] items-center'>
 
@@ -143,7 +142,7 @@ const AssignForm = ({close, username, email}: AssignFormProps) => {
                 </div>
              </div>
 
-             <button type='button' onClick={() => handleCreateForm(name, description, username as string, priority, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
+             <button type='button' onClick={() => handleCreateForm(name, description, deadline as unknown as string)} className='text-center flex my-[15px] justify-center w-full max-w-[250px] hover:ring-blue-900 bg-blue-400 hover:bg-blue-600 py-[10px] rounded-md  mx-auto '>
                 {isLoading ? "saving" : "Assign" }
              </button>
           </form>

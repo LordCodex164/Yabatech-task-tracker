@@ -20,13 +20,15 @@ const ViewTaskAdmin = ({staffId, specificStaff, close, open}: any) => {
       description: string;
     }
 
+    const navigate = useNavigate()
+
     const handleDeleteTask = async(id:number) => {
       console.log(id)
       setIsDeleting(true)
       try {
         const data = await deleteTask(id)
         toast.success("task deleted successfully")
-
+        navigate("/admin")
       } catch (error) {
          console.log(error)
       }
@@ -41,7 +43,7 @@ const ViewTaskAdmin = ({staffId, specificStaff, close, open}: any) => {
         </>:
         <>
         
-        <div className='min-h-screen fixed right-0 top-0 bottom-0 shadow-transparent bg-[#6183cd] px-5 py-10 min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
+        <div className='min-h-screen fixed right-0 top-0 bottom-0 shadow-transparent bg-[#6183cd] px-5 py-10 z-40 min-w-[320px] md:min-w-[450px] animate-slide-in-right translate-x-[6px] before:translate-x-[-66px] duration-150 transition-transform after:translate-x-[66px]'>
         <span className='cursor w-full flex justify-end cursor-pointer group' onClick={close}>
             <svg className="w-3 h-3 group-hover:text-white:" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
