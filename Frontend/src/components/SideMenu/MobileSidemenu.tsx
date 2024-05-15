@@ -102,7 +102,7 @@ interface MobileProps {
         ref={menuRef}
           className={cx('bg-[#0A78B2] z-50 block lg:hidden relative min-h-screen justify-center items-center ',  {
             'w-[92px]': isCollapsed,
-            'w-[250px]': !isCollapsed,
+            'w-[200px]': !isCollapsed,
           })}
         >
            {isMenuOpen && ( 
