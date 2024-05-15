@@ -58,11 +58,6 @@
   }
 }
 
-.sticky{
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
 
 .dashboard-aside {
   /* max-width: 14vw;
@@ -75,8 +70,17 @@
   background-color: #fdfdfc;
 }
 
+
+@media (max-width: 820px) {
+  .dashboard-content-scroll{
+     min-height: 92vh !important;
+     overflow-y: auto;
+     max-height: 92vh !important;
+  }
+}
+
 @media (min-width: 1024px){
-  .dashboard-content-scroll {
+.dashboard-content-scroll {
   min-height: 92.5vh !important;;
   max-height: 92.5vh !important;;
   overflow-y: auto;
@@ -102,15 +106,6 @@
 }
 
 @media (max-width: 500px) {
-  .ratemodal {
-    width: calc(100vw - 10%) !important;
-  }
-  .uploadmodal {
-    width: calc(100vw - 10%) !important;
-  }
-  .successmodal {
-    width: calc(100vw - 10%) !important;
-  }
   .newratemodal {
     width: calc(100vw - 10%) !important;
   }

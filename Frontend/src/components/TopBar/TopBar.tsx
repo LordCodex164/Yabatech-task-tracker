@@ -37,7 +37,7 @@ const TopBar = ({data}:any) => {
         </div>
     </div>
 
-    <div className="flex sm:hidden flex-row fixed w-full">
+    <div className="flex relative sm:hidden w-full flex-row">
         <div className="absolute z-30">
           {showMobileMenu && <MobileSidemenu handleShowMobileMenu={handleShowMobileMenu} />}
         </div>

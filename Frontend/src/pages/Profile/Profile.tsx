@@ -56,7 +56,7 @@ const Profile = () => {
       wrapperClass="flex justify-center h-[100vh] items-center"
       /> :
      <div className="bg-[#FFFFFF]">
-    <div className="flex flex-col items-start pt-[13px] pl-[20px] pr-[20px]">
+    <div className="flex flex-col items-start pt-[13px] pl-[20px] pr-[20px] mt-[80px] md:mt-0">
 
       <div className="flex flex-col md:flex-row items-center  justify-between w-full px-[40px]">
         <div>
