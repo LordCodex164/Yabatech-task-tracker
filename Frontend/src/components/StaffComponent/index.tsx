@@ -113,7 +113,7 @@ if(isAdmin) {
      />
      :
      
-  <div className='acquisitions h-full'>
+  <div className='acquisitions h-full dashboard-content-scroll'>
     
      <p  className='text-right pt-[10px] pr-[30px] my-[20px]'>Hello Staff <span className='font-bold '>{username}</span> </p> 
      

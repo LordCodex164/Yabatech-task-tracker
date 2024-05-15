@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { BsBell } from "react-icons/bs";
 import { BiSolidUser } from "react-icons/bi";
 import { Link } from 'react-router-dom';
@@ -19,9 +19,10 @@ const TopBar = ({data}:any) => {
     setShowMobileMenu((prev) => !prev);
   };
 
+
   return (
     <>
-    <div className='bg-[#C9EBF3] hidden sm:block w-full px-[10px] py-[20px]'>
+    <div className='bg-[#C9EBF3]  hidden sm:block w-full px-[10px] py-[20px]'>
         <div className='flex justify-between items-center pl-[30px] lg:pr-[50px]'>
             <input type="text" className='oultine outline-none min-w-[350px] pl-[10px] py-[10px] rounded-[2px]' placeholder='Search'/>
 
@@ -36,7 +37,7 @@ const TopBar = ({data}:any) => {
         </div>
     </div>
 
-    <div className="flex sm:hidden flex-row relative">
+    <div className="flex sm:hidden flex-row fixed w-full">
         <div className="absolute z-30">
           {showMobileMenu && <MobileSidemenu handleShowMobileMenu={handleShowMobileMenu} />}
         </div>
