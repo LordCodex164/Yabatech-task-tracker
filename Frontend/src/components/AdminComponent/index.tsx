@@ -72,7 +72,7 @@ const AdminComponent = () => {
 
      :
    
-     <div className='acquisitions h-full'>
+     <div className='acquisitions h-full dashboard-content-scroll'>
     
      <p  className='text-right pt-[10px] pr-[30px] my-[20px]'>Hello Admin <span className='font-bold '>{userData?.username}</span> </p> 
      

@@ -21,7 +21,7 @@ const DropDownComponent = ({options, selectedValue, setSelectedValue, selected,s
 
     return (
         <>
-         <div onClick={handleSelect} className='relative bg-[#fff] cursor-pointer flex flex-row border-[1px] px-[10px] py-[25px] mb-[26px] min-w-[450px] mx-auto max-h-[50px] border-[#1F2937] items-center text-[16px]'>
+         <div onClick={handleSelect} className='relative bg-[#fff] cursor-pointer flex flex-row border-[1px] px-[10px] py-[25px] mb-[26px] max-w-[450px] md:min-w-full max-h-[50px] border-[#1F2937] items-center text-[16px]'>
                    {selectedValue}
                    <RxCaretDown/>
                   {selected && (
