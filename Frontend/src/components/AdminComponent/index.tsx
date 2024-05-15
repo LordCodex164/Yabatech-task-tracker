@@ -107,7 +107,7 @@ const AdminComponent = () => {
        <hr className='xl:ml-[-1em] bg-[#000] xl:mr-[-1em]'/> 
      <p className='my-[30px]'>Performance Metrics for Staff/Staffs Assigned Tracks</p>
      {/* Performance metrics for every staff */}
-     <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 lg:gap-[30px] xl:gap-[50px]'>
+     <div className='grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-[15px] lg:gap-[30px] xl:gap-[50px]'>
         {assignedUsers.map((item) => (
           <StaffPerformance item={item} />
         ))}

@@ -31,7 +31,7 @@ const TopBar = ({data}:any) => {
                {showProfile &&<div className='absolute top-[22px] right-20 px-[10px] py-[20px] rounded-[10px] bg-[#fff] shadow-md z-10'>
                  <Link to={"/Profile"}>Profile</Link>
                </div>}
-              <BsBell className='w-[50px] h-[22px]'/>
+              
             </div>
 
         </div>
@@ -47,7 +47,7 @@ const TopBar = ({data}:any) => {
               <FiMenu onClick={handleShowMobileMenu}/>
             </div>
             <div>
-            <BsBell className='w-[50px] h-[22px]'/>
+            <BiSolidUser onClick={handleShowProfile} className='w-[80px] h-[22px]'/>
             </div>
            
           </div>

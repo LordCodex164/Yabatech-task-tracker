@@ -99,8 +99,8 @@ const Assign = () => {
     wrapperClass="flex justify-center h-[100vh] items-center"
     /> :
 
-    <div className='px-[20px] md:px-[40px] overflow-y-hidden dashboard-content-scroll'>
-      <div className='lg:px-[40px] py-[20px] bg-[#b5c9eb] h-full min-h-[50em]'>
+    <div className='p-[20px] md:p-[30px] dashboard-content-scroll'>
+      <div className='lg:pt-[40px] pt-[20px] bg-[#b5c9eb] shadow-md h-full rounded-[10px] min-h-[50em]'>
         <span className='pl-[30px] lg:pl-[50px] font-bold text-[30px]'>List of Staffs</span>
         <ul className='flex flex-col'>
           {staffsState.map((item) => (

@@ -72,7 +72,7 @@ const view = () => {
      wrapperStyle={{}}
      wrapperClass="flex justify-center h-[100vh] items-center"
      /> :
-    <div className='bg-[#fff] px-[40px] py-[40px] '>
+    <div className='bg-[#fff] px-[40px] py-[40px] dashboard-content-scroll'>
 
       <div className='flex flex-row items-center gap-[40px] xl:gap-[60px]'>
         <button onClick={() => setTaskStatus("all")} className={`px-[14px] py-[12px] rounded-full ${taskStatus == "all" &&  "bg-[#fcd4d4]"} shadow-2xl`}> 
@@ -93,7 +93,7 @@ const view = () => {
             <p>{item.taskName}</p>
             <p className='text-[20px] font-bold'>Status: <span className={`${bgClassName(item.taskStatus)}`}>{item.taskStatus}</span></p>
         </div>
-        <span className='cursor cursor-pointer bg-[#a0ebcc] hover:bg-[#53e381] hover:text-white whitespace-nowrap px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task</span>
+        <span className='cursor cursor-pointer hover:bg-[#c9ebf3] bg-[#9bd6e3] hover:text-white whitespace-nowrap px-[10px] rounded-md py-[10px]' onClick={() => handleViewTask(item._id)}>View Task</span>
     </div>
     )) : (
     <span>You don't have Tasks</span>

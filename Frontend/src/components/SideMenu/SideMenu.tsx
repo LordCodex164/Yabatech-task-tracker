@@ -17,19 +17,19 @@ const SideMenu = ({data}:any) => {
 
   const menuItems = [
     {
-      paths: data.isAdmin ? ['/Dashboard'] : ["/staff"],
+      paths: data.isAdmin ? ['/admin'] : ["/staff"],
       label: data.isAdmin  ? 'Dashboard' : "Home",
       to: data.isAdmin  ? '/admin' : "/staff",
       icon: <RxDashboard/>
     },
     {
-      paths: data.isAdmin  ? ['/Assign'] : ["Tasks"],
+      paths: data.isAdmin  ? ['/admin/assign'] : ["/staff/listTask"],
       label: data.isAdmin  ? 'Assign' : "Tasks",
       to: data.isAdmin  ? '/admin/assign' : "/staff/listTask",
       icon: <GrDashboard/>
     },
     {
-      paths: ["Profile"],
+      paths: ["/profile"],
       label: 'Profile',
       to: "/profile",
       icon: <ImProfile/>
@@ -42,9 +42,11 @@ const SideMenu = ({data}:any) => {
     },
   ]
 
-
+  const pathName = (location.pathname)
+    
   const isActive = (paths: string[]) => {
-  
+    const isActivePath = paths.includes(pathName)
+    return isActivePath
   }
 
   const handleToggleSidebar = () => {
@@ -94,7 +96,7 @@ const SideMenu = ({data}:any) => {
             'hove] hover:before:h-[55px] hover:bg-[#C9EBF3]': true,
             'hover:before:relative  hover:rounded-r-[5px]': true,
             "active:text-red-600 visited:text-red-800": true,
-            "bg-[#5a95a2] success": isActive(menuItem.paths)
+            "hover:bg-[#c9ebf3] bg-[#9bd6e3]": isActive(menuItem.paths)
         })}
         >
            <div>
