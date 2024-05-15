@@ -42,7 +42,7 @@ const TopBar = ({data}:any) => {
           {showMobileMenu && <MobileSidemenu handleShowMobileMenu={handleShowMobileMenu} />}
         </div>
         <div className="h-[66px] flex lg:hidden border items-center justify-between w-full px-[50px] sticky overflow-y-hidden top-0 bg-[#F2F9FD] z-10">
-          <div className="flex flex-row  justify-between items-center gap-[35px] lg:gap-0  w-full">
+          <div className="flex flex-row  justify-between items-center  w-full">
             <div>
               <FiMenu onClick={handleShowMobileMenu}/>
             </div>

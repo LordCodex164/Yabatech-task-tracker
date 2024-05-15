@@ -33,35 +33,38 @@ interface MobileProps {
       
         const menuItems = [
           {
-            paths: userData.isAdmin ? ['/Dashboard'] : ["/staff"],
+            paths: userData.isAdmin ? ['/admin'] : ["/staff"],
             label: userData.isAdmin  ? 'Dashboard' : "Home",
             to: userData.isAdmin  ? '/admin' : "/staff",
             icon: <RxDashboard/>
           },
           {
-            paths: userData.isAdmin  ? ['/Assign'] : ["Tasks"],
+            paths: userData.isAdmin  ? ['/admin/assign'] : ["/staff/listTask"],
             label: userData.isAdmin  ? 'Assign' : "Tasks",
             to: userData.isAdmin  ? '/admin/assign' : "/staff/listTask",
             icon: <GrDashboard/>
           },
           {
-            paths: ["Profile"],
+            paths: ["/profile"],
             label: 'Profile',
             to: "/profile",
             icon: <ImProfile/>
-          },
-        ]
-         const isActive = (paths: string[]) => {
-                return paths.some((path) => pathname.startsWith(path));
-              }; 
+          },]
+
+          const pathName = location.pathname
+
+          const isActive = (paths: string[]) => {
+            const isActivePath = paths.includes(pathName)
+            return isActivePath
+          }; 
               
-              const handleMenuItemClick = () => {
-              setIsMenuOpen(false);
-              handleShowMobileMenu();
-            };
+          const handleMenuItemClick = () => {
+            setIsMenuOpen(false);
+            handleShowMobileMenu();
+          };
 
 
-        const renderMenuItem = (menuItem: any) => {
+          const renderMenuItem = (menuItem: any) => {
             return (
               <li key={menuItem.to} className="group mb-3 mt-4">
                 <Link
@@ -77,8 +80,7 @@ interface MobileProps {
                     "hover:before:content-[''] hover:before:w-[10px] ": true,
                     'hover:before:rounded-l-[10px] hover:before:h-[55px] mr-[10px] ml-[20px] hover:bg-[#C9EBF3]': true,
                     'hover:before:relative hover:before:left-[-5px] hover:rounded-r-[5px] mr-[10px]': true,
-                    'text-[#222222]': isActive(menuItem.paths),
-                    'text-white': !isActive(menuItem.paths),
+                    "hover:bg-[#c9ebf3] bg-[#9bd6e3]": isActive(menuItem.paths),
                     'hover:text-[#222222]': true,
                     collapsed: isCollapsed,
                   })}
