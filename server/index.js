@@ -24,7 +24,7 @@ app.use(
     credentials: true,
     exposedHeaders: ["*"],
     preflightContinue: false,
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 204,
   })
 );
 
@@ -36,7 +36,7 @@ app.options(
     methods: ["GET", "POST", "PUT", "DELETE"],
     exposedHeaders: ["*"],
     preflightContinue: false,
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 204,
   })
 );
 
